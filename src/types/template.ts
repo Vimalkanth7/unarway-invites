@@ -10,6 +10,7 @@ export interface FieldSchema {
   hint?: string;
   clearLabel?: string;
   clearTo?: string;
+  required?: boolean;
 }
 
 export interface TemplateMeta {

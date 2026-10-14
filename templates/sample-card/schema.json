@@ -1,5 +1,5 @@
 [
-  { "key": "title", "label": "Card title", "type": "text", "section": "Content" },
+  { "key": "title", "label": "Card title", "type": "text", "section": "Content", "required": true },
   { "key": "message", "label": "Message", "type": "long", "section": "Content" },
   {
     "key": "eventDate",

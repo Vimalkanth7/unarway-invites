@@ -1,8 +1,20 @@
 [
-  { "key": "groomName", "label": "Groom's name", "type": "text", "section": "The couple" },
-  { "key": "brideName", "label": "Bride's name", "type": "text", "section": "The couple" },
-  { "key": "groomNameTamil", "label": "Groom's name in Tamil", "type": "text", "section": "The couple" },
-  { "key": "brideNameTamil", "label": "Bride's name in Tamil", "type": "text", "section": "The couple" },
+  { "key": "groomName", "label": "Groom's name", "type": "text", "section": "The couple", "required": true },
+  { "key": "brideName", "label": "Bride's name", "type": "text", "section": "The couple", "required": true },
+  {
+    "key": "groomNameTamil",
+    "label": "Groom's name in Tamil",
+    "type": "text",
+    "section": "The couple",
+    "hint": "Type in Tamil using your phone's keyboard, or type in English at google.com/inputtools and paste the result here."
+  },
+  {
+    "key": "brideNameTamil",
+    "label": "Bride's name in Tamil",
+    "type": "text",
+    "section": "The couple",
+    "hint": "Type in Tamil using your phone's keyboard, or type in English at google.com/inputtools and paste the result here."
+  },
   { "key": "groomFather", "label": "Groom's father (Thiru.)", "type": "text", "section": "Families" },
   { "key": "groomMother", "label": "Groom's mother (Tmt.)", "type": "text", "section": "Families" },
   { "key": "brideFather", "label": "Bride's father (Thiru.)", "type": "text", "section": "Families" },
@@ -20,16 +32,18 @@
     "label": "Reception date and time",
     "type": "date",
     "section": "The reception",
+    "required": true,
     "hint": "Drives the countdown and the date shown on the invite. Interpreted in Indian Standard Time (IST, +05:30)."
   },
-  { "key": "venueName", "label": "Venue name", "type": "text", "section": "The reception" },
-  { "key": "venueAddress", "label": "Venue address", "type": "text", "section": "The reception" },
+  { "key": "venueName", "label": "Venue name", "type": "text", "section": "The reception", "required": true },
+  { "key": "venueAddress", "label": "Venue address", "type": "text", "section": "The reception", "required": true },
   { "key": "dinnerTime", "label": "Dinner time", "type": "text", "section": "The reception" },
   {
     "key": "mapLink",
     "label": "Google Maps link to the venue",
     "type": "url",
     "section": "RSVP and sharing",
+    "required": true,
     "hint": "Open the venue in Google Maps, tap Share, and paste the link here."
   },
   { "key": "hashtag", "label": "Wedding hashtag", "type": "text", "section": "RSVP and sharing" }

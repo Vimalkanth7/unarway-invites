@@ -18,11 +18,9 @@ export default async function DesignPage({
     <div className="mx-auto max-w-5xl px-4 py-10">
       <div className="mb-6">
         <h1 className="text-2xl font-semibold">{bundle.meta.title}</h1>
-        <p className="mt-1 text-sm text-neutral-600">
-          Edit and preview for free. Download for &#8377;{price} once checkout lands in Phase 6.
-        </p>
+        <p className="mt-1 text-sm text-neutral-600">Edit and preview for free.</p>
       </div>
-      <DesignWorkspace bundle={bundle} />
+      <DesignWorkspace bundle={bundle} price={price} />
     </div>
   );
 }
