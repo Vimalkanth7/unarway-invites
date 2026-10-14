@@ -11,9 +11,10 @@ code style) that apply to every change in this repo.
 
 ## Status
 
-Phase 3 done — Temple Journey is ported into `templates/temple-journey/` and
-runs live through the Phase 2 schema editor + sandboxed iframe preview. See
-"Phased plan" below, and the Launch checklist before selling any design.
+Phase 5 done — Supabase email magic-link auth, the `invitations` table (RLS'd
+to each user), autosaving drafts from the design page, and "My invitations"
+(list/open/rename/delete) are live. See "Phased plan" below, and the Launch
+checklist before selling any design.
 
 ## Planned folder structure
 
@@ -94,9 +95,11 @@ unarway-invitation-company/
       `ASSETS.md` and the Launch checklist.
 - [ ] **Phase 4 — Edit panel end-to-end**: design page wires generic editor + live
       iframe preview together, debounced updates, watermark overlay on free preview.
-- [ ] **Phase 5 — Login and save**: Supabase Auth, DB schema (users, invitations),
-      save/update draft API routes, "My invitations" page, short-id generation for
-      `/i/<short-id>` (locked until paid).
+- [x] **Phase 5 — Login and save**: Supabase email magic-link auth, `invitations`
+      table with RLS, private `couple-photos` Storage bucket, autosaving drafts
+      from the design page (browser client, no server API routes needed — RLS
+      does the gating), "My invitations" page (list/open/rename/delete),
+      short-id generated at creation (no public `/i/<short-id>` route yet).
 - [ ] **Phase 6 — Razorpay test mode + download gating**: create-order route,
       checkout page, webhook route that verifies signatures server-side, download
       route that re-checks paid status before streaming a ZIP, unlock `/i/<short-id>`.
