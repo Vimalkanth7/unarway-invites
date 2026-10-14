@@ -1,0 +1,1242 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wedding Reception Invitation</title>
+<!--
+  No og/twitter meta here: this document only ever runs inside a sandboxed
+  preview iframe or gets packaged into the paid download. The public share
+  page is /i/<short-id> (Phase 5/6), which owns its own social meta tags.
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Gloock&amp;family=Kavivanar&amp;family=Manrope:wght@400;500;600&amp;family=Marcellus&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0D0406}
+a{color:#F7E2A8}a:hover{color:#FFFFFF}
+.inv3{--vh:900px;--night:#0D0406;--wine:#3A0A12;--gold:#E3B75C;--gold-hi:#F7E2A8;--ivory:#F8EEDC;--ivory2:#E4D6BE;--kum:#C4252F;font-family:Manrope,'Segoe UI',sans-serif;color:var(--ivory);background:var(--night);position:relative;overflow-x:clip}
+.inv3 *{box-sizing:border-box}
+.dis{font-family:Gloock,'Didot','Times New Roman',serif;font-weight:400}
+.tam{font-family:Kavivanar,'Noto Sans Tamil','Latha',serif}
+.lab{font-family:Marcellus,'Times New Roman',serif;font-size:13px;letter-spacing:.34em;text-transform:uppercase}
+.gl{position:fixed;inset:0;width:100%;height:100%;display:none;z-index:0}
+.inv3.gl-on .gl{display:block}
+.vig{position:fixed;inset:0;pointer-events:none;z-index:1;display:none;background:radial-gradient(120% 90% at 50% 50%,rgba(13,4,6,0) 55%,rgba(13,4,6,.75) 100%)}
+.inv3.gl-on .vig{display:block}
+.veil{position:fixed;inset:0;z-index:90;background:#0D0406;display:none;flex-direction:column;align-items:center;justify-content:center;gap:14px}
+.inv3.gl-on .veil{display:flex}
+.veil .tam{font-size:64px;color:#E3B75C;line-height:1}
+.prog{position:fixed;left:0;top:0;height:2px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,#8A5A1C,#F7E2A8);z-index:80;display:none}
+.inv3.gl-on .prog{display:block}
+.story{position:relative;z-index:2}
+.s{position:relative}
+.stick{position:relative;min-height:clamp(640px,100vh,980px);display:flex;flex-direction:column}
+.inv3.gl-on .stick{position:sticky;top:0;height:var(--vh);min-height:0}
+.inv3.gl-on .s-hero{height:calc(var(--vh) * 1.8)}
+.inv3.gl-on .s-walk{height:calc(var(--vh) * 4)}
+.inv3.gl-on .s-date{height:calc(var(--vh) * 2.2)}
+.inv3.gl-on .s-relics{height:calc(var(--vh) * 2.2)}
+.inv3.gl-on .s-couple{height:calc(var(--vh) * 1.9)}
+.inv3.gl-on .fb{display:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 28px;border-radius:999px;border:1px solid #E3B75C;color:#F8EEDC;text-decoration:none;font-family:Marcellus,serif;font-size:13px;letter-spacing:.24em;text-transform:uppercase;background:rgba(13,4,6,.55);cursor:pointer;backdrop-filter:blur(6px);transition:background .3s,color .3s}
+.btn:hover{background:#E3B75C;color:#1A0709}
+.btn.gold{background:linear-gradient(180deg,#F7E2A8,#E3B75C 55%,#B4832F);color:#1A0709;border-color:#F7E2A8}
+.btn.gold:hover{filter:brightness(1.06);color:#1A0709}
+.btn svg{width:18px;height:18px}
+.glass{background:linear-gradient(180deg,rgba(26,7,9,.72),rgba(13,4,6,.82));border:1px solid rgba(227,183,92,.38);border-radius:26px;backdrop-filter:blur(10px);box-shadow:0 40px 80px rgba(0,0,0,.45)}
+.mask{display:block;overflow:hidden;padding-bottom:.08em}
+.mask > span{display:inline-block}
+.rule{display:flex;align-items:center;gap:12px;color:#E3B75C}
+.rule i{display:block;width:54px;height:1px;background:currentColor;opacity:.7}
+.rule b{display:block;width:7px;height:7px;transform:rotate(45deg);border:1px solid currentColor}
+
+/* hero */
+.s-hero .stick{align-items:center;justify-content:space-between;padding:22px 24px 0;text-align:center}
+.hero-top{width:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;text-align:center}
+.hero-top .tam{font-size:22px;color:#F7E2A8}
+.hero-top .ht-om{font-size:30px;line-height:1;color:#E3B75C}
+.hero-bottom{width:calc(100% + 48px);margin:0 -24px;padding:70px 20px 26px;background:linear-gradient(180deg,rgba(13,4,6,0),rgba(13,4,6,.86) 46%,#0D0406)}
+.medal{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative;background:radial-gradient(circle at 35% 30%,#4A0E18,#1A0709 70%);box-shadow:0 0 0 1px #E3B75C,0 0 0 6px rgba(13,4,6,.9),0 0 0 7px rgba(227,183,92,.45),0 0 40px rgba(227,183,92,.35)}
+.medal .tam{font-size:34px;color:#F7E2A8;line-height:1;transform:translateY(3px)}
+.hb-ta{font-size:clamp(30px,4.6vw,46px);line-height:1.1;color:#F7E2A8;text-shadow:0 0 30px rgba(227,183,92,.35)}
+.hb-sub{font-size:clamp(17px,2vw,21px);color:#E4D6BE;font-family:Gloock,serif;max-width:520px;line-height:1.35}
+.hero-arch{position:relative;width:min(300px,64vw);aspect-ratio:9/16;margin:24px auto;border-radius:999px 999px 18px 18px;overflow:hidden;box-shadow:0 0 0 2px #E3B75C,0 0 0 10px rgba(13,4,6,.8),0 0 0 11px rgba(227,183,92,.5),0 40px 90px rgba(0,0,0,.6)}
+.hero-arch video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.inv3.gl-on .hero-arch{position:fixed;left:0;bottom:0;width:6px;margin:0;opacity:.01;pointer-events:none;z-index:0;box-shadow:none}
+.hero-bottom{display:flex;flex-direction:column;align-items:center;gap:12px;color:#E4D6BE}
+.cue{width:1px;height:54px;background:linear-gradient(#E3B75C,rgba(227,183,92,0));transform-origin:50% 0}
+
+/* walk captions */
+.s-walk .stick{justify-content:flex-end;align-items:center;text-align:center;padding:0 20px 9vh}
+.inv3:not(.gl-on) .s-walk .stick{justify-content:center;gap:60px;padding:120px 20px;background:linear-gradient(rgba(13,4,6,.55),rgba(13,4,6,.85)),url(assets/d5fa5812bd.jpg) center/cover}
+.capstage{position:relative;width:min(900px,100%);display:grid}
+.inv3:not(.gl-on) .capstage{display:flex;flex-direction:column;gap:56px}
+.cap{grid-area:1/1;display:flex;flex-direction:column;align-items:center;gap:14px;padding:30px 20px;border-radius:30px;background:radial-gradient(closest-side,rgba(13,4,6,.72),rgba(13,4,6,0))}
+.cap h1{margin:0;font-family:Gloock,serif;font-weight:400;font-size:clamp(52px,8.4vw,128px);line-height:.95;color:#F8EEDC}
+.cap h1 em{font-style:normal;color:#E3B75C;font-size:.55em;display:block;margin:6px 0}
+.cap .tn{font-size:clamp(20px,2.6vw,28px);color:#F7E2A8}
+.cap .big-ta{font-size:clamp(46px,7.4vw,104px);line-height:1.15;color:#F7E2A8}
+.cap p{margin:0;font-size:clamp(17px,1.8vw,20px);color:#E4D6BE;max-width:560px;line-height:1.55}
+
+/* date */
+.s-date .stick{align-items:center;justify-content:center;padding:40px 20px;text-align:center;gap:22px}
+.inv3:not(.gl-on) .s-date .stick{background:radial-gradient(70% 60% at 50% 100%,#5A1220,#0D0406 70%)}
+.date-h{margin:0;font-family:Gloock,serif;font-weight:400;font-size:clamp(40px,6vw,80px);line-height:1}
+.scard{position:relative;width:min(520px,92vw);aspect-ratio:16/10;border-radius:24px;overflow:hidden;background:radial-gradient(90% 100% at 50% 0%,#6B1424,#1F0609 75%);border:1px solid rgba(247,226,168,.55);box-shadow:inset 0 0 0 8px rgba(13,4,6,.55),inset 0 0 0 9px rgba(227,183,92,.45),0 40px 90px rgba(0,0,0,.55)}
+.sc-in{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.sc-wd{font-family:Marcellus,serif;letter-spacing:.34em;text-transform:uppercase;font-size:13px;color:#E3B75C}
+.sc-day{font-family:Gloock,serif;font-size:clamp(84px,18vw,150px);line-height:.95;color:#F7E2A8}
+.sc-my{font-family:Marcellus,serif;letter-spacing:.3em;text-transform:uppercase;font-size:clamp(14px,2.6vw,20px)}
+.sc-ta{font-size:16px;color:#F7E2A8;margin-top:4px}
+.sc-time{font-size:16px;color:#E4D6BE;margin-top:2px}
+.scv{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:grab;z-index:3;display:block}
+.burst{position:absolute;left:50%;top:50%;width:0;height:0;z-index:4;pointer-events:none}
+.burst i{position:absolute;left:-7px;top:-7px;width:14px;height:14px;border-radius:80% 0 80% 0;opacity:0}
+.cd{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.cd div{min-width:74px;padding:12px 8px;border-radius:14px;border:1px solid rgba(227,183,92,.45);background:rgba(13,4,6,.6);display:flex;flex-direction:column;align-items:center;gap:4px}
+.cd b{font-family:Gloock,serif;font-weight:400;font-size:30px;color:#F7E2A8;line-height:1}
+.cd span{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:#E3B75C}
+.linkish{background:none;border:0;color:#F7E2A8;font-family:Marcellus,serif;font-size:12px;letter-spacing:.26em;text-transform:uppercase;cursor:pointer;min-height:44px;padding:0 12px;text-decoration:underline;text-underline-offset:6px}
+
+/* relics */
+.s-relics .stick{justify-content:center;padding:40px 6vw}
+.inv3:not(.gl-on) .s-relics .stick{background:radial-gradient(60% 60% at 70% 50%,#3A0A12,#0D0406 70%)}
+.relic-copy{position:relative;width:min(470px,100%);display:grid}
+.inv3:not(.gl-on) .relic-copy{display:flex;flex-direction:column;gap:30px}
+.rc{grid-area:1/1;padding:34px 32px;display:flex;flex-direction:column;gap:14px}
+.rc h2{margin:0;font-family:Gloock,serif;font-weight:400;font-size:clamp(38px,4.6vw,62px);line-height:1}
+.rc p{margin:0;font-size:18px;line-height:1.6;color:#E4D6BE}
+.rc .tam{font-size:22px;color:#F7E2A8}
+
+/* couple */
+.s-couple .stick{justify-content:center;align-items:flex-end;padding:40px 6vw}
+.inv3:not(.gl-on) .s-couple .stick{align-items:center;background:linear-gradient(rgba(13,4,6,.6),rgba(13,4,6,.9)),url(assets/4e2b763272.webp) center 30%/min(900px,120%) no-repeat,#0D0406}
+.cp-card{width:min(460px,100%);padding:28px;display:flex;flex-direction:column;gap:20px;align-items:center;text-align:center}
+.cp-photo{position:relative;width:min(220px,56vw);aspect-ratio:3/4;border-radius:999px 999px 16px 16px;overflow:hidden;box-shadow:0 0 0 2px #E3B75C,0 0 0 9px rgba(13,4,6,.7),0 0 0 10px rgba(227,183,92,.45)}
+.cp-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+.cp-names{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:18px;width:100%}
+.cp-names h3{margin:6px 0 2px;font-family:Gloock,serif;font-weight:400;font-size:32px;line-height:1}
+.cp-names .tam{color:#F7E2A8;font-size:18px}
+.cp-names p{margin:6px 0 0;font-size:15px;color:#E4D6BE;line-height:1.45}
+
+/* venue */
+.s-venue{padding:16vh 0 12vh}
+.vwrap{max-width:1120px;margin:0 auto;padding:0 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(380px,100%),1fr));gap:40px;align-items:center}
+.v-arch{position:relative;width:min(340px,80vw);aspect-ratio:9/14;margin:0 auto;border-radius:999px 999px 20px 20px;overflow:hidden;box-shadow:0 0 0 2px #E3B75C,0 0 0 11px rgba(13,4,6,.7),0 0 0 12px rgba(227,183,92,.45),0 40px 90px rgba(0,0,0,.6)}
+.v-arch video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.v-info{padding:38px 34px;display:flex;flex-direction:column;gap:22px}
+.v-info h2{margin:0;font-family:Gloock,serif;font-weight:400;font-size:clamp(40px,5vw,66px);line-height:1}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:18px 26px}
+.fld span{display:block;font-family:Marcellus,serif;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:#E3B75C;margin-bottom:6px}
+.fld b{display:block;font-family:Gloock,serif;font-weight:400;font-size:24px;line-height:1.2}
+.fld small{display:block;font-size:15px;color:#E4D6BE;margin-top:4px;line-height:1.4}
+.acts{display:flex;flex-wrap:wrap;gap:12px}
+
+/* finale */
+.s-finale{padding:4vh 0 10vh;text-align:center}
+.fin-frame{position:relative;width:min(640px,94vw);aspect-ratio:720/1063;margin:0 auto}
+.fin-frame img.th{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none;z-index:2}
+.fin-in{position:absolute;left:16%;right:16%;top:12%;bottom:12%;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:20px 10px;border-radius:12px;background:radial-gradient(closest-side,rgba(26,7,9,.92),rgba(13,4,6,.78))}
+.fin-in .tam{font-size:clamp(20px,3.4vw,32px);line-height:1.5;color:#F7E2A8}
+.fin-in .dis{font-size:clamp(20px,3vw,30px);line-height:1.2}
+.fin-in .acts{justify-content:center}
+.fin-in .btn{min-height:46px;padding:0 18px;font-size:11px}
+.fam{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:26px;max-width:820px;margin:40px auto 0;padding:0 20px}
+.fam h3{margin:0 0 8px;font-family:Marcellus,serif;font-weight:400;font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:#E3B75C}
+.fam p{margin:0;font-family:Gloock,serif;font-size:22px;line-height:1.4}
+.foot{margin-top:50px;display:flex;flex-direction:column;align-items:center;gap:10px;color:#E4D6BE}
+/* readable family + closing panels over the temple scene */
+.fam,.foot{position:relative;z-index:3;box-sizing:border-box;width:min(820px,calc(100% - 32px));margin-left:auto;margin-right:auto;background:linear-gradient(180deg,rgba(26,7,9,.86),rgba(13,4,6,.92));border:1px solid rgba(227,183,92,.45);border-radius:22px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.fam{margin-top:28px;padding:26px 20px;gap:22px}
+.fam h3{font-family:Manrope,'Segoe UI',sans-serif;font-weight:600;font-size:14px;letter-spacing:.16em;color:#F7E2A8}
+.fam p{font-size:21px;color:#FFF6E6}
+.foot{margin-top:18px;padding:22px 18px 26px}
+.foot .lab{font-family:Manrope,'Segoe UI',sans-serif;font-weight:600;font-size:16px;letter-spacing:.04em;text-transform:none;color:#F7E2A8 !important;word-break:break-word}
+.foot .dis{color:#FFF6E6;line-height:1.35}
+
+@media (max-width:760px){
+  .s-relics .stick{justify-content:flex-end;padding:30px 16px}
+  .rc{padding:24px 22px}
+  .rc p{font-size:16px}
+  .s-couple .stick{align-items:center;justify-content:flex-end;padding:24px 16px}
+  .cp-card{padding:20px}
+  .cp-photo{width:min(150px,40vw)}
+  .fin-in{left:14%;right:14%;top:11%;bottom:11%;gap:10px}
+  .fin-in .btn{min-height:44px;padding:0 14px;letter-spacing:.14em}
+}
+</style>
+
+<script src="assets/js/gsap.min.js"></script>
+<script src="assets/js/ScrollTrigger.min.js"></script>
+<script src="assets/js/three.min.js"></script>
+</head>
+<body>
+<div id="app"></div>
+<template id="tpl">
+
+
+<div class="inv3">
+<canvas class="gl" aria-hidden="true"></canvas>
+<div class="vig" aria-hidden="true"></div>
+<div class="prog" aria-hidden="true"></div>
+<div class="veil" aria-hidden="true"><span class="tam">உ</span><span class="lab" style="color: #E4D6BE">Lighting the lamps</span></div>
+
+<div class="story">
+
+<!-- 1 · Pillaiyar Suzhi : Ganesha video doors -->
+<section class="s s-hero" aria-label="Opening">
+<div class="stick">
+  <div class="hero-top">
+    <span class="tam ht-om" aria-hidden="true">உ</span>
+    <span class="lab" style="font-size: 12px; color: #E3B75C">Wedding Reception</span>
+    <span class="tam">திருமண அழைப்பிதழ்</span>
+  </div>
+  <div class="hero-arch"><video class="vid-g" src="assets/5c517b8490.mp4" poster="assets/54d722b725.jpg" muted="" autoplay="" loop="" playsinline="" preload="auto" aria-label="Baby Ganesha writing at the temple"></video></div>
+  <div class="hero-bottom">
+    <span class="tam hb-ta">சுபாரம்பம்</span>
+    <span class="hb-sub">Every auspicious beginning starts with Pillaiyar</span>
+    <span class="lab" style="font-size: 10px; color: #E3B75C; margin-top: 6px">Scroll to enter the temple</span>
+    <i class="cue" aria-hidden="true"></i>
+  </div>
+</div>
+</section>
+
+<!-- 2 · The walk : corridor of golden pillars -->
+<section class="s s-walk" aria-label="The couple's names">
+<div class="stick">
+  <div class="capstage">
+    <div class="cap cap1">
+      <div class="rule" aria-hidden="true"><i></i><b></b><i></i></div>
+      <span class="lab" style="color: #E3B75C">Together with their families</span>
+      <p>invite you to walk with us into the evening we celebrate the wedding of</p>
+    </div>
+    <div class="cap cap2">
+      <h1>{{groom}}<em>&amp;</em>{{bride}}</h1>
+      <span class="tam tn">{{groomTa}} · {{brideTa}}</span>
+    </div>
+    <div class="cap cap3">
+      <span class="tam big-ta">திருமண வரவேற்பு</span>
+      <span class="lab" style="color: #E3B75C">Wedding Reception</span>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- 3 · The date : scratch foil before the gopuram -->
+<section class="s s-date" aria-label="Date">
+<div class="stick">
+  <span class="lab" style="color: #E3B75C">Beneath the gopuram</span>
+  <h2 class="date-h">Save the evening</h2>
+  <div class="scard">
+    <div class="sc-in">
+      <span class="sc-wd">{{weekday}}</span>
+      <span class="sc-day">{{day}}</span>
+      <span class="sc-my">{{monthYear}}</span>
+      <span class="tam sc-ta">{{taDate}}</span>
+      <span class="sc-time">Reception from {{time}}</span>
+    </div>
+    <canvas class="scv" aria-label="Gold foil. Scratch it to reveal the date" role="img"></canvas>
+    <div class="burst"><sc-for list="{{burst}}" as="b" hint-placeholder-count="8"><i style="background: {{b.c}}"></i></sc-for></div>
+  </div>
+  <sc-if value="{{notRevealed}}" hint-placeholder-val="{{ true }}"><button class="linkish" type="button" onclick="{{revealNow}}">Or tap to reveal</button></sc-if>
+  <div class="cd" aria-label="Countdown to the reception">
+    <div><b>{{cd.d}}</b><span>Days</span></div>
+    <div><b>{{cd.h}}</b><span>Hours</span></div>
+    <div><b>{{cd.m}}</b><span>Min</span></div>
+    <div><b>{{cd.s}}</b><span>Sec</span></div>
+  </div>
+</div>
+</section>
+
+<!-- 4 · Thaali & Metti : real 3D gold and silver -->
+<section class="s s-relics" aria-label="Thaali and metti">
+<div class="stick">
+  <div class="relic-copy">
+    <div class="rc glass rc1">
+      <span class="tam">மாங்கல்யம்</span>
+      <h2>The sacred thaali</h2>
+      <p>One golden thread, tied once, binding two families for a lifetime. Turn it in the lamplight as you scroll.</p>
+    </div>
+    <div class="rc glass rc2">
+      <span class="tam">மெட்டி</span>
+      <h2>A silver promise</h2>
+      <p>Slipped on after the seven steps, the metti carries every vow forward, one step at a time.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- 5 · The couple at the mandapam -->
+<section class="s s-couple" aria-label="The couple">
+<div class="stick">
+  <div class="cp-card glass">
+    <span class="tam" style="color: #F7E2A8; font-size: 20px">மணமக்கள்</span>
+    <div class="cp-photo"><img src="{{couplePhoto}}" alt="Photo of the couple"></div>
+    <div class="cp-names">
+      <div>
+        <span class="lab" style="font-size: 11px; color: #E3B75C">The Groom</span>
+        <h3>{{groom}}</h3>
+        <span class="tam">{{groomTa}}</span>
+        <p>Son of Thiru.&nbsp;{{groomFather}}&nbsp;&amp; <span style="white-space:nowrap">Tmt.&nbsp;{{groomMother}}</span></p>
+      </div>
+      <div>
+        <span class="lab" style="font-size: 11px; color: #E3B75C">The Bride</span>
+        <h3>{{bride}}</h3>
+        <span class="tam">{{brideTa}}</span>
+        <p>Daughter of Thiru.&nbsp;{{brideFather}}&nbsp;&amp; <span style="white-space:nowrap">Tmt.&nbsp;{{brideMother}}</span></p>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- 6 · Venue -->
+<section class="s s-venue" aria-label="Venue">
+<div class="vwrap">
+  <div class="v-arch rv"><video class="vid-c" src="assets/79cea246a4.mp4" poster="assets/85dabcbc89.jpg" muted="" autoplay="" loop="" playsinline="" preload="metadata" aria-label="A temple corridor leading to a floral archway"></video></div>
+  <div class="v-info glass rv">
+    <span class="lab" style="color: #E3B75C">The celebration</span>
+    <h2>Join us at the mandapam</h2>
+    <div class="fields">
+      <div class="fld"><span>Date</span><b>{{dateLong}}</b><small>{{weekday}}</small></div>
+      <div class="fld"><span>Reception</span><b>{{time}}</b><small>Dinner from {{dinnerTime}}</small></div>
+      <div class="fld"><span>Venue</span><b>{{venueName}}</b><small>{{venueAddress}}</small></div>
+    </div>
+    <div class="acts">
+      <a class="btn gold" href="{{mapLink}}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12Z"></path><circle cx="12" cy="9" r="2.5"></circle></svg>Directions</a>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- 7 · Finale : flower thoranam -->
+<section class="s s-finale" aria-label="Blessings">
+  <div class="fin-frame rv">
+    <img class="th" src="assets/3f4ddccacd.webp" alt="">
+    <div class="fin-in">
+      <span class="tam">தங்கள் வருகையை அன்புடன் எதிர்பார்க்கிறோம்</span>
+      <span class="dis">Your presence is the blessing we wish for</span>
+      <div class="acts">
+        <a class="btn gold" href="{{share}}" target="_blank" rel="noopener">Share</a>
+      </div>
+    </div>
+  </div>
+  <div class="fam">
+    <div class="rv"><h3>The Groom's Family</h3><p>Thiru.&nbsp;{{groomFather}}&nbsp;&amp; <span style="white-space:nowrap">Tmt.&nbsp;{{groomMother}}</span></p></div>
+    <div class="rv"><h3>The Bride's Family</h3><p>Thiru.&nbsp;{{brideFather}}&nbsp;&amp; <span style="white-space:nowrap">Tmt.&nbsp;{{brideMother}}</span></p></div>
+  </div>
+  <div class="foot">
+    <span class="lab" style="color: #E3B75C">{{hashtag}}</span>
+    <span class="dis" style="font-size: 18px">With love, the families of {{groom}} &amp; {{bride}}</span>
+  </div>
+</section>
+
+</div>
+</div>
+</template>
+<!--
+  Seed values only, matching defaults.json: lets this file render something
+  sensible if opened directly (outside the parent app). The parent always
+  overwrites these via the unarway:config postMessage immediately after this
+  document signals unarway:ready - see the runtime script below.
+-->
+<script id="inv-config" type="application/json">{"groomName":"Vimal Kanth","brideName":"Sindhuja","groomNameTamil":"விமல் காந்த்","brideNameTamil":"சிந்துஜா","couplePhoto":"assets/couple.jpg","eventDate":"2026-10-29T18:00","venueName":"Sri Venkatavan Arangam","venueAddress":"Near Udumalai Tirupathi, Dhali Road, Udumalpet","mapLink":"https://maps.app.goo.gl/y11MNMrf1T3Jn5WV7","hashtag":"#VimalKanth_Weds_Sindhuja","groomFather":"Thirugnanasambandam","groomMother":"Bhuvaneswari","brideFather":"Kannan","brideMother":"Vasanthi","dinnerTime":"06:00 pm"}</script>
+<script>/* Tiny template runtime: renders the <template id="tpl"> with the Component class */
+(function () {
+  // No localStorage/cookies: this document runs in a sandbox="allow-scripts"
+  // iframe with an opaque origin, which can't access either. Field values
+  // come from the parent app over postMessage instead - see the listener
+  // registered below, next to window.__mountInvite.
+  var BASE = JSON.parse(document.getElementById('inv-config').textContent);
+  var CFG = Object.assign({}, BASE);
+
+  var ROOT = {};
+  var bindings = [];
+  var comp = null;
+
+  function get(path, scope) {
+    path = String(path).trim();
+    if (path === 'true') return true;
+    if (path === 'false') return false;
+    if (/^-?\d+(\.\d+)?$/.test(path)) return +path;
+    if (/^(['"]).*\1$/.test(path)) return path.slice(1, -1);
+    return path.split('.').reduce(function (o, k) { return o == null ? undefined : o[k]; }, scope);
+  }
+  var WHOLE = /^\s*\{\{\s*([^}]+?)\s*\}\}\s*$/;
+  function interp(str, scope) {
+    var m = str.match(WHOLE);
+    if (m) return get(m[1], scope);
+    return str.replace(/\{\{\s*([^}]+?)\s*\}\}/g, function (_, p) { var v = get(p, scope); return v == null ? '' : String(v); });
+  }
+  function hasHole(s) { return s.indexOf('{{') >= 0; }
+
+  function build(src, scope, parent) {
+    var kids = src.childNodes;
+    for (var i = 0; i < kids.length; i++) {
+      var c = kids[i];
+      if (c.nodeType === 3) {
+        var t = document.createTextNode('');
+        if (hasHole(c.nodeValue)) { var b = { type: 'text', node: t, tpl: c.nodeValue, scope: scope }; bindings.push(b); t.nodeValue = val(interp(b.tpl, scope)); b.last = t.nodeValue; }
+        else t.nodeValue = c.nodeValue;
+        parent.appendChild(t);
+        continue;
+      }
+      if (c.nodeType !== 1) continue;
+      var tag = c.localName.toLowerCase();
+      if (tag === 'sc-for') {
+        var la = c.getAttribute('list') || '';
+        var list = interp(la, scope) || [];
+        var as = c.getAttribute('as') || 'item';
+        for (var j = 0; j < list.length; j++) {
+          var s2 = Object.create(scope); s2[as] = list[j]; s2.$index = j;
+          build(c, s2, parent);
+        }
+        continue;
+      }
+      if (tag === 'sc-if') {
+        var w = document.createElement('span');
+        w.style.display = 'contents';
+        var bi = { type: 'if', node: w, tpl: c.getAttribute('value') || '', scope: scope };
+        bindings.push(bi);
+        w.style.display = interp(bi.tpl, scope) ? 'contents' : 'none';
+        build(c, scope, w);
+        parent.appendChild(w);
+        continue;
+      }
+      var el = document.createElementNS(c.namespaceURI, c.localName);
+      for (var a = 0; a < c.attributes.length; a++) {
+        var at = c.attributes[a], name = at.name, v = at.value;
+        if (name.indexOf('hint-') === 0) continue;
+        if (/^on[a-z]+$/i.test(name) && hasHole(v)) {
+          (function (path, sc, evt) { el.addEventListener(evt, function (e) { var f = get(path, sc); if (typeof f === 'function') f(e); }); })(v.match(WHOLE)[1], scope, name.slice(2).toLowerCase());
+          continue;
+        }
+        if (hasHole(v)) {
+          var ba = { type: 'attr', node: el, name: name, tpl: v, scope: scope };
+          var r = interp(v, scope);
+          if (r !== false && r != null) { el.setAttribute(name, String(r)); ba.last = String(r); }
+          bindings.push(ba);
+        } else el.setAttribute(name, v);
+      }
+      build(c.localName === 'template' ? c.content : c, scope, el);
+      parent.appendChild(el);
+    }
+  }
+  function val(v) { return v == null ? '' : String(v); }
+
+  function setRoot() {
+    var vals = comp.renderVals();
+    Object.keys(ROOT).forEach(function (k) { delete ROOT[k]; });
+    Object.assign(ROOT, CFG, vals);
+  }
+  function update() {
+    if (!comp) return;
+    setRoot();
+    bindings.forEach(function (b) {
+      if (b.type === 'text') { var t = val(interp(b.tpl, b.scope)); if (t !== b.last) { b.node.nodeValue = t; b.last = t; } }
+      else if (b.type === 'attr') { var r = interp(b.tpl, b.scope); var s = (r === false || r == null) ? null : String(r); if (s !== b.last) { if (s == null) b.node.removeAttribute(b.name); else b.node.setAttribute(b.name, s); b.last = s; } }
+      else if (b.type === 'if') { var d = interp(b.tpl, b.scope) ? 'contents' : 'none'; if (b.node.style.display !== d) b.node.style.display = d; }
+    });
+    if (comp.componentDidUpdate) comp.componentDidUpdate();
+  }
+
+  window.DCLogic = function DCLogic(props) { this.props = props; this.state = {}; };
+  window.DCLogic.prototype.setState = function (p) {
+    var n = typeof p === 'function' ? p(this.state, this.props) : p;
+    this.state = Object.assign({}, this.state, n);
+    if (this.__mounted) update();
+  };
+  window.DCLogic.prototype.forceUpdate = function () { update(); };
+
+  window.__mountInvite = function (Component) {
+    comp = new Component(Object.assign({}, CFG));
+    if (!comp.state) comp.state = {};
+    setRoot();
+    var app = document.getElementById('app');
+    build(document.getElementById('tpl').content, ROOT, app);
+    comp.__mounted = true;
+    if (comp.componentDidMount) comp.componentDidMount();
+    window.parent.postMessage({ type: 'unarway:ready' }, '*');
+  };
+
+  window.addEventListener('message', function (event) {
+    if (event.source !== window.parent) return;
+    if (!event.data || event.data.type !== 'unarway:config') return;
+    Object.assign(CFG, event.data.payload || {});
+    if (comp) { comp.props = Object.assign({}, CFG); update(); }
+  });
+})();
+</script>
+<script>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { now: Date.now(), revealed: false };
+  }
+
+  componentDidMount() {
+    this._tick = setInterval(() => this.setState({ now: Date.now() }), 1000);
+    this._tries = 0;
+    this.boot();
+  }
+
+  componentDidUpdate() {
+    if (this._gl) {
+      const key = this.bannerKey();
+      if (key !== this._bkey) { this._bkey = key; this.drawBanners(); }
+    }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this._tick);
+    clearTimeout(this._bt);
+    if (this._raf) cancelAnimationFrame(this._raf);
+    if (this._ctx) this._ctx.revert();
+    if (this._onResize) window.removeEventListener('resize', this._onResize);
+    if (this._onMove) window.removeEventListener('pointermove', this._onMove);
+    if (this._gl && this._gl.r) this._gl.r.dispose();
+  }
+
+  // ---------- data ----------
+  // All invitation designs are for events in India; a bare "YYYY-MM-DDTHH:mm"
+  // (what a datetime-local input gives us) is interpreted as IST so the
+  // countdown lands on the same instant for every guest, in any time zone.
+  parseEventDate(v) {
+    if (!v) return null;
+    const hasOffset = /[Zz]$|[+-]\d{2}:?\d{2}$/.test(v);
+    const d = new Date(hasOffset ? v : v + '+05:30');
+    return isNaN(d.getTime()) ? null : d;
+  }
+
+  info() {
+    const p = this.props;
+    const groom = (p.groomName ?? 'Groom') || 'Groom';
+    const bride = (p.brideName ?? 'Bride') || 'Bride';
+    const d = this.parseEventDate(p.eventDate) || this.parseEventDate('2027-01-24T18:30');
+    const ok = !isNaN(d.getTime());
+    const fmt = (o, loc) => { try { return d.toLocaleDateString(loc || 'en-IN', o); } catch (e) { return ''; } };
+    let time = '[Time]';
+    if (ok) { try { time = d.toLocaleTimeString('en-IN', { hour: 'numeric', minute: '2-digit', hour12: true }).toUpperCase(); } catch (e) {} }
+    return {
+      groom, bride, ok, d, time,
+      groomTa: p.groomNameTamil ?? 'மணமகன்', brideTa: p.brideNameTamil ?? 'மணமகள்',
+      weekday: ok ? fmt({ weekday: 'long' }) : '[Weekday]',
+      day: ok ? String(d.getDate()).padStart(2, '0') : '00',
+      monthYear: ok ? fmt({ month: 'long', year: 'numeric' }) : '[Month Year]',
+      dateLong: ok ? fmt({ day: 'numeric', month: 'long', year: 'numeric' }) : '[Date]',
+      taDate: ok ? fmt({ weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }, 'ta-IN') : ''
+    };
+  }
+
+  bannerKey() { const i = this.info(); return [i.groom, i.bride, i.groomTa, i.brideTa, i.dateLong, i.time, this.state.revealed].join('|'); }
+
+  kolam() {
+    if (this._k) return this._k;
+    const f = (n) => Math.round(n * 10) / 10;
+    const rot = (pts, a) => { const c = Math.cos(a), s = Math.sin(a); return pts.map(([x, y]) => [f(x * c - y * s), f(x * s + y * c)]); };
+    const petal = (P, a) => { const r = rot(P, a); return 'M' + r[0] + 'C' + r[1] + ' ' + r[2] + ' ' + r[3] + 'C' + r[4] + ' ' + r[5] + ' ' + r[6] + 'Z'; };
+    const PA = [[0, -40], [28, -80], [28, -132], [0, -152], [-28, -132], [-28, -80], [0, -40]];
+    const PB = [[0, -46], [18, -70], [18, -98], [0, -110], [-18, -98], [-18, -70], [0, -46]];
+    const LOBE = [[-40, -150], [-30, -200], [30, -200], [40, -150]];
+    let lines = '', dots = [];
+    for (let i = 0; i < 8; i++) {
+      const a = i * Math.PI / 4, b = a + Math.PI / 8;
+      lines += petal(PA, a) + petal(PB, b);
+      const r = rot(LOBE, b); lines += 'M' + r[0] + 'C' + r[1] + ' ' + r[2] + ' ' + r[3];
+    }
+    for (let i = 0; i < 16; i++) { const a = i * Math.PI / 8; dots.push([Math.sin(a) * 88, -Math.cos(a) * 88]); }
+    for (let i = 0; i < 8; i++) { const a = i * Math.PI / 4 + Math.PI / 8; dots.push([Math.sin(a) * 128, -Math.cos(a) * 128]); }
+    this._k = { lines, dots };
+    return this._k;
+  }
+
+  // ---------- boot ----------
+  scroller() {
+    const R = document.querySelector('.inv3');
+    let el = R ? R.parentElement : null;
+    while (el && el !== document.body && el !== document.documentElement) {
+      const cs = getComputedStyle(el);
+      if (/(auto|scroll)/.test(cs.overflowY) && el.scrollHeight > el.clientHeight + 4) return el;
+      el = el.parentElement;
+    }
+    return null;
+  }
+
+  boot() {
+    const g = window.gsap, ST = window.ScrollTrigger, R = document.querySelector('.inv3');
+    if (!g || !ST || !R) { if (this._tries++ < 80) this._bt = setTimeout(() => this.boot(), 100); return; }
+    if (this._booted) return;
+    this._booted = true;
+    g.registerPlugin(ST);
+    const sc = this.scroller();
+    if (sc) ST.defaults({ scroller: sc });
+    const vh = sc ? sc.clientHeight : window.innerHeight;
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const still = reduce || vh > 1500 || !window.THREE;
+    this.initScratch(R);
+    R.querySelectorAll('video').forEach((v) => { v.muted = true; const pr = v.play(); if (pr && pr.catch) pr.catch(() => {}); });
+    if (!still) {
+      R.style.setProperty('--vh', vh + 'px');
+      R.classList.add('gl-on');
+      let ok = false;
+      try { ok = this.initGL(R); } catch (e) { ok = false; }
+      if (!ok) { R.classList.remove('gl-on'); this.fallbackMotion(g, R); }
+      else this._ctx = g.context(() => this.story(g, ST, R), R);
+    } else {
+      this._ctx = g.context(() => this.fallbackMotion(g, R), R);
+    }
+    this._onResize = () => {
+      const v = sc ? sc.clientHeight : window.innerHeight;
+      if (R.classList.contains('gl-on')) R.style.setProperty('--vh', v + 'px');
+      if (this._gl) this.resizeGL();
+      if (!this.state.revealed && !this._scratched && this._paint) this._paint();
+    };
+    window.addEventListener('resize', this._onResize);
+    const kick = () => R.querySelectorAll('video').forEach((v) => { if (v.paused) { const pr = v.play(); if (pr && pr.catch) pr.catch(() => {}); } });
+    R.addEventListener('pointerdown', kick, { once: true });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { ST.refresh(); if (this._gl) this.drawBanners(); if (!this._scratched && this._paint) this._paint(); });
+    setTimeout(() => ST.refresh(), 900);
+  }
+
+  fallbackMotion(g, R) {
+    g.from(R.querySelectorAll('.hero-top > *, .hero-arch, .hero-bottom'), { y: 30, opacity: 0, stagger: 0.12, duration: 1.2, ease: 'expo.out' });
+  }
+
+  // ---------- WebGL world ----------
+  canvasTex(w, h) {
+    const T = window.THREE;
+    const c = document.createElement('canvas'); c.width = w; c.height = h;
+    const t = new T.CanvasTexture(c); t.colorSpace = T.SRGBColorSpace; t.anisotropy = 4;
+    return { c, x: c.getContext('2d'), t };
+  }
+
+  initGL(R) {
+    const T = window.THREE;
+    const cv = R.querySelector('.gl');
+    const r = new T.WebGLRenderer({ canvas: cv, antialias: true, powerPreference: 'high-performance' });
+    if (!r.getContext()) return false;
+    r.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
+    r.setSize(window.innerWidth, window.innerHeight, false);
+    r.outputColorSpace = T.SRGBColorSpace;
+    r.toneMapping = T.ACESFilmicToneMapping;
+    r.toneMappingExposure = 1.15;
+    const scene = new T.Scene();
+    scene.background = new T.Color(0x12050a);
+    scene.fog = new T.FogExp2(0x12050a, 0.034);
+    const cam = new T.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 500);
+    const G = { r, scene, cam, T, pillars: [], banners: {}, lamps: [], flames: [], lights: [], t0: performance.now() };
+    this._gl = G;
+
+    // studio environment for metals
+    const pm = new T.PMREMGenerator(r);
+    const es = new T.Scene(); es.background = new T.Color(0x1a0a06);
+    const eg = new T.BoxGeometry(1, 1, 1);
+    [[0xffd9a0, 6, [0, 6, 0], [10, 0.4, 10]], [0xffb060, 3, [-6, 1, 0], [0.4, 5, 8]], [0xfff0d0, 2.5, [6, 2, -2], [0.4, 4, 6]], [0x8a3020, 1.5, [0, -4, 0], [12, 0.4, 12]]].forEach(([c, k, p, s]) => {
+      const m = new T.Mesh(eg, new T.MeshBasicMaterial({ color: new T.Color(c).multiplyScalar(k) })); m.position.set(p[0], p[1], p[2]); m.scale.set(s[0], s[1], s[2]); es.add(m);
+    });
+    const env = pm.fromScene(es, 0.04).texture;
+    G.env = env;
+    scene.add(new T.AmbientLight(0xffe2b8, 0.55));
+    const key = new T.DirectionalLight(0xffd6a0, 0.9); key.position.set(3, 8, 4); scene.add(key);
+
+    const mgr = new T.LoadingManager();
+    mgr.onLoad = () => this.hideVeil();
+    setTimeout(() => this.hideVeil(), 5000);
+    const loader = new T.TextureLoader(mgr);
+    const tex = (u) => { const t = loader.load(u); t.colorSpace = T.SRGBColorSpace; t.anisotropy = 4; return t; };
+    const cut = (u, w, h, opts) => new T.Mesh(new T.PlaneGeometry(w, h), new T.MeshBasicMaterial(Object.assign({ map: tex(u), alphaTest: 0.45, side: T.DoubleSide }, opts || {})));
+
+    // floor: polished stone with glowing kolam + red runner
+    const k = this.kolam();
+    const kt = this.canvasTex(1024, 1024);
+    kt.x.fillStyle = '#000'; kt.x.fillRect(0, 0, 1024, 1024);
+    kt.x.save(); kt.x.translate(512, 512); kt.x.scale(2.25, 2.25);
+    kt.x.strokeStyle = 'rgba(227,183,92,.9)'; kt.x.lineWidth = 2.4; kt.x.stroke(new Path2D(k.lines));
+    kt.x.fillStyle = 'rgba(248,238,220,.9)'; k.dots.forEach(([x, y]) => { kt.x.beginPath(); kt.x.arc(x, y, 3.2, 0, Math.PI * 2); kt.x.fill(); });
+    kt.x.restore();
+    kt.t.wrapS = kt.t.wrapT = T.RepeatWrapping; kt.t.repeat.set(2, 18); kt.t.needsUpdate = true;
+    const floor = new T.Mesh(new T.PlaneGeometry(22, 190), new T.MeshStandardMaterial({ color: 0x170806, roughness: 0.3, metalness: 0.55, envMap: env, envMapIntensity: 0.6, emissive: 0xe3b75c, emissiveMap: kt.t, emissiveIntensity: 0.5 }));
+    floor.rotation.x = -Math.PI / 2; floor.position.set(0, 0, -75); scene.add(floor);
+    const rt = this.canvasTex(256, 1024);
+    rt.x.fillStyle = '#7d0f1d'; rt.x.fillRect(0, 0, 256, 1024);
+    rt.x.fillStyle = '#E3B75C'; rt.x.fillRect(14, 0, 8, 1024); rt.x.fillRect(234, 0, 8, 1024);
+    for (let y = 0; y < 1024; y += 32) { rt.x.beginPath(); rt.x.moveTo(30, y); rt.x.lineTo(42, y + 16); rt.x.lineTo(30, y + 32); rt.x.fill(); rt.x.beginPath(); rt.x.moveTo(226, y); rt.x.lineTo(214, y + 16); rt.x.lineTo(226, y + 32); rt.x.fill(); }
+    rt.t.wrapT = T.RepeatWrapping; rt.t.repeat.set(1, 30); rt.t.needsUpdate = true;
+    const runner = new T.Mesh(new T.PlaneGeometry(2.3, 150), new T.MeshStandardMaterial({ map: rt.t, roughness: 0.85, metalness: 0 }));
+    runner.rotation.x = -Math.PI / 2; runner.position.set(0, 0.012, -72); scene.add(runner);
+
+    // golden pillars, brass lamps and jasmine-marigold garlands
+    const lathePts = [[0, 0], [0.34, 0], [0.34, 0.06], [0.22, 0.12], [0.24, 0.16], [0.08, 0.22], [0.06, 0.7], [0.1, 0.74], [0.06, 0.78], [0.06, 0.9], [0.32, 0.96], [0.36, 1.0], [0.06, 1.02], [0.05, 1.18], [0.09, 1.24], [0, 1.34]].map(([x, y]) => new T.Vector2(x, y));
+    const lampGeo = new T.LatheGeometry(lathePts, 28);
+    const gold = new T.MeshStandardMaterial({ color: 0xe9b450, metalness: 1, roughness: 0.24, envMap: env, envMapIntensity: 1.4 });
+    G.gold = gold;
+    const ft = this.canvasTex(128, 256);
+    const fg = ft.x.createRadialGradient(64, 170, 4, 64, 150, 90);
+    fg.addColorStop(0, 'rgba(255,255,240,1)'); fg.addColorStop(0.25, 'rgba(255,214,120,.95)'); fg.addColorStop(0.6, 'rgba(242,120,20,.45)'); fg.addColorStop(1, 'rgba(242,120,20,0)');
+    ft.x.fillStyle = fg; ft.x.beginPath(); ft.x.moveTo(64, 10); ft.x.bezierCurveTo(110, 120, 110, 220, 64, 236); ft.x.bezierCurveTo(18, 220, 18, 120, 64, 10); ft.x.fill(); ft.t.needsUpdate = true;
+    const glowT = this.canvasTex(256, 256);
+    const gg = glowT.x.createRadialGradient(128, 128, 0, 128, 128, 128);
+    gg.addColorStop(0, 'rgba(255,220,150,1)'); gg.addColorStop(0.3, 'rgba(255,170,70,.45)'); gg.addColorStop(1, 'rgba(255,140,40,0)');
+    glowT.x.fillStyle = gg; glowT.x.fillRect(0, 0, 256, 256); glowT.t.needsUpdate = true;
+    G.glowT = glowT.t;
+    const beads = [];
+    const pillarTex = [tex('assets/2a818b411e.webp'), tex('assets/59d9b9856c.webp')];
+    for (let i = 0; i < 12; i++) {
+      const z = -10 - i * 6;
+      [-1, 1].forEach((s, j) => {
+        const pi = (i + j) % 2;
+        const w = pi ? 5.4 * 339 / 1018 : 5.4 * 343 / 963;
+        const m = new T.Mesh(new T.PlaneGeometry(w, 5.4), new T.MeshBasicMaterial({ map: pillarTex[pi], alphaTest: 0.45, side: T.DoubleSide }));
+        m.position.set(s * 3.5, 2.7, z); scene.add(m); G.pillars.push(m);
+        const lamp = new T.Mesh(lampGeo, gold); lamp.position.set(s * 2.55, 0, z - 3); lamp.scale.setScalar(0.85); scene.add(lamp);
+        const fl = new T.Sprite(new T.SpriteMaterial({ map: ft.t, blending: T.AdditiveBlending, depthWrite: false, transparent: true }));
+        fl.position.set(s * 2.55, 1.32, z - 3); fl.scale.set(0.16, 0.32, 1); scene.add(fl); G.flames.push(fl);
+        const gl = new T.Sprite(new T.SpriteMaterial({ map: glowT.t, blending: T.AdditiveBlending, depthWrite: false, transparent: true, opacity: 0.55 }));
+        gl.position.copy(fl.position); gl.scale.set(1.4, 1.4, 1); scene.add(gl); G.flames.push(gl);
+        G.lamps.push(new T.Vector3(s * 2.55, 1.4, z - 3));
+      });
+      for (let b = 0; b <= 40; b++) {
+        const u = b / 40, x = -3.5 + 7 * u, y = 4.75 - Math.sin(Math.PI * u) * 1.05;
+        beads.push([x, y, z, b % 6 === 0 ? 0xc4252f : (b % 3 === 0 ? 0xf29a07 : 0xfffdf4)]);
+      }
+    }
+    const bm = new T.InstancedMesh(new T.SphereGeometry(0.075, 10, 8), new T.MeshStandardMaterial({ roughness: 0.6, metalness: 0, envMap: env, envMapIntensity: 0.4 }), beads.length);
+    const dm = new T.Object3D(), col = new T.Color();
+    beads.forEach(([x, y, z, c], i) => { dm.position.set(x, y, z); dm.updateMatrix(); bm.setMatrixAt(i, dm.matrix); bm.setColorAt(i, col.setHex(c)); });
+    bm.instanceMatrix.needsUpdate = true; if (bm.instanceColor) bm.instanceColor.needsUpdate = true; scene.add(bm);
+    for (let i = 0; i < 4; i++) { const L = new T.PointLight(0xffb45a, 7, 9, 1.6); scene.add(L); G.lights.push(L); }
+
+    // ===== entrance: Pillaiyar rising from a lotus pond =====
+    const vid = R.querySelector('.vid-g');
+    const vt = new T.VideoTexture(vid); vt.colorSpace = T.SRGBColorSpace;
+    const PW = 1.8, PH = 3.2, PY = 0.55, HW = PW / 2;
+    const am = this.canvasTex(256, 512);
+    am.x.fillStyle = '#000'; am.x.fillRect(0, 0, 256, 512); am.x.fillStyle = '#fff';
+    const ery = 512 * HW / PH;
+    am.x.beginPath(); am.x.moveTo(0, 512); am.x.lineTo(0, ery); am.x.ellipse(128, ery, 128, ery, 0, Math.PI, 0); am.x.lineTo(256, 512); am.x.closePath(); am.x.fill();
+    am.t.colorSpace = T.NoColorSpace; am.t.needsUpdate = true;
+    const shrine = new T.Group(); shrine.position.set(0, 0, 5); scene.add(shrine);
+    const lift = new T.Group(); shrine.add(lift);
+    const panel = new T.Mesh(new T.PlaneGeometry(PW, PH), new T.MeshBasicMaterial({ map: vt, alphaMap: am.t, alphaTest: 0.5, side: T.DoubleSide, toneMapped: false }));
+    panel.position.y = PY + PH / 2; lift.add(panel);
+    const archShape = (hw, top) => { const s = new T.Shape(); s.moveTo(-hw, 0); s.lineTo(-hw, top - hw); s.absarc(0, top - hw, hw, Math.PI, 0, true); s.lineTo(hw, 0); s.closePath(); return s; };
+    const outer = archShape(HW + 0.16, PH + 0.16);
+    const hp = new T.Path(); hp.moveTo(-HW, 0); hp.lineTo(-HW, PH - HW); hp.absarc(0, PH - HW, HW, Math.PI, 0, true); hp.lineTo(HW, 0); hp.closePath();
+    outer.holes.push(hp);
+    const frame = new T.Mesh(new T.ExtrudeGeometry(outer, { depth: 0.1, bevelEnabled: true, bevelThickness: 0.04, bevelSize: 0.035, bevelSegments: 5, curveSegments: 48 }), gold);
+    frame.position.set(0, PY, -0.06); lift.add(frame);
+    const beadArc = new T.EllipseCurve(0, PH - HW, HW + 0.08, HW + 0.08, Math.PI, 0, true);
+    const studs = new T.InstancedMesh(new T.SphereGeometry(0.032, 10, 8), gold, 19);
+    for (let i = 0; i < 19; i++) { const p = beadArc.getPoint(i / 18); dm.position.set(p.x, PY + p.y, 0.1); dm.rotation.set(0, 0, 0); dm.updateMatrix(); studs.setMatrixAt(i, dm.matrix); }
+    studs.instanceMatrix.needsUpdate = true; lift.add(studs);
+    const finial = new T.Mesh(new T.LatheGeometry([[0, 0], [0.12, 0.02], [0.15, 0.1], [0.09, 0.19], [0.12, 0.27], [0.04, 0.4], [0, 0.5]].map(([x, y]) => new T.Vector2(x, y)), 24), gold);
+    finial.position.set(0, PY + PH + 0.16, 0); lift.add(finial);
+    G.lift = lift;
+    const pod = new T.Mesh(new T.CylinderGeometry(0.62, 0.42, 0.34, 40), gold); pod.position.y = 0.2; shrine.add(pod);
+
+    // lotus: four rings of curved petals that bloom open
+    const pt2 = this.canvasTex(64, 256);
+    const pgd = pt2.x.createLinearGradient(0, 256, 0, 0);
+    pgd.addColorStop(0, '#B0174F'); pgd.addColorStop(0.45, '#EE6C9C'); pgd.addColorStop(0.85, '#FFD6E4'); pgd.addColorStop(1, '#FFF4F8');
+    pt2.x.fillStyle = pgd; pt2.x.fillRect(0, 0, 64, 256);
+    pt2.x.strokeStyle = 'rgba(160,20,70,.35)'; pt2.x.lineWidth = 1.2;
+    for (let i = 0; i < 7; i++) { pt2.x.beginPath(); pt2.x.moveTo(32, 256); pt2.x.quadraticCurveTo(32 + (i - 3) * 9, 120, 32 + (i - 3) * 4, 10); pt2.x.stroke(); }
+    pt2.t.needsUpdate = true;
+    const petalMat = new T.MeshStandardMaterial({ map: pt2.t, side: T.DoubleSide, roughness: 0.5, metalness: 0, emissive: 0x4a0a22, emissiveIntensity: 0.35 });
+    const petalGeo = (len, wid) => {
+      const geo = new T.PlaneGeometry(1, 1, 8, 16), p = geo.attributes.position;
+      for (let i = 0; i < p.count; i++) {
+        const u = p.getX(i) * 2, v = p.getY(i) + 0.5;
+        const w = wid * Math.pow(Math.sin(Math.PI * Math.min(1, v * 0.94 + 0.04)), 0.75) * (1 - 0.3 * v);
+        p.setXYZ(i, u * w, v * len, -0.22 * wid * u * u * 2 + 0.16 * v * v * len);
+      }
+      geo.computeVertexNormals(); return geo;
+    };
+    const lotus = new T.Group(); lotus.scale.setScalar(1.75); lotus.position.y = 0.05; shrine.add(lotus);
+    G.lp = [];
+    [{ n: 8, r: 0.3, len: 1.0, w: 0.3, open: 0.5 }, { n: 10, r: 0.42, len: 1.15, w: 0.34, open: 0.9 }, { n: 12, r: 0.55, len: 1.25, w: 0.36, open: 1.22 }, { n: 14, r: 0.66, len: 1.1, w: 0.34, open: 1.48 }].forEach((ring, ri) => {
+      const geo = petalGeo(ring.len, ring.w);
+      for (let i = 0; i < ring.n; i++) {
+        const piv = new T.Group(); piv.rotation.y = (i / ring.n) * Math.PI * 2 + ri * 0.3;
+        const tilt = new T.Group(); tilt.position.z = ring.r; piv.add(tilt);
+        tilt.add(new T.Mesh(geo, petalMat)); lotus.add(piv);
+        G.lp.push({ tilt, ri, open: ring.open, ph: i * 0.7 + ri });
+      }
+    });
+
+    // dark mirror pond, gold-rimmed, with lily pads, ripples and floating diyas
+    const water = new T.Mesh(new T.CircleGeometry(6.6, 96), new T.MeshStandardMaterial({ color: 0x08121a, roughness: 0.05, metalness: 0.95, envMap: env, envMapIntensity: 1.1 }));
+    water.rotation.x = -Math.PI / 2; water.position.set(0, 0.03, 5); scene.add(water);
+    const rim = new T.Mesh(new T.TorusGeometry(6.6, 0.16, 12, 140), new T.MeshStandardMaterial({ color: 0x2a1614, roughness: 0.4, metalness: 0.3, envMap: env, envMapIntensity: 0.5 }));
+    rim.rotation.x = -Math.PI / 2; rim.position.set(0, 0.06, 5); scene.add(rim);
+    const rim2 = new T.Mesh(new T.TorusGeometry(6.6, 0.035, 8, 140), gold); rim2.rotation.x = -Math.PI / 2; rim2.position.set(0, 0.2, 5); scene.add(rim2);
+    const padMat = new T.MeshStandardMaterial({ color: 0x2f6b34, roughness: 0.6, side: T.DoubleSide, emissive: 0x0a2010, emissiveIntensity: 0.3 });
+    [[-2.6, 3.4, 0.55], [2.9, 3.9, 0.6], [-4.2, 6.2, 0.7], [4.4, 6.6, 0.5], [-1.6, 8.6, 0.45], [2.2, 8.9, 0.65], [-5.0, 3.8, 0.4], [5.2, 4.2, 0.45], [0.6, 2.0, 0.4]].forEach(([x, z, r], i) => {
+      const pad = new T.Mesh(new T.CircleGeometry(r, 32, 0.3, Math.PI * 2 - 0.3), padMat); pad.rotation.set(-Math.PI / 2, 0, i * 1.7); pad.position.set(x, 0.045, z - 0 + 0); scene.add(pad);
+    });
+    G.ripples = [];
+    for (let i = 0; i < 7; i++) {
+      const rp = new T.Mesh(new T.RingGeometry(0.96, 1, 64), new T.MeshBasicMaterial({ color: 0xffe2b0, transparent: true, opacity: 0, depthWrite: false }));
+      const a = i * 2.3, rr = 1.8 + (i % 4) * 1.0; rp.rotation.x = -Math.PI / 2; rp.position.set(Math.cos(a) * rr, 0.05, 5 + Math.sin(a) * rr); scene.add(rp); G.ripples.push(rp);
+    }
+    const clay = new T.MeshStandardMaterial({ color: 0x9c4a1e, roughness: 0.75 });
+    const diyaGeo = new T.LatheGeometry([[0, 0], [0.16, 0.02], [0.24, 0.1], [0.27, 0.15], [0.2, 0.13], [0, 0.11]].map(([x, y]) => new T.Vector2(x, y)), 24);
+    G.fd = [];
+    for (let i = 0; i < 12; i++) {
+      const a = i * 0.52 + 0.4, rr = 2.6 + (i % 3) * 1.15;
+      const g0 = new T.Group(); g0.position.set(Math.cos(a) * rr, 0.04, 5 + Math.sin(a) * rr * 0.95); scene.add(g0);
+      g0.add(new T.Mesh(diyaGeo, clay));
+      const fl = new T.Sprite(new T.SpriteMaterial({ map: ft.t, blending: T.AdditiveBlending, depthWrite: false, transparent: true })); fl.position.y = 0.26; fl.scale.set(0.1, 0.2, 1); g0.add(fl);
+      const gl = new T.Sprite(new T.SpriteMaterial({ map: glowT.t, blending: T.AdditiveBlending, depthWrite: false, transparent: true, opacity: 0 })); gl.position.y = 0.24; gl.scale.set(1.1, 1.1, 1); g0.add(gl);
+      const refl = new T.Sprite(new T.SpriteMaterial({ map: glowT.t, blending: T.AdditiveBlending, depthWrite: false, transparent: true, opacity: 0, color: 0xffa040 })); refl.position.y = -0.12; refl.scale.set(0.5, 1.3, 1); g0.add(refl);
+      G.fd.push({ g: g0, fl, gl, refl, ph: i * 1.3 });
+    }
+    G.pl = [];
+    [[-2.2, 1.6, 6.4], [2.2, 1.6, 6.4], [0, 2.6, 7.4]].forEach(([x, y, z], i) => { const L = new T.PointLight(i === 2 ? 0xffd2a0 : 0xffaa55, 0, 10, 1.5); L.position.set(x, y, z); scene.add(L); G.pl.push(L); });
+    const lglow = new T.Sprite(new T.SpriteMaterial({ map: glowT.t, blending: T.AdditiveBlending, depthWrite: false, transparent: true, opacity: 0, color: 0xffc8d8 }));
+    lglow.position.set(0, 1.0, 4.6); lglow.scale.set(5, 3.4, 1); scene.add(lglow); G.lglow = lglow;
+
+    // the flower thoranam now stands as the gateway into the pillar corridor
+    const TW = 5.6, TH = TW * 1063 / 720;
+    const th = cut('assets/3f4ddccacd.webp', TW, TH, { alphaTest: 0.3 });
+    th.position.set(0, TH / 2, -5.5); scene.add(th);
+    G.intro = { crane: 1, bloom: 0, rise: 0, lit: 0 };
+
+    // the gopuram at the end of the corridor
+    const gw = 40, gh = gw * 463 / 672;
+    const gop = cut('assets/f01459d010.webp', gw, gh, { fog: false, alphaTest: 0.35 });
+    gop.position.set(0, gh / 2 - 0.4, -112); scene.add(gop); G.gop = gop;
+    const halo = new T.Sprite(new T.SpriteMaterial({ map: glowT.t, blending: T.AdditiveBlending, depthWrite: false, transparent: true, fog: false, opacity: 0.85, color: 0xffc070 }));
+    halo.position.set(0, 18, -118); halo.scale.set(80, 80, 1); scene.add(halo);
+    const starGeo = new T.BufferGeometry(); const sp = [];
+    for (let i = 0; i < 700; i++) sp.push((Math.random() - 0.5) * 260, 8 + Math.random() * 90, -140 - Math.random() * 120);
+    starGeo.setAttribute('position', new T.Float32BufferAttribute(sp, 3));
+    const stars = new T.Points(starGeo, new T.PointsMaterial({ color: 0xfff1c4, size: 0.5, fog: false, transparent: true, opacity: 0.9 }));
+    scene.add(stars);
+
+    // pedestal with real 3D thaali and metti
+    const ped = new T.Group(); ped.position.set(8, 0, -74); scene.add(ped);
+    const stone = new T.Mesh(new T.CylinderGeometry(0.85, 1.0, 1.1, 48), new T.MeshStandardMaterial({ color: 0x2a0d0c, roughness: 0.45, metalness: 0.2, envMap: env, envMapIntensity: 0.5 }));
+    stone.position.y = 0.55; ped.add(stone);
+    const ring = new T.Mesh(new T.TorusGeometry(0.86, 0.04, 12, 80), gold); ring.rotation.x = Math.PI / 2; ring.position.y = 1.1; ped.add(ring);
+    const ring2 = ring.clone(); ring2.position.y = 0.06; ring2.scale.setScalar(1.16); ped.add(ring2);
+    const spot = new T.SpotLight(0xffe0b0, 40, 14, 0.5, 0.6, 1.4); spot.position.set(8, 7, -71); spot.target.position.set(8, 1.6, -74); scene.add(spot); scene.add(spot.target);
+    const thaali = new T.Group(); thaali.position.set(-0.05, 2.35, 0); ped.add(thaali);
+    const sh = new T.Shape();
+    sh.moveTo(0, 0); sh.bezierCurveTo(0.55, -0.2, 0.62, -0.85, 0, -1.55); sh.bezierCurveTo(-0.62, -0.85, -0.55, -0.2, 0, 0);
+    const pg = new T.ExtrudeGeometry(sh, { depth: 0.1, bevelEnabled: true, bevelThickness: 0.05, bevelSize: 0.05, bevelSegments: 6, curveSegments: 40 });
+    pg.translate(0, 0, -0.05);
+    const pend = new T.Mesh(pg, gold); pend.scale.setScalar(0.5); pend.position.y = -0.02; thaali.add(pend);
+    const eng = new T.Mesh(new T.TorusGeometry(0.15, 0.012, 8, 48), gold); eng.scale.set(1, 1.5, 1); eng.position.set(0, -0.4, 0.06); thaali.add(eng);
+    const ruby = new T.Mesh(new T.SphereGeometry(0.075, 24, 16), new T.MeshStandardMaterial({ color: 0xc1121f, roughness: 0.12, metalness: 0.1, emissive: 0x3a0005, envMap: env })); ruby.scale.z = 0.55; ruby.position.set(0, -0.4, 0.085); thaali.add(ruby);
+    const bail = new T.Mesh(new T.CylinderGeometry(0.045, 0.045, 0.14, 16), gold); bail.rotation.z = Math.PI / 2; bail.position.y = 0.03; thaali.add(bail);
+    const curve = new T.CatmullRomCurve3([new T.Vector3(-0.75, 1.3, -0.1), new T.Vector3(-0.42, 0.45, 0), new T.Vector3(0, 0.05, 0), new T.Vector3(0.42, 0.45, 0), new T.Vector3(0.75, 1.3, -0.1)]);
+    thaali.add(new T.Mesh(new T.TubeGeometry(curve, 80, 0.016, 8, false), new T.MeshStandardMaterial({ color: 0xe8b923, roughness: 0.55, metalness: 0.15 })));
+    [[-0.2, 0.16, 0xc4252f], [0.2, 0.16, 0xc4252f], [-0.12, 0.09, 0x111111], [0.12, 0.09, 0x111111]].forEach(([x, y, c]) => { const b = new T.Mesh(new T.SphereGeometry(0.035, 12, 10), new T.MeshStandardMaterial({ color: c, roughness: 0.3, envMap: env })); b.position.set(x, y, 0); thaali.add(b); });
+    [-0.3, 0.3].forEach((x) => { const coin = new T.Mesh(new T.CylinderGeometry(0.075, 0.075, 0.02, 32), gold); coin.rotation.x = Math.PI / 2; coin.position.set(x, 0.27, 0); thaali.add(coin); });
+    G.thaali = thaali;
+    const silver = new T.MeshStandardMaterial({ color: 0xeef1f5, metalness: 1, roughness: 0.16, envMap: env, envMapIntensity: 1.5 });
+    const metti = new T.Group(); metti.position.set(0, 1.42, 0.25); ped.add(metti);
+    [-0.3, 0.3].forEach((x, i) => {
+      const mg = new T.Group(); mg.position.x = x;
+      mg.add(new T.Mesh(new T.TorusGeometry(0.17, 0.04, 24, 72), silver));
+      const gem = new T.Mesh(new T.IcosahedronGeometry(0.055, 1), new T.MeshStandardMaterial({ color: 0xffffff, metalness: 0.3, roughness: 0.05, envMap: env, envMapIntensity: 2 })); gem.position.y = 0.215; mg.add(gem);
+      [-1, 1].forEach((s) => { const d = new T.Mesh(new T.SphereGeometry(0.025, 10, 8), silver); d.position.set(s * 0.06, 0.2, 0); mg.add(d); });
+      mg.rotation.set(1.15, i ? 0.4 : -0.4, 0); metti.add(mg);
+    });
+    G.metti = metti;
+
+    // the mandapam where the couple sits
+    const mw = 8, mh = mw * 564 / 725;
+    const mand = cut('assets/4e2b763272.webp', mw, mh, { alphaTest: 0.4 });
+    mand.position.set(-9.6, mh / 2, -85); mand.rotation.y = 0.62; scene.add(mand);
+    const mglow = new T.Sprite(new T.SpriteMaterial({ map: glowT.t, blending: T.AdditiveBlending, depthWrite: false, transparent: true, opacity: 0.6 }));
+    mglow.position.set(-9.9, 2.6, -85.6); mglow.scale.set(7, 7, 1); scene.add(mglow);
+    const ml = new T.PointLight(0xffc27a, 18, 12, 1.5); ml.position.set(-8.2, 3.2, -82.5); scene.add(ml);
+
+    // floating name banners and medallions (redrawn from the Tweaks)
+    const bn = (w, h, cw, ch) => { const ct = this.canvasTex(cw, ch); const m = new T.Mesh(new T.PlaneGeometry(w, h), new T.MeshBasicMaterial({ map: ct.t, transparent: true, alphaTest: 0.05, side: T.DoubleSide })); scene.add(m); return { ct, m }; };
+    const B = G.banners;
+    B.g = bn(2.1, 2.1 * 1408 / 1024, 1024, 1408); B.g.m.position.set(-1.75, 3.05, -16); B.g.m.rotation.y = 0.42;
+    B.amp = bn(1.3, 1.3, 1024, 1024); B.amp.m.position.set(0, 4.05, -22);
+    B.b = bn(2.1, 2.1 * 1408 / 1024, 1024, 1408); B.b.m.position.set(1.75, 3.05, -28); B.b.m.rotation.y = -0.42;
+    B.title = bn(6.4, 6.4 * 600 / 2048, 2048, 600); B.title.m.position.set(0, 4.2, -44);
+    B.date = bn(6.6, 6.6 * 700 / 2048, 2048, 700); B.date.m.position.set(0, 7.4, -84);
+    B.mono = bn(1.5, 1.5, 1024, 1024); B.mono.m.position.set(-9.7, 2.5, -84.8); B.mono.m.rotation.y = 0.62;
+    this._bkey = this.bannerKey();
+    this.drawBanners();
+
+    // falling petals and golden dust
+    const pt = this.canvasTex(64, 64);
+    const pgr = pt.x.createRadialGradient(28, 28, 2, 32, 32, 30); pgr.addColorStop(0, '#fff'); pgr.addColorStop(0.75, '#fff'); pgr.addColorStop(1, 'rgba(255,255,255,0)');
+    pt.x.fillStyle = pgr; pt.x.beginPath(); pt.x.ellipse(32, 32, 30, 18, 0.5, 0, Math.PI * 2); pt.x.fill(); pt.t.needsUpdate = true;
+    const NP = 320;
+    const petals = new T.InstancedMesh(new T.PlaneGeometry(0.12, 0.09), new T.MeshBasicMaterial({ map: pt.t, transparent: true, alphaTest: 0.2, side: T.DoubleSide, depthWrite: false }), NP);
+    const pc = [0xf29a07, 0xffc94a, 0xc4252f, 0xfffdf4, 0xe0601a];
+    G.pd = [];
+    for (let i = 0; i < NP; i++) { petals.setColorAt(i, col.setHex(pc[i % pc.length])); G.pd.push({ x: (Math.random() - 0.5) * 12, y: Math.random() * 7, z: 6 - Math.random() * 30, vy: 0.35 + Math.random() * 0.5, sw: Math.random() * 6, rx: Math.random() * 6, ry: Math.random() * 6, sr: 0.6 + Math.random() * 1.6 }); }
+    if (petals.instanceColor) petals.instanceColor.needsUpdate = true;
+    petals.frustumCulled = false; scene.add(petals); G.petals = petals; G.dummy = dm;
+    const dg = new T.BufferGeometry(); const dp = [];
+    for (let i = 0; i < 1400; i++) dp.push((Math.random() - 0.5) * 16, Math.random() * 8, 8 - Math.random() * 120);
+    dg.setAttribute('position', new T.Float32BufferAttribute(dp, 3));
+    const dust = new T.Points(dg, new T.PointsMaterial({ map: glowT.t, color: 0xffd080, size: 0.09, transparent: true, depthWrite: false, blending: T.AdditiveBlending }));
+    scene.add(dust); G.dust = dust;
+
+    // camera rig driven by scroll
+    G.S = { px: 0, py: 2.0, pz: 12.6, tx: 0, ty: 1.75, tz: 5, door: 0, rel: 0, shower: 0 };
+    G.cp = new T.Vector3(0, 10.5, 8.6); G.ct = new T.Vector3(0, 0, 5); G.mouse = { x: 0, y: 0, sx: 0, sy: 0 };
+    this._onMove = (e) => { G.mouse.x = e.clientX / window.innerWidth - 0.5; G.mouse.y = e.clientY / window.innerHeight - 0.5; };
+    window.addEventListener('pointermove', this._onMove);
+    this.resizeGL();
+    let last = performance.now();
+    const loop = () => {
+      this._raf = requestAnimationFrame(loop);
+      const now = performance.now(), dt = Math.min(0.05, (now - last) / 1000); last = now;
+      this.frame((now - G.t0) / 1000, dt);
+    };
+    loop();
+    return true;
+  }
+
+  hideVeil() {
+    if (this._veiled) return; this._veiled = true;
+    const g = window.gsap, R = document.querySelector('.inv3'); if (!R) return;
+    const v = R.querySelector('.veil');
+    if (g && v) g.to(v, { opacity: 0, duration: 1.2, ease: 'power2.out', onComplete: () => { v.style.display = 'none'; } });
+    else if (v) v.style.display = 'none';
+    if (g && this._gl) {
+      const IN = this._gl.intro;
+      const tl = g.timeline({ delay: 0.3 });
+      tl.to(IN, { lit: 1, duration: 2.6, ease: 'power1.inOut' }, 0)
+        .to(IN, { bloom: 1, duration: 3.2, ease: 'power2.out' }, 0.9)
+        .to(IN, { crane: 0, duration: 4.2, ease: 'power3.inOut' }, 1.7)
+        .to(IN, { rise: 1, duration: 2.6, ease: 'power3.out' }, 2.7)
+        .from(R.querySelectorAll('.s-hero .hero-top > *'), { y: -20, opacity: 0, stagger: 0.1, duration: 1.2, ease: 'expo.out' }, 3.6)
+        .from(R.querySelectorAll('.s-hero .hero-bottom > *'), { y: 30, opacity: 0, stagger: 0.12, duration: 1.3, ease: 'expo.out' }, 4.4);
+    }
+  }
+
+  resizeGL() {
+    const G = this._gl; if (!G) return;
+    const w = window.innerWidth, h = window.innerHeight;
+    G.r.setSize(w, h, false);
+    G.cam.aspect = w / h; G.cam.fov = w / h < 0.8 ? 68 : 55; G.cam.updateProjectionMatrix();
+  }
+
+  frame(t, dt) {
+    const G = this._gl, T = G.T, S = G.S;
+    const m = G.mouse; m.sx += (m.x - m.sx) * 0.05; m.sy += (m.y - m.sy) * 0.05;
+    const IN = G.intro, c = IN.crane, close = Math.min(1, S.door);
+    const port = G.cam.aspect < 0.8 ? 3.4 * Math.max(0, Math.min(1, (S.pz - 4) / 8)) : 0;
+    G.cp.lerp(new T.Vector3((S.px + m.sx * 0.5) * (1 - c), (S.py - m.sy * 0.3 + Math.sin(t * 0.8) * 0.03) * (1 - c) + 10.5 * c, (S.pz + port) * (1 - c) + 8.6 * c), 0.08);
+    G.ct.lerp(new T.Vector3((S.tx + m.sx * 0.8) * (1 - c), (S.ty - m.sy * 0.4) * (1 - c), S.tz * (1 - c) + 5 * c), 0.08);
+    G.cam.position.copy(G.cp); G.cam.lookAt(G.ct);
+    const bl = IN.bloom * (1 - close * 0.85);
+    G.lp.forEach((p) => { const bi = Math.max(0, Math.min(1, bl * 1.35 - p.ri * 0.11)); p.tilt.rotation.x = -0.1 + (p.open + 0.1) * bi + Math.sin(t * 0.8 + p.ph) * 0.02 * bi; });
+    G.lift.position.y = -4.1 * (1 - Math.max(0, Math.min(1, IN.rise - close * 1.1)));
+    G.lift.rotation.y = Math.sin(t * 0.35) * 0.06;
+    G.fd.forEach((f, i) => {
+      const on = Math.max(0, Math.min(1, IN.lit * 2.2 - (i % 12) * 0.1));
+      f.g.position.y = 0.04 + Math.sin(t * 1.1 + f.ph) * 0.025; f.g.rotation.z = Math.sin(t * 0.9 + f.ph) * 0.05;
+      const k2 = 1 + Math.sin(t * (10 + i % 4) + i) * 0.1;
+      f.fl.scale.set(0.1 * on * (2 - k2), 0.2 * on * k2, 1); f.gl.material.opacity = 0.42 * on; f.refl.material.opacity = 0.22 * on;
+    });
+    G.ripples.forEach((rp, i) => { const s = (t * 0.22 + i / 7) % 1; rp.scale.setScalar(0.2 + s * 1.4); rp.material.opacity = (1 - s) * 0.22 * IN.lit; });
+    G.pl.forEach((L, i) => { L.intensity = IN.lit * (i === 2 ? 8 : 6 + Math.sin(t * 9 + i) * 0.8); });
+    G.lglow.material.opacity = 0.28 * IN.bloom * (1 - close);
+    G.pillars.forEach((p) => { p.rotation.y = Math.atan2(G.cp.x - p.position.x, G.cp.z - p.position.z); });
+    G.flames.forEach((f, i) => { const k = 1 + Math.sin(t * (9 + i % 5) + i) * 0.08 + Math.sin(t * 23 + i * 3) * 0.05; if (i % 2 === 0) f.scale.set(0.16 * (2 - k), 0.32 * k, 1); else f.material.opacity = 0.45 + Math.sin(t * 3 + i) * 0.1; });
+    const cz = G.cp.z;
+    const ahead = G.lamps.filter((p) => p.z < cz + 2 && p.z > cz - 22).slice(0, 4);
+    G.lights.forEach((L, i) => { const p = ahead[i]; if (p) { L.position.copy(p); L.intensity = 6 + Math.sin(t * 11 + i) * 0.8; } else L.intensity = 0; });
+    const B = G.banners;
+    if (B.g) { B.g.m.rotation.z = Math.sin(t * 0.9) * 0.03; B.b.m.rotation.z = Math.sin(t * 0.9 + 1.4) * 0.03; B.amp.m.rotation.y = Math.sin(t * 0.6) * 0.35; B.title.m.position.y = 4.2 + Math.sin(t * 0.7) * 0.06; B.date.m.position.y = 7.4 + Math.sin(t * 0.8) * 0.08; B.mono.m.position.y = 2.5 + Math.sin(t) * 0.05; }
+    G.thaali.rotation.y = t * 0.5 + S.rel * Math.PI * 4; G.thaali.position.y = 2.35 + Math.sin(t * 1.2) * 0.05;
+    G.metti.rotation.y = -t * 0.4 - S.rel * Math.PI * 2; G.metti.position.y = 1.42 + Math.sin(t * 1.4 + 1) * 0.03;
+    G.dust.position.y = Math.sin(t * 0.3) * 0.2; G.dust.rotation.y = Math.sin(t * 0.05) * 0.02;
+    const pd = G.pd, d = G.dummy, rate = 1 + S.shower * 1.5;
+    for (let i = 0; i < pd.length; i++) {
+      const p = pd[i];
+      p.y -= p.vy * dt * rate; p.sw += dt * p.sr; p.rx += dt * p.sr * 1.3; p.ry += dt * p.sr;
+      if (p.y < 0.02 || p.z > cz + 4 || p.z < cz - 34) { p.y = 4 + Math.random() * 4; p.x = G.cp.x + (Math.random() - 0.5) * 12; p.z = cz - 2 - Math.random() * 28; }
+      d.position.set(p.x + Math.sin(p.sw) * 0.35, p.y, p.z); d.rotation.set(p.rx, p.ry, 0); d.updateMatrix(); G.petals.setMatrixAt(i, d.matrix);
+    }
+    G.petals.instanceMatrix.needsUpdate = true;
+    G.r.render(G.scene, G.cam);
+  }
+
+  drawBanners() {
+    const G = this._gl; if (!G) return;
+    const I = this.info(), B = G.banners;
+    const fit = (x, txt, font, size, maxW) => { let s = size; x.font = font.replace('$', s); while (x.measureText(txt).width > maxW && s > 20) { s -= 6; x.font = font.replace('$', s); } return s; };
+    const silk = (b, role, name, ta) => {
+      const { x, c } = b.ct, w = c.width, h = c.height;
+      x.clearRect(0, 0, w, h);
+      x.save();
+      x.beginPath(); x.moveTo(40, 40); x.lineTo(w - 40, 40); x.lineTo(w - 40, h - 200); x.lineTo(w / 2, h - 40); x.lineTo(40, h - 200); x.closePath();
+      const gr = x.createLinearGradient(0, 0, w, h); gr.addColorStop(0, '#6e1224'); gr.addColorStop(0.5, '#4a0b18'); gr.addColorStop(1, '#2a050d');
+      x.fillStyle = gr; x.fill(); x.clip();
+      for (let i = -h; i < w; i += 26) { x.strokeStyle = 'rgba(255,220,170,.05)'; x.lineWidth = 10; x.beginPath(); x.moveTo(i, 0); x.lineTo(i + h, h); x.stroke(); }
+      x.restore();
+      x.strokeStyle = '#E3B75C'; x.lineWidth = 10;
+      x.beginPath(); x.moveTo(78, 78); x.lineTo(w - 78, 78); x.lineTo(w - 78, h - 222); x.lineTo(w / 2, h - 92); x.lineTo(78, h - 222); x.closePath(); x.stroke();
+      x.lineWidth = 3; x.beginPath(); x.moveTo(100, 100); x.lineTo(w - 100, 100); x.lineTo(w - 100, h - 234); x.lineTo(w / 2, h - 118); x.lineTo(100, h - 234); x.closePath(); x.stroke();
+      x.fillStyle = '#E3B75C'; for (let i = 140; i < w - 120; i += 44) { x.beginPath(); x.arc(i, 128, 6, 0, Math.PI * 2); x.fill(); }
+      const rod = x.createLinearGradient(0, 0, 0, 40); rod.addColorStop(0, '#F7E2A8'); rod.addColorStop(1, '#9C6A1E');
+      x.fillStyle = rod; x.fillRect(10, 14, w - 20, 34); x.beginPath(); x.arc(20, 31, 26, 0, Math.PI * 2); x.arc(w - 20, 31, 26, 0, Math.PI * 2); x.fill();
+      x.textAlign = 'center'; x.textBaseline = 'middle';
+      x.fillStyle = '#F7E2A8'; x.font = '84px Kavivanar, serif'; x.fillText('உ', w / 2, 250);
+      x.font = '46px Marcellus, serif'; try { x.letterSpacing = '14px'; } catch (e) {} x.fillText(role.toUpperCase(), w / 2, 380); try { x.letterSpacing = '0px'; } catch (e) {}
+      fit(x, name, '$px Gloock, serif', 240, w - 220); x.fillStyle = '#FBF2DE'; x.fillText(name, w / 2, 640);
+      fit(x, ta, '$px Kavivanar, serif', 110, w - 240); x.fillStyle = '#E3B75C'; x.fillText(ta, w / 2, 840);
+      x.strokeStyle = '#E3B75C'; x.lineWidth = 3; x.beginPath(); x.moveTo(w / 2 - 160, 960); x.lineTo(w / 2 + 160, 960); x.stroke();
+      x.save(); x.translate(w / 2, 960); x.rotate(Math.PI / 4); x.fillStyle = '#E3B75C'; x.fillRect(-12, -12, 24, 24); x.restore();
+      for (let i = 0; i < 9; i++) { const tx = w / 2 - 240 + i * 60, ty = h - 210 + Math.abs(i - 4) * -20; x.strokeStyle = '#E3B75C'; x.lineWidth = 4; x.beginPath(); x.moveTo(tx, ty); x.lineTo(tx, ty + 110 - Math.abs(i - 4) * 22); x.stroke(); }
+      b.ct.t.needsUpdate = true;
+    };
+    const medal = (b, txt, sub) => {
+      const { x, c } = b.ct, w = c.width;
+      x.clearRect(0, 0, w, w);
+      const gr = x.createRadialGradient(w / 2, w / 2, 0, w / 2, w / 2, w / 2);
+      gr.addColorStop(0.78, '#3a0a12'); gr.addColorStop(0.8, '#F7E2A8'); gr.addColorStop(0.9, '#B4832F'); gr.addColorStop(0.97, '#F7E2A8'); gr.addColorStop(1, 'rgba(0,0,0,0)');
+      x.fillStyle = gr; x.beginPath(); x.arc(w / 2, w / 2, w / 2, 0, Math.PI * 2); x.fill();
+      x.strokeStyle = 'rgba(227,183,92,.7)'; x.lineWidth = 4; x.setLineDash([2, 18]); x.lineCap = 'round'; x.beginPath(); x.arc(w / 2, w / 2, w * 0.36, 0, Math.PI * 2); x.stroke(); x.setLineDash([]);
+      x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#FBF2DE';
+      fit(x, txt, '$px Gloock, serif', 380, w * 0.62); x.fillText(txt, w / 2, w / 2 + (sub ? -20 : 10));
+      if (sub) { x.fillStyle = '#E3B75C'; x.font = '70px Kavivanar, serif'; x.fillText(sub, w / 2, w / 2 + 210); }
+      b.ct.t.needsUpdate = true;
+    };
+    const wide = (b, big, small, bigFont) => {
+      const { x, c } = b.ct, w = c.width, h = c.height;
+      x.clearRect(0, 0, w, h);
+      const gr = x.createLinearGradient(0, 0, 0, h); gr.addColorStop(0, '#5a0f1f'); gr.addColorStop(1, '#2a050d');
+      x.fillStyle = gr; x.beginPath(); x.roundRect ? x.roundRect(20, 20, w - 40, h - 40, 40) : x.rect(20, 20, w - 40, h - 40); x.fill();
+      x.strokeStyle = '#E3B75C'; x.lineWidth = 8; x.beginPath(); x.roundRect ? x.roundRect(46, 46, w - 92, h - 92, 26) : x.rect(46, 46, w - 92, h - 92); x.stroke();
+      x.lineWidth = 2; x.beginPath(); x.roundRect ? x.roundRect(66, 66, w - 132, h - 132, 18) : x.rect(66, 66, w - 132, h - 132); x.stroke();
+      x.textAlign = 'center'; x.textBaseline = 'middle';
+      x.fillStyle = '#F7E2A8'; fit(x, big, bigFont, 190, w - 260); x.fillText(big, w / 2, h * 0.44);
+      x.fillStyle = '#E3B75C'; x.font = '62px Marcellus, serif'; try { x.letterSpacing = '18px'; } catch (e) {} x.fillText(small.toUpperCase(), w / 2, h * 0.76); try { x.letterSpacing = '0px'; } catch (e) {}
+      b.ct.t.needsUpdate = true;
+    };
+    silk(B.g, 'The Groom', I.groom, I.groomTa);
+    silk(B.b, 'The Bride', I.bride, I.brideTa);
+    medal(B.amp, '&', '');
+    wide(B.title, 'திருமண வரவேற்பு', 'Wedding Reception', '$px Kavivanar, serif');
+    if (this.state.revealed) wide(B.date, I.dateLong, I.weekday + ' · ' + I.time, '$px Gloock, serif');
+    else wide(B.date, 'Save the evening', 'Scratch the gold foil below', '$px Gloock, serif');
+    medal(B.mono, (Array.from(I.groom)[0] || '') + '·' + (Array.from(I.bride)[0] || ''), 'மணமக்கள்');
+  }
+
+  // ---------- scroll story ----------
+  story(g, ST, R) {
+    const G = this._gl, S = G.S;
+    ST.create({ start: 0, end: 'max', onUpdate: (s) => g.set('.prog', { scaleX: s.progress }) });
+    const K = [
+      [0, 1.8, 2.4, 0, 2.0, -12],
+      [0, 1.9, -58, 0, 3.4, -90],
+      [0, 2.5, -66, 0, 5.6, -96],
+      window.innerWidth / window.innerHeight < 0.8 ? [6.9, 2.3, -70.6, 8, 1.35, -74.1] : [4.5, 1.95, -70.4, 8, 2.0, -74.2],
+      [-3.9, 2.3, -78.4, -9.6, 2.6, -84.6],
+      [0, 8.5, -50, 0, 2.2, -86],
+      [0, 14, -36, 0, 5, -100]
+    ];
+    const secs = ['.s-hero', '.s-walk', '.s-date', '.s-relics', '.s-couple', '.s-venue', '.s-finale'];
+    const tl = g.timeline({ scrollTrigger: { trigger: '.story', start: 'top top', end: 'bottom bottom', scrub: 1.1, invalidateOnRefresh: true } });
+    let at = 0;
+    secs.forEach((sel, i) => {
+      const el = R.querySelector(sel); const dur = Math.max(1, el ? el.offsetHeight : 900); const k = K[i];
+      if (i === 0) {
+        tl.to(S, { px: 0, py: 5.8, pz: 7.2, tx: 0, ty: 1.4, tz: -8, duration: dur * 0.5, ease: 'power1.inOut' }, at)
+          .to(S, { px: k[0], py: k[1], pz: k[2], tx: k[3], ty: k[4], tz: k[5], duration: dur * 0.5, ease: 'power1.inOut' }, at + dur * 0.5)
+          .to(S, { door: 1, duration: dur * 0.7, ease: 'power1.inOut' }, 0);
+      } else tl.to(S, { px: k[0], py: k[1], pz: k[2], tx: k[3], ty: k[4], tz: k[5], duration: i === 3 ? dur * 0.35 : dur, ease: 'power1.inOut' }, at);
+      if (i === 3) tl.to(S, { rel: 1, duration: dur, ease: 'none' }, at);
+      if (i === 6) tl.to(S, { shower: 1, duration: dur, ease: 'none' }, at);
+      at += dur;
+    });
+
+    // hero overlay fades as doors open
+    g.to('.s-hero .hero-top, .s-hero .hero-bottom', { opacity: 0, y: -40, stagger: 0.05, ease: 'none', scrollTrigger: { trigger: '.s-hero', start: 'top top', end: '45% top', scrub: true } });
+    g.fromTo('.cue', { scaleY: 0 }, { scaleY: 1, duration: 1.3, repeat: -1, yoyo: true, ease: 'power2.inOut' });
+
+    // walk captions cross-fade
+    const cw = g.timeline({ scrollTrigger: { trigger: '.s-walk', start: 'top top', end: 'bottom bottom', scrub: true } });
+    g.set(['.cap1', '.cap2', '.cap3'], { opacity: 0, y: 40 });
+    cw.to('.cap1', { opacity: 1, y: 0, duration: 0.08 }, 0.02).to('.cap1', { opacity: 0, y: -30, duration: 0.08 }, 0.2)
+      .to('.cap2', { opacity: 1, y: 0, duration: 0.1 }, 0.3).to('.cap2', { opacity: 0, y: -30, duration: 0.08 }, 0.6)
+      .to('.cap3', { opacity: 1, y: 0, duration: 0.1 }, 0.68).to('.cap3', { opacity: 0, y: -30, duration: 0.08 }, 0.92);
+
+    // date overlay rises
+    g.from('.s-date .stick > *', { y: 60, opacity: 0, stagger: 0.08, ease: 'power2.out', scrollTrigger: { trigger: '.s-date', start: 'top 80%', end: 'top 10%', scrub: 1 } });
+    g.fromTo('.scard', { rotationX: 55, transformPerspective: 1100, transformOrigin: '50% 100%' }, { rotationX: 0, ease: 'power2.out', scrollTrigger: { trigger: '.s-date', start: 'top 70%', end: 'top 0%', scrub: 1 } });
+
+    // relic copy: thaali, then metti
+    g.set(['.rc1', '.rc2'], { opacity: 0, x: -50 });
+    const rc = g.timeline({ scrollTrigger: { trigger: '.s-relics', start: 'top top', end: 'bottom bottom', scrub: true } });
+    rc.to('.rc1', { opacity: 1, x: 0, duration: 0.12 }, 0.05).to('.rc1', { opacity: 0, x: -40, duration: 0.1 }, 0.48)
+      .to('.rc2', { opacity: 1, x: 0, duration: 0.12 }, 0.55).to('.rc2', { opacity: 0, x: -40, duration: 0.08 }, 0.95);
+
+    // couple card
+    g.fromTo('.cp-card', { opacity: 0, y: 80, rotationY: -25, transformPerspective: 1200 }, { opacity: 1, y: 0, rotationY: 0, ease: 'power2.out', scrollTrigger: { trigger: '.s-couple', start: 'top 70%', end: 'top 0%', scrub: 1 } });
+    g.fromTo('.cp-photo img', { scale: 1.4 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: '.s-couple', start: 'top 70%', end: 'bottom bottom', scrub: true } });
+
+    g.set('.rv', { y: 60, opacity: 0 });
+    ST.batch('.rv', { start: 'top 88%', onEnter: (els) => g.to(els, { y: 0, opacity: 1, stagger: 0.12, duration: 1.2, ease: 'expo.out' }) });
+  }
+
+  // ---------- scratch reveal ----------
+  initScratch(R) {
+    const cv = R.querySelector('.scv');
+    if (!cv || !cv.getContext) return;
+    const box = cv.parentElement, ctx = cv.getContext('2d');
+    const paint = () => {
+      if (this.state.revealed) return;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2), w = box.clientWidth, h = box.clientHeight;
+      if (!w || !h) return;
+      cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.globalCompositeOperation = 'source-over';
+      const gr = ctx.createLinearGradient(0, 0, w, h);
+      gr.addColorStop(0, '#8A5A1C'); gr.addColorStop(0.25, '#F7E2A8'); gr.addColorStop(0.5, '#C9962E'); gr.addColorStop(0.75, '#FFF1C4'); gr.addColorStop(1, '#9C6A1E');
+      ctx.fillStyle = gr; ctx.fillRect(0, 0, w, h);
+      ctx.save(); ctx.translate(w / 2, h / 2); const sc = Math.min(w, h) / 460; ctx.scale(sc, sc);
+      ctx.strokeStyle = 'rgba(90,50,10,.35)'; ctx.lineWidth = 2; ctx.stroke(new Path2D(this.kolam().lines)); ctx.restore();
+      for (let i = 0; i < 900; i++) { ctx.fillStyle = 'rgba(255,255,255,' + (Math.random() * 0.45).toFixed(2) + ')'; ctx.fillRect(Math.random() * w, Math.random() * h, 1.3, 1.3); }
+      ctx.fillStyle = 'rgba(42,8,13,.9)'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.font = '44px Kavivanar, serif'; ctx.fillText('உ', w / 2, h / 2 - 30);
+      ctx.font = '14px Marcellus, serif'; ctx.fillText('S C R A T C H   T O   R E V E A L', w / 2, h / 2 + 18);
+    };
+    this._paint = paint; paint();
+    let down = false, last = null, moves = 0;
+    const pos = (e) => { const b = cv.getBoundingClientRect(); return { x: (e.clientX - b.left) * (box.clientWidth / b.width), y: (e.clientY - b.top) * (box.clientHeight / b.height) }; };
+    const check = () => { const d = ctx.getImageData(0, 0, cv.width, cv.height).data; let clear = 0, tot = 0; for (let i = 3; i < d.length; i += 160) { tot++; if (d[i] < 30) clear++; } if (tot && clear / tot > 0.45) this.revealDate(); };
+    const scratch = (p) => {
+      this._scratched = true;
+      ctx.globalCompositeOperation = 'destination-out'; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.lineWidth = 46;
+      ctx.beginPath(); const a = last || p; ctx.moveTo(a.x, a.y); ctx.lineTo(p.x + 0.1, p.y + 0.1); ctx.stroke();
+      last = p; if (++moves % 10 === 0) check();
+    };
+    cv.addEventListener('pointerdown', (e) => { if (this.state.revealed) return; down = true; last = null; try { cv.setPointerCapture(e.pointerId); } catch (err) {} scratch(pos(e)); });
+    cv.addEventListener('pointermove', (e) => { if (down) scratch(pos(e)); });
+    const up = () => { down = false; last = null; };
+    cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up);
+  }
+
+  revealDate() {
+    if (this._revealing) return;
+    this._revealing = true;
+    const g = window.gsap, R = document.querySelector('.inv3');
+    const cv = R && R.querySelector('.scv');
+    this.setState({ revealed: true });
+    if (!cv) return;
+    if (!g) { cv.style.display = 'none'; return; }
+    g.to(cv, { opacity: 0, scale: 1.06, duration: 0.8, ease: 'power2.out', onComplete: () => { cv.style.pointerEvents = 'none'; cv.style.visibility = 'hidden'; } });
+    g.fromTo(R.querySelectorAll('.sc-in > *'), { y: 30, opacity: 0, rotationX: -70 }, { y: 0, opacity: 1, rotationX: 0, stagger: 0.08, duration: 1, ease: 'back.out(1.8)', delay: 0.15 });
+    R.querySelectorAll('.burst i').forEach((el, i, all) => {
+      const a = (i / all.length) * Math.PI * 2, d = 150 + (i % 4) * 45;
+      g.fromTo(el, { x: 0, y: 0, scale: 0.2, opacity: 1, rotation: 0 }, { x: Math.cos(a) * d, y: Math.sin(a) * d * 0.7, scale: 1.3, rotation: 360, opacity: 0, duration: 1.6, ease: 'expo.out' });
+    });
+    if (this._gl) { const G = this._gl; g.fromTo(G.banners.date.m.scale, { x: 0.6, y: 0.6 }, { x: 1, y: 1, duration: 1.2, ease: 'elastic.out(1, 0.5)', delay: 0.1 }); g.to(G.S, { shower: 1, duration: 0.4, yoyo: true, repeat: 1 }); }
+  }
+
+  renderVals() {
+    const I = this.info(), p = this.props;
+    const pad = (n) => String(Math.max(0, n)).padStart(2, '0');
+    let cd = { d: '00', h: '00', m: '00', s: '00' };
+    if (I.ok) { const t = Math.floor(Math.max(0, I.d.getTime() - this.state.now) / 1000); cd = { d: pad(Math.floor(t / 86400)), h: pad(Math.floor(t / 3600) % 24), m: pad(Math.floor(t / 60) % 60), s: pad(t % 60) }; }
+    const venueName = p.venueName ?? '[Venue Name]';
+    const shareText = 'You are invited to the wedding reception of ' + I.groom + ' & ' + I.bride + ' on ' + I.dateLong + ', ' + I.time + ' at ' + venueName + '.';
+    const colors = ['#F29A07', '#FFC94A', '#C4252F', '#FFFDF4', '#E0601A'];
+    return {
+      groom: I.groom, bride: I.bride, groomTa: I.groomTa, brideTa: I.brideTa,
+      weekday: I.weekday, day: I.day, monthYear: I.monthYear, dateLong: I.dateLong, taDate: I.taDate, time: I.time, cd,
+      couplePhoto: (p.couplePhoto ?? 'assets/couple.jpg') || 'assets/couple.jpg',
+      venueName, venueAddress: p.venueAddress ?? '[Street, Area, City]',
+      mapLink: p.mapLink ?? 'https://maps.google.com',
+      share: 'https://wa.me/?text=' + encodeURIComponent(shareText + ' ' + (typeof location !== 'undefined' && /^https?:/.test(location.href) ? location.href.split('#')[0] : '')),
+      hashtag: p.hashtag ?? '#YourWeddingHashtag',
+      burst: Array.from({ length: 16 }, (_, i) => ({ c: colors[i % colors.length] })),
+      notRevealed: !this.state.revealed,
+      revealNow: () => this.revealDate()
+    };
+  }
+}
+
+window.__mountInvite(Component);</script>
+<!--
+  No in-file editor here: field values are supplied by the parent app's
+  schema-driven edit panel (see src/components/editor/SchemaEditor.tsx) over
+  postMessage, and downloads are built and gated server-side after payment.
+-->
+
+<!-- Welcome gate: the guest's tap on "Open Invitation" is what lets the phone start the music -->
+<style>
+#gate{position:fixed;inset:0;z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:24px;text-align:center;background:radial-gradient(120% 80% at 50% 35%,#3A0A12 0%,#0D0406 70%);color:#F8EEDC;touch-action:none;cursor:pointer;transition:opacity .7s ease,visibility .7s;-webkit-tap-highlight-color:transparent}
+#gate.gone{opacity:0;visibility:hidden;pointer-events:none}
+#gate .g-om{font-family:Kavivanar,'Noto Sans Tamil',serif;font-size:40px;color:#E3B75C;line-height:1}
+#gate .g-lab{font:600 12px/1 Manrope,'Segoe UI',sans-serif;letter-spacing:.32em;text-transform:uppercase;color:#E3B75C}
+#gate .g-photo{width:min(170px,42vw);aspect-ratio:3/4;border-radius:999px 999px 14px 14px;overflow:hidden;box-shadow:0 0 0 2px #E3B75C,0 0 0 8px rgba(13,4,6,.7),0 0 0 9px rgba(227,183,92,.45);margin:6px 0 4px}
+#gate .g-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 30%;display:block}
+#gate .g-names{font-family:Gloock,'Times New Roman',serif;font-size:clamp(30px,8.5vw,46px);line-height:1.1;color:#F7E2A8}
+#gate .g-names i{font-style:normal;color:#E3B75C;font-size:.7em}
+#gate .g-date{font:500 15px/1.4 Manrope,'Segoe UI',sans-serif;color:#E4D6BE;letter-spacing:.08em}
+#gate .g-btn{margin-top:10px;min-height:52px;padding:0 30px;border-radius:999px;border:0;font:600 15px/1 Manrope,'Segoe UI',sans-serif;letter-spacing:.08em;color:#1A0709;background:linear-gradient(180deg,#F7E2A8,#E3B75C 60%,#B4832F);cursor:pointer;animation:gpulse 2.2s ease-in-out infinite}
+#gate .g-hint{font:400 12px/1 Manrope,'Segoe UI',sans-serif;color:#CDBFA6;opacity:.8}
+@keyframes gpulse{0%,100%{box-shadow:0 0 0 0 rgba(227,183,92,.45)}50%{box-shadow:0 0 0 12px rgba(227,183,92,0)}}
+</style>
+<div id="gate" role="dialog" aria-label="Open the invitation">
+  <span class="g-om">உ</span>
+  <span class="g-lab">Wedding Reception</span>
+  <div class="g-photo"><img src="assets/couple.jpg" alt="Vimal Kanth and Sindhuja"></div>
+  <div class="g-names">Vimal Kanth <i>&amp;</i> Sindhuja</div>
+  <div class="g-date">Thursday · 29 October 2026</div>
+  <button class="g-btn" type="button">Open Invitation</button>
+  <span class="g-hint">&#127925; with music</span>
+</div>
+<!-- Background music: assets/music.mp3. The button shows once the file is known playable; no fetch() probe, since a sandboxed iframe's opaque origin would make that a cross-origin request. -->
+<audio id="bgm" src="assets/music.mp3" loop preload="auto"></audio>
+<button id="musicBtn" type="button" aria-label="Music on/off" style="display:none;position:fixed;right:max(12px,env(safe-area-inset-right));top:calc(66px + env(safe-area-inset-top));z-index:9999;width:42px;height:42px;border-radius:50%;border:1px solid #E3B75C;background:rgba(13,4,6,.75);color:#F8EEDC;font-size:18px;line-height:1;cursor:pointer;-webkit-tap-highlight-color:transparent">&#128263;</button>
+<script>
+(function () {
+  var a = document.getElementById('bgm'), b = document.getElementById('musicBtn');
+  var started = false, userMuted = false;
+  a.addEventListener('loadedmetadata', function () { b.style.display = 'block'; });
+  a.addEventListener('error', function () { b.style.display = 'none'; });
+  ['pointerdown', 'touchend', 'click', 'keydown'].forEach(function (e) {
+    document.addEventListener(e, start, { passive: true });
+  });
+  function fadeIn() {
+    a.volume = 0;
+    var t = setInterval(function () { a.volume = Math.min(0.6, a.volume + 0.05); if (a.volume >= 0.6) clearInterval(t); }, 120);
+  }
+  function play() {
+    started = true; fadeIn();
+    return a.play().catch(function (e) { started = false; throw e; });
+  }
+  function start(ev) {
+    if (started || userMuted || (ev && ev.target === b)) return;
+    play().catch(function () {});
+  }
+  a.addEventListener('playing', function () { b.innerHTML = '&#128266;'; });
+  a.addEventListener('pause', function () { b.innerHTML = '&#128263;'; });
+  b.addEventListener('click', function (ev) {
+    ev.stopPropagation();
+    if (a.paused) { userMuted = false; play().catch(function () {}); }
+    else { userMuted = true; a.pause(); }
+  });
+  var gate = document.getElementById('gate');
+  function openGate(ev) {
+    if (ev) ev.preventDefault();
+    if (!started && !userMuted) play().catch(function () {});
+    gate.classList.add('gone');
+  }
+  gate.addEventListener('click', openGate);
+  gate.addEventListener('wheel', function (ev) { ev.preventDefault(); }, { passive: false });
+  gate.addEventListener('touchmove', function (ev) { ev.preventDefault(); }, { passive: false });
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) a.pause();
+    else if (started && !userMuted) a.play().catch(function () {});
+  });
+})();
+</script>
+</body></html>

@@ -1,0 +1,36 @@
+[
+  { "key": "groomName", "label": "Groom's name", "type": "text", "section": "The couple" },
+  { "key": "brideName", "label": "Bride's name", "type": "text", "section": "The couple" },
+  { "key": "groomNameTamil", "label": "Groom's name in Tamil", "type": "text", "section": "The couple" },
+  { "key": "brideNameTamil", "label": "Bride's name in Tamil", "type": "text", "section": "The couple" },
+  { "key": "groomFather", "label": "Groom's father (Thiru.)", "type": "text", "section": "Families" },
+  { "key": "groomMother", "label": "Groom's mother (Tmt.)", "type": "text", "section": "Families" },
+  { "key": "brideFather", "label": "Bride's father (Thiru.)", "type": "text", "section": "Families" },
+  { "key": "brideMother", "label": "Bride's mother (Tmt.)", "type": "text", "section": "Families" },
+  {
+    "key": "couplePhoto",
+    "label": "Couple photo",
+    "type": "photo",
+    "section": "Photos",
+    "clearLabel": "Use sample photo",
+    "clearTo": "assets/couple.jpg"
+  },
+  {
+    "key": "eventDate",
+    "label": "Reception date and time",
+    "type": "date",
+    "section": "The reception",
+    "hint": "Drives the countdown and the date shown on the invite. Interpreted in Indian Standard Time (IST, +05:30)."
+  },
+  { "key": "venueName", "label": "Venue name", "type": "text", "section": "The reception" },
+  { "key": "venueAddress", "label": "Venue address", "type": "text", "section": "The reception" },
+  { "key": "dinnerTime", "label": "Dinner time", "type": "text", "section": "The reception" },
+  {
+    "key": "mapLink",
+    "label": "Google Maps link to the venue",
+    "type": "url",
+    "section": "RSVP and sharing",
+    "hint": "Open the venue in Google Maps, tap Share, and paste the link here."
+  },
+  { "key": "hashtag", "label": "Wedding hashtag", "type": "text", "section": "RSVP and sharing" }
+]

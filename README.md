@@ -11,7 +11,9 @@ code style) that apply to every change in this repo.
 
 ## Status
 
-Phase 0 — planning only, no app code yet. See "Phased plan" below.
+Phase 3 done — Temple Journey is ported into `templates/temple-journey/` and
+runs live through the Phase 2 schema editor + sandboxed iframe preview. See
+"Phased plan" below, and the Launch checklist before selling any design.
 
 ## Planned folder structure
 
@@ -19,8 +21,8 @@ Phase 0 — planning only, no app code yet. See "Phased plan" below.
 unarway-invitation-company/
 ├── CLAUDE.md
 ├── README.md
-├── ASSETS.md                          # created once the first asset is added:
-│                                       # every image/video/font/music + source + licence
+├── ASSETS.md                          # every image/video/font/music used by a
+│                                       # template, its source, and its licence
 ├── .env.example
 ├── .gitignore
 ├── next.config.ts
@@ -78,16 +80,18 @@ unarway-invitation-company/
 
 ## Phased plan
 
-- [ ] **Phase 0 — Planning** (this phase): read reference, write CLAUDE.md/README.md,
+- [x] **Phase 0 — Planning** (this phase): read reference, write CLAUDE.md/README.md,
       propose phased plan, list open questions. No app code.
-- [ ] **Phase 1 — Shell website**: Next.js + Tailwind scaffold, base layout/nav/footer,
+- [x] **Phase 1 — Shell website**: Next.js + Tailwind scaffold, base layout/nav/footer,
       Supabase env wiring, static skeletons for home/category/legal pages.
-- [ ] **Phase 2 — Template engine**: `TemplateMeta`/`FieldSchema`/`DesignConfig` types,
+- [x] **Phase 2 — Template engine**: `TemplateMeta`/`FieldSchema`/`DesignConfig` types,
       loader for `templates/<id>/{meta,schema,defaults}.json`, generic schema-driven
       edit panel, sandboxed-iframe preview contract (postMessage protocol).
-- [ ] **Phase 3 — Port design 1 (Temple Journey)**: move the reference into
-      `templates/temple-journey/`, strip its built-in editor/localStorage/download,
-      derive `schema.json` from `inv-fields` and `defaults.json` from `inv-config`.
+- [x] **Phase 3 — Port design 1 (Temple Journey)**: moved the reference into
+      `templates/temple-journey/`, stripped its built-in editor/localStorage/download,
+      derived `schema.json` from `inv-fields` and `defaults.json` from `inv-config`.
+      All sample media (images, video, music) are unlicensed placeholders — see
+      `ASSETS.md` and the Launch checklist.
 - [ ] **Phase 4 — Edit panel end-to-end**: design page wires generic editor + live
       iframe preview together, debounced updates, watermark overlay on free preview.
 - [ ] **Phase 5 — Login and save**: Supabase Auth, DB schema (users, invitations),
@@ -102,6 +106,23 @@ unarway-invitation-company/
       content, production Supabase project, Vercel env vars, Razorpay live keys
       (still server-gated), full paid-flow smoke test.
 
+## Launch checklist
+
+Blocking — none of these may be skipped before a design is sold to a real
+customer (test/dev use is fine without them):
+
+- [ ] Every file marked "UNLICENSED - replace before launch" in `ASSETS.md`
+      is replaced with licensed or custom-shot media, and `ASSETS.md` is
+      updated with the replacement's source and licence.
+
 ## Local setup
 
-Not yet applicable — Phase 1 will add `package.json`, `.env.example`, and setup steps.
+```
+npm install
+cp .env.example .env.local   # fill in Supabase keys once you have a project
+npm run dev
+```
+
+Then open http://localhost:3000. Browsing, editing, and previewing designs
+works without any env vars filled in; Supabase/Razorpay keys are only needed
+once auth and payment land (Phase 5 onward).

@@ -1,0 +1,41 @@
+# Asset log
+
+Every image, video, font, and music file used by a template, with its source
+and licence, per the CLAUDE.md rule: no Pinterest images, no copyrighted
+music, nothing ships without this record.
+
+## templates/temple-journey/
+
+Ported from `reference/temple-journey/` (a one-off personal invitation) as
+placeholder media so the design has something to show. **None of it is
+cleared for commercial use.** Every row below must be replaced with licensed
+or custom-shot media before this design is sold to a real customer.
+
+| File | Used for | Status |
+| --- | --- | --- |
+| `assets/2a818b411e.webp` | Pillar texture (corridor) | UNLICENSED - replace before launch |
+| `assets/3f4ddccacd.webp` | Flower thoranam / finale frame | UNLICENSED - replace before launch |
+| `assets/4e2b763272.webp` | Mandapam background | UNLICENSED - replace before launch |
+| `assets/54d722b725.jpg` | Hero video poster frame | UNLICENSED - replace before launch |
+| `assets/59d9b9856c.webp` | Pillar texture (corridor) | UNLICENSED - replace before launch |
+| `assets/5c517b8490.mp4` | Hero video: Ganesha at the temple | UNLICENSED - replace before launch |
+| `assets/79cea246a4.mp4` | Venue section video: temple corridor | UNLICENSED - replace before launch |
+| `assets/85dabcbc89.jpg` | Venue video poster frame | UNLICENSED - replace before launch |
+| `assets/couple.jpg` | Default/sample couple photo | UNLICENSED - replace before launch |
+| `assets/d5fa5812bd.jpg` | Walk section background (reduced-motion fallback) | UNLICENSED - replace before launch |
+| `assets/f01459d010.webp` | Gopuram backdrop | UNLICENSED - replace before launch |
+| `assets/music.mp3` | Background music | UNLICENSED - replace before launch |
+
+Not sample media, tracked separately because they're already properly
+licensed open-source code/fonts, not placeholder content:
+
+| File | Licence |
+| --- | --- |
+| `assets/js/gsap.min.js`, `assets/js/ScrollTrigger.min.js` | GSAP (GreenSock); verify current terms at gsap.com before shipping |
+| `assets/js/three.min.js` | Three.js, MIT |
+| Google Fonts: Gloock, Kavivanar, Manrope, Marcellus (loaded via `fonts.googleapis.com`, not bundled) | Google Fonts, OFL/Apache |
+
+## templates/sample-card/
+
+Dev fixture only (see README.md Phase 2 note); ships no bundled media — the
+photo field is populated by the user at edit time.
