@@ -117,6 +117,11 @@ customer (test/dev use is fine without them):
 - [ ] Every file marked "UNLICENSED - replace before launch" in `ASSETS.md`
       is replaced with licensed or custom-shot media, and `ASSETS.md` is
       updated with the replacement's source and licence.
+- [ ] Custom SMTP is configured in Supabase (Authentication → Settings → SMTP
+      Settings). The free built-in email sender doesn't allow editing auth
+      email templates and caps sending at roughly 2 emails/hour per project --
+      fine for dev, not for real signups. Once custom SMTP is set up, the
+      Magic Link template can also be customized if needed.
 
 ## Local setup
 
