@@ -134,3 +134,24 @@ npm run dev
 Then open http://localhost:3000. Browsing, editing, and previewing designs
 works without any env vars filled in; Supabase/Razorpay keys are only needed
 once auth and payment land (Phase 5 onward).
+
+### Debugging a draft that won't save
+
+The design page's "Saved" indicator only shows once a write round-trips
+through Supabase and a row actually comes back -- if a save fails, it shows
+"Couldn't save" plus the Supabase error code and message right there, and
+logs the full error object to the browser console (message/code/details
+only; it never contains a token or key). Start there:
+
+- Browser console: the logged error's `code` usually points straight at the
+  cause -- an RLS violation, a not-null violation, or `session_mismatch`
+  (the error we throw ourselves when the browser client's session doesn't
+  match the signed-in user the page rendered for).
+- Supabase dashboard → **Table Editor** → `invitations`: this bypasses RLS,
+  so it's the source of truth for whether a row actually exists.
+- Supabase dashboard → **Logs** → **Postgres Logs** / **API Logs**: shows
+  the actual `INSERT`/`UPDATE` statements PostgREST ran and any database
+  error raised.
+- Browser DevTools → **Network** tab: inspect the `POST`/`PATCH` request to
+  `.../rest/v1/invitations` directly -- status code and response body show
+  exactly what Supabase sent back.
