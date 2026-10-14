@@ -1,0 +1,13 @@
+[
+  { "key": "title", "label": "Card title", "type": "text", "section": "Content" },
+  { "key": "message", "label": "Message", "type": "long", "section": "Content" },
+  {
+    "key": "eventDate",
+    "label": "Date and time",
+    "type": "date",
+    "section": "Details",
+    "hint": "Shown formatted on the card."
+  },
+  { "key": "photo", "label": "Photo", "type": "photo", "section": "Details", "clearLabel": "Remove photo" },
+  { "key": "link", "label": "More info link", "type": "url", "section": "Details" }
+]

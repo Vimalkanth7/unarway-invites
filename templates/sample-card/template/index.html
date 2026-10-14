@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sample Card</title>
+<style>
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: #faf7f2; color: #2a1f1a; }
+  .card { max-width: 420px; margin: 0 auto; padding: 32px 24px; text-align: center; }
+  .photo { width: 160px; height: 200px; object-fit: cover; border-radius: 16px; margin: 0 auto 20px; display: block; }
+  h1 { font-size: 28px; margin: 0 0 12px; }
+  p { font-size: 16px; line-height: 1.5; color: #4a3a30; margin: 0 0 16px; }
+  .date { font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; color: #8a6a3f; margin-bottom: 16px; }
+  a.link { display: inline-block; margin-top: 8px; padding: 10px 22px; border-radius: 999px; background: #8a6a3f; color: #fff; text-decoration: none; font-size: 14px; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div id="photoWrap" style="display:none">
+      <img id="photo" class="photo" alt="" />
+    </div>
+    <h1 id="title"></h1>
+    <p id="message"></p>
+    <div id="eventDate" class="date"></div>
+    <a id="link" class="link" target="_blank" rel="noopener" style="display:none">More info</a>
+  </div>
+  <script>
+  (function () {
+    function formatDate(iso) {
+      if (!iso) return "";
+      var d = new Date(iso);
+      if (isNaN(d.getTime())) return "";
+      try {
+        return d.toLocaleString("en-IN", {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+          hour: "numeric",
+          minute: "2-digit",
+        });
+      } catch (e) {
+        return iso;
+      }
+    }
+
+    function render(cfg) {
+      cfg = cfg || {};
+      document.getElementById("title").textContent = cfg.title || "";
+      document.getElementById("message").textContent = cfg.message || "";
+      document.getElementById("eventDate").textContent = formatDate(cfg.eventDate);
+
+      var photoWrap = document.getElementById("photoWrap");
+      var photo = document.getElementById("photo");
+      if (cfg.photo) {
+        photo.src = cfg.photo;
+        photoWrap.style.display = "block";
+      } else {
+        photo.removeAttribute("src");
+        photoWrap.style.display = "none";
+      }
+
+      var link = document.getElementById("link");
+      if (cfg.link) {
+        link.href = cfg.link;
+        link.style.display = "inline-block";
+      } else {
+        link.removeAttribute("href");
+        link.style.display = "none";
+      }
+    }
+
+    window.addEventListener("message", function (event) {
+      if (event.source !== window.parent) return;
+      if (!event.data || event.data.type !== "unarway:config") return;
+      render(event.data.payload);
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      window.parent.postMessage({ type: "unarway:ready" }, "*");
+    });
+  })();
+  </script>
+</body>
+</html>
