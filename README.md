@@ -11,10 +11,10 @@ code style) that apply to every change in this repo.
 
 ## Status
 
-Phase 5 done — Supabase email magic-link auth, the `invitations` table (RLS'd
-to each user), autosaving drafts from the design page, and "My invitations"
-(list/open/rename/delete) are live. See "Phased plan" below, and the Launch
-checklist before selling any design.
+Phase 6 done, test mode — Razorpay order creation, signature-verified
+checkout, an idempotent webhook, gated ZIP downloads, and the `/i/<short-id>`
+hosted page are live. See "Phased plan" below, and the Launch checklist
+before selling any design.
 
 ## Planned folder structure
 
@@ -100,9 +100,14 @@ unarway-invitation-company/
       from the design page (browser client, no server API routes needed — RLS
       does the gating), "My invitations" page (list/open/rename/delete),
       short-id generated at creation (no public `/i/<short-id>` route yet).
-- [ ] **Phase 6 — Razorpay test mode + download gating**: create-order route,
-      checkout page, webhook route that verifies signatures server-side, download
-      route that re-checks paid status before streaming a ZIP, unlock `/i/<short-id>`.
+- [x] **Phase 6 — Razorpay test mode + download gating**: `src/lib/payments/razorpay.ts`
+      (Orders API + signature checks, the one module to swap for another gateway),
+      `create-order`/`verify` routes plus an idempotent webhook, a server-built ZIP
+      (`src/lib/zip/build.ts`) behind a short-lived signed Storage URL, and
+      `/i/<short-id>` serving only paid, non-expired invitations without a watermark.
+      Re-download and live edits after paying both work -- nothing is a frozen
+      snapshot from the moment of payment. Still TEST MODE; see "Testing payments"
+      below before this goes anywhere near a real customer.
 - [ ] **Phase 7 — Designs 2 and 3**: a new Marriage design and a new Birthday design
       built on the proven template engine; every asset logged in `ASSETS.md`.
 - [ ] **Phase 8 — Legal pages + deploy**: real About/Contact/Terms/Privacy/Refund
@@ -122,6 +127,14 @@ customer (test/dev use is fine without them):
       email templates and caps sending at roughly 2 emails/hour per project --
       fine for dev, not for real signups. Once custom SMTP is set up, the
       Magic Link template can also be customized if needed.
+- [ ] `RAZORPAY_KEY_ID`/`RAZORPAY_KEY_SECRET` are swapped from `rzp_test_...`
+      to live keys, and `RAZORPAY_WEBHOOK_SECRET` is set from a webhook
+      actually configured in the Razorpay dashboard (see "Testing payments").
+      Until the webhook secret is set, `/api/razorpay/webhook` safely rejects
+      every call with 503 instead of accepting anything unverified -- the
+      verify-after-checkout route is what actually marks payments paid in the
+      meantime, the webhook is the belt-and-suspenders backstop for when a
+      browser never gets to call it (closed tab, crashed network).
 
 ## Local setup
 
@@ -155,3 +168,70 @@ only; it never contains a token or key). Start there:
 - Browser DevTools → **Network** tab: inspect the `POST`/`PATCH` request to
   `.../rest/v1/invitations` directly -- status code and response body show
   exactly what Supabase sent back.
+
+## Testing payments (Razorpay test mode)
+
+### 1. Apply the Phase 6 migrations
+
+In the Supabase dashboard → **SQL Editor**, run these in order (copy-paste
+each file's contents, click Run):
+
+1. `supabase/migrations/0003_orders.sql`
+2. `supabase/migrations/0004_invitations_paid_at.sql`
+3. `supabase/migrations/0005_storage_invitation_downloads.sql`
+
+### 2. Confirm your keys are test-mode keys
+
+`RAZORPAY_KEY_ID` should start with `rzp_test_` and `RAZORPAY_KEY_SECRET`
+should be its matching test secret, both from the Razorpay dashboard's
+**Test Mode** (toggle top-right) → **Settings → API Keys**. Don't open
+`.env.local` to check this with a file viewer if you're ever unsure which
+mode a key is in -- the `rzp_test_`/`rzp_live_` prefix is the tell, visible
+wherever the key is displayed (Razorpay dashboard, a `console.log` of
+`order.keyId` in the browser devtools during checkout, etc).
+
+### 3. Run the flow end-to-end
+
+1. `npm run dev`, sign in, open any design (e.g. `/design/temple-journey`),
+   edit something so a draft autosaves.
+2. Click **Pay &#8377;599 to download** (or whatever the design's price is).
+   The Razorpay Checkout overlay opens.
+3. Pay with a **test card**: card number `4111 1111 1111 1111`, any future
+   expiry, any 3-digit CVV, any name. Or switch to **UPI** in the overlay and
+   enter the VPA `success@razorpay` to simulate a successful payment (use
+   `failure@razorpay` to simulate a decline and check the "failed" state).
+4. On success, the button should become **Download ZIP** and a **View
+   hosted invitation** link should appear. Click Download -- a `.zip`
+   containing `index.html` + `assets/` should download; open it locally and
+   confirm it renders with your edited values and no watermark.
+5. Open the **View hosted invitation** link (`/i/<short-id>`) in an
+   incognito window (no session) -- it should render the same way, watermark-free.
+6. In Supabase → Table Editor: `orders` should have one row with
+   `status = 'paid'` and a `razorpay_payment_id`; `invitations` should show
+   `status = 'paid'` and a `paid_at` timestamp for that row.
+7. **Cancel test**: start a payment, close the Checkout overlay without
+   paying -- the button should show "Payment cancelled." and let you retry.
+8. **Idempotency test**: re-run step 3's success case, then manually POST
+   the same `/api/checkout/verify` body again (e.g. via your browser's
+   devtools) -- it should return `{"status":"paid"}` again without erroring
+   or double-writing (check `orders`/`invitations` are unchanged).
+9. **Re-download / live-update test**: after paying, edit the invitation
+   again (new field value), then Download again -- the new ZIP and the
+   hosted page should both reflect the edit, with no new payment required.
+
+### 4. Webhook (optional for local dev)
+
+The webhook is a backstop for when a browser never calls `/api/checkout/verify`
+(closed tab, network drop mid-payment) -- the test flow above already
+confirms payments end-to-end without it. To test it for real you need a
+public URL (e.g. `ngrok http 3000`) since Razorpay can't reach `localhost`:
+
+1. Razorpay dashboard → **Settings → Webhooks** → add
+   `https://<your-tunnel-or-domain>/api/razorpay/webhook`, subscribe to at
+   least `payment.captured`.
+2. Copy the webhook secret Razorpay shows you into `.env.local` as
+   `RAZORPAY_WEBHOOK_SECRET` (restart `npm run dev` after).
+3. Use the dashboard's "Send Test Webhook" button, or complete a real test
+   payment, and confirm the request logs `received: true` with a 200.
+   Before the secret is set, this route intentionally returns 503 rather
+   than accept an unverified call.

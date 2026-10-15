@@ -11,9 +11,11 @@ type Status = "loading" | "ready" | "error";
 export function PreviewFrame({
   designId,
   config,
+  watermark = true,
 }: {
   designId: string;
   config: DesignConfig;
+  watermark?: boolean;
 }) {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [status, setStatus] = useState<Status>("loading");
@@ -60,7 +62,7 @@ export function PreviewFrame({
         onError={() => setStatus("error")}
       />
 
-      {status === "ready" && (
+      {status === "ready" && watermark && (
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden"

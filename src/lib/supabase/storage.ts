@@ -1,4 +1,5 @@
 export const COUPLE_PHOTOS_BUCKET = "couple-photos";
+export const INVITATION_DOWNLOADS_BUCKET = "invitation-downloads";
 
 /**
  * Photo field values are either a data: URL (freshly chosen, not yet

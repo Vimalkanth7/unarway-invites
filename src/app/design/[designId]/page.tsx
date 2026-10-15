@@ -30,18 +30,22 @@ export default async function DesignPage({
 
   let initialConfig: DesignConfig = bundle.defaults;
   let initialInvitationId: string | null = null;
+  let initialStatus: InvitationRow["status"] = "draft";
+  let initialShortId: string | null = null;
   const initialPhotoPaths: Record<string, string> = {};
 
   if (user && invitationId) {
     const { data } = await supabase
       .from("invitations")
-      .select("id, design_id, config")
+      .select("id, design_id, config, status, short_id")
       .eq("id", invitationId)
       .eq("user_id", user.id)
-      .maybeSingle<Pick<InvitationRow, "id" | "design_id" | "config">>();
+      .maybeSingle<Pick<InvitationRow, "id" | "design_id" | "config" | "status" | "short_id">>();
 
     if (data && data.design_id === designId) {
       initialInvitationId = data.id;
+      initialStatus = data.status;
+      initialShortId = data.short_id;
       const resolvedConfig: DesignConfig = { ...data.config };
 
       for (const field of bundle.schema) {
@@ -71,6 +75,8 @@ export default async function DesignPage({
         price={price}
         userId={user?.id ?? null}
         initialInvitationId={initialInvitationId}
+        initialStatus={initialStatus}
+        initialShortId={initialShortId}
         initialConfig={initialConfig}
         initialPhotoPaths={initialPhotoPaths}
       />

@@ -1,17 +1,20 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { SchemaEditor } from "@/components/editor/SchemaEditor";
 import { PreviewFrame } from "@/components/preview/PreviewFrame";
+import { PayButton } from "@/components/design/PayButton";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import { COUPLE_PHOTOS_BUCKET } from "@/lib/supabase/storage";
 import type { DesignConfig, TemplateBundle } from "@/types/template";
+import type { InvitationStatus } from "@/types/invitation";
 
 const AUTOSAVE_DELAY_MS = 1200;
 
 type SaveState = "idle" | "saving" | "saved" | "error";
 type SaveError = { code: string; message: string };
+type DownloadState = "idle" | "preparing" | "error";
 
 function toSaveError(err: unknown): SaveError {
   if (err && typeof err === "object") {
@@ -28,6 +31,8 @@ export function DesignWorkspace({
   price,
   userId,
   initialInvitationId,
+  initialStatus,
+  initialShortId,
   initialConfig,
   initialPhotoPaths,
 }: {
@@ -35,6 +40,8 @@ export function DesignWorkspace({
   price: number;
   userId: string | null;
   initialInvitationId: string | null;
+  initialStatus: InvitationStatus;
+  initialShortId: string | null;
   initialConfig: DesignConfig;
   initialPhotoPaths: Record<string, string>;
 }) {
@@ -44,6 +51,10 @@ export function DesignWorkspace({
   const [activeTab, setActiveTab] = useState<"edit" | "preview">("edit");
   const [saveState, setSaveState] = useState<SaveState>("idle");
   const [saveError, setSaveError] = useState<SaveError | null>(null);
+  const [invitationId, setInvitationId] = useState(initialInvitationId);
+  const [status, setStatus] = useState<InvitationStatus>(initialStatus);
+  const [shortId, setShortId] = useState(initialShortId);
+  const [downloadState, setDownloadState] = useState<DownloadState>("idle");
 
   const invitationIdRef = useRef(initialInvitationId);
   const photoPathsRef = useRef(initialPhotoPaths);
@@ -55,6 +66,33 @@ export function DesignWorkspace({
     setConfig(next);
   }
 
+  // Shared by autosave (below) and the Pay button: both need a real
+  // invitation row to exist, created lazily on whichever happens first.
+  const ensureInvitation = useCallback(async (): Promise<string> => {
+    if (invitationIdRef.current) return invitationIdRef.current;
+    if (!creatingRef.current) {
+      const supabase = createSupabaseBrowserClient();
+      creatingRef.current = (async () => {
+        const { data, error } = await supabase
+          .from("invitations")
+          .insert({ design_id: bundle.meta.id, title: bundle.meta.title, user_id: userId })
+          .select("id, short_id")
+          .single();
+        if (error || !data) throw error ?? new Error("Insert returned no row");
+        invitationIdRef.current = data.id as string;
+        setInvitationId(data.id as string);
+        setShortId(data.short_id as string);
+        router.replace(`${pathname}?invitation=${data.id}`, { scroll: false });
+        return data.id as string;
+      })().catch((err) => {
+        // Let the next attempt retry instead of replaying this same rejection forever.
+        creatingRef.current = null;
+        throw err;
+      });
+    }
+    return creatingRef.current;
+  }, [bundle.meta.id, bundle.meta.title, pathname, router, userId]);
+
   useEffect(() => {
     if (!userId || !dirtyRef.current) return;
 
@@ -63,31 +101,6 @@ export function DesignWorkspace({
     }, AUTOSAVE_DELAY_MS);
 
     return () => clearTimeout(timer);
-
-    async function ensureInvitation(
-      supabase: ReturnType<typeof createSupabaseBrowserClient>
-    ): Promise<string> {
-      if (invitationIdRef.current) return invitationIdRef.current;
-      if (!creatingRef.current) {
-        creatingRef.current = (async () => {
-          const { data, error } = await supabase
-            .from("invitations")
-            .insert({ design_id: bundle.meta.id, title: bundle.meta.title, user_id: userId })
-            .select("id")
-            .single();
-          if (error || !data) throw error ?? new Error("Insert returned no row");
-          invitationIdRef.current = data.id as string;
-          router.replace(`${pathname}?invitation=${data.id}`, { scroll: false });
-          return data.id as string;
-        })().catch((err) => {
-          // Let the next autosave attempt retry instead of replaying this
-          // same rejection forever.
-          creatingRef.current = null;
-          throw err;
-        });
-      }
-      return creatingRef.current;
-    }
 
     async function persist() {
       setSaveState("saving");
@@ -110,7 +123,7 @@ export function DesignWorkspace({
           };
         }
 
-        const id = await ensureInvitation(supabase);
+        const id = await ensureInvitation();
         const configToPersist: DesignConfig = { ...config };
 
         for (const field of bundle.schema) {
@@ -153,7 +166,22 @@ export function DesignWorkspace({
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [config, userId]);
+  }, [config, userId, ensureInvitation]);
+
+  async function handleDownload() {
+    if (!invitationId) return;
+    setDownloadState("preparing");
+    try {
+      const res = await fetch(`/api/invitations/${invitationId}/download`, { method: "POST" });
+      const result = (await res.json()) as { url?: string; error?: string };
+      if (!res.ok || !result.url) throw new Error(result.error ?? "Could not prepare download");
+      window.location.href = result.url;
+      setDownloadState("idle");
+    } catch (err) {
+      console.error("Download failed:", err);
+      setDownloadState("error");
+    }
+  }
 
   return (
     <div className="flex flex-col gap-6">
@@ -186,17 +214,51 @@ export function DesignWorkspace({
       </div>
 
       <div className="flex items-center justify-between gap-4 rounded-2xl border border-neutral-200 p-4">
-        <p className="text-sm text-neutral-700">
-          Download for &#8377;{price}
-        </p>
-        <button
-          type="button"
-          disabled
-          title="Checkout lands in Phase 6"
-          className="rounded-full bg-neutral-300 px-5 py-2 text-sm font-medium text-neutral-600"
-        >
-          Pay to download &mdash; Coming soon
-        </button>
+        {status === "paid" ? (
+          <>
+            <div className="text-sm">
+              <p className="font-medium text-emerald-700">Paid</p>
+              {shortId && (
+                <a
+                  href={`/i/${shortId}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-neutral-600 underline"
+                >
+                  View hosted invitation
+                </a>
+              )}
+            </div>
+            <div className="flex flex-col items-end gap-1">
+              <button
+                type="button"
+                onClick={handleDownload}
+                disabled={downloadState === "preparing"}
+                className="rounded-full bg-neutral-900 px-5 py-2 text-sm font-medium text-white disabled:opacity-60"
+              >
+                {downloadState === "preparing" ? "Preparing…" : "Download ZIP"}
+              </button>
+              {downloadState === "error" && (
+                <p className="text-xs text-red-600">Couldn&apos;t prepare the download. Try again.</p>
+              )}
+            </div>
+          </>
+        ) : userId ? (
+          <>
+            <p className="text-sm text-neutral-700">Download for &#8377;{price}</p>
+            <PayButton price={price} getInvitationId={ensureInvitation} onPaid={() => setStatus("paid")} />
+          </>
+        ) : (
+          <>
+            <p className="text-sm text-neutral-700">Download for &#8377;{price}</p>
+            <a
+              href="/login"
+              className="rounded-full border border-neutral-300 px-5 py-2 text-sm font-medium text-neutral-900 hover:border-neutral-500"
+            >
+              Sign in to buy
+            </a>
+          </>
+        )}
       </div>
     </div>
   );

@@ -6,7 +6,8 @@ import { useRouter } from "next/navigation";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import type { InvitationRow } from "@/types/invitation";
 
-type Row = Pick<InvitationRow, "id" | "design_id" | "title" | "status" | "updated_at">;
+type Row = Pick<InvitationRow, "id" | "design_id" | "title" | "status" | "short_id" | "updated_at">;
+type DownloadState = "idle" | "preparing" | "error";
 
 export function InvitationsList({
   invitations,
@@ -19,6 +20,8 @@ export function InvitationsList({
   const [rows, setRows] = useState(invitations);
   const [renamingId, setRenamingId] = useState<string | null>(null);
   const [renameValue, setRenameValue] = useState("");
+  const [downloadingId, setDownloadingId] = useState<string | null>(null);
+  const [downloadState, setDownloadState] = useState<DownloadState>("idle");
 
   async function saveRename(id: string) {
     const title = renameValue.trim();
@@ -29,6 +32,21 @@ export function InvitationsList({
     const { error } = await supabase.from("invitations").update({ title }).eq("id", id);
     if (!error) {
       setRows((prev) => prev.map((row) => (row.id === id ? { ...row, title } : row)));
+    }
+  }
+
+  async function handleDownload(id: string) {
+    setDownloadingId(id);
+    setDownloadState("preparing");
+    try {
+      const res = await fetch(`/api/invitations/${id}/download`, { method: "POST" });
+      const result = (await res.json()) as { url?: string; error?: string };
+      if (!res.ok || !result.url) throw new Error(result.error ?? "Could not prepare download");
+      window.location.href = result.url;
+      setDownloadState("idle");
+    } catch (err) {
+      console.error("Download failed:", err);
+      setDownloadState("error");
     }
   }
 
@@ -68,13 +86,38 @@ export function InvitationsList({
             )}
             <p className="mt-0.5 text-xs text-neutral-500">
               {designTitles[row.design_id] ?? row.design_id} &middot;{" "}
-              {row.status === "paid" ? "Paid" : "Draft"}
+              <span className={row.status === "paid" ? "text-emerald-600" : undefined}>
+                {row.status === "paid" ? "Paid" : "Draft"}
+              </span>
             </p>
+            {row.status === "paid" && (
+              <a
+                href={`/i/${row.short_id}`}
+                target="_blank"
+                rel="noreferrer"
+                className="text-xs text-neutral-500 underline"
+              >
+                View hosted invitation
+              </a>
+            )}
+            {downloadingId === row.id && downloadState === "error" && (
+              <p className="mt-0.5 text-xs text-red-600">Couldn&apos;t prepare the download. Try again.</p>
+            )}
           </div>
           <div className="flex items-center gap-3 text-sm">
             <Link href={`/design/${row.design_id}?invitation=${row.id}`} className="underline">
               Open
             </Link>
+            {row.status === "paid" && (
+              <button
+                type="button"
+                onClick={() => handleDownload(row.id)}
+                disabled={downloadingId === row.id && downloadState === "preparing"}
+                className="text-neutral-600 underline disabled:opacity-60"
+              >
+                {downloadingId === row.id && downloadState === "preparing" ? "Preparing…" : "Download"}
+              </button>
+            )}
             <button
               type="button"
               onClick={() => {

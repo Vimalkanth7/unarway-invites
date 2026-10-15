@@ -1,15 +1,11 @@
-import { PlaceholderPage } from "@/components/ui/PlaceholderPage";
+import { redirect } from "next/navigation";
 
+/** Checkout happens inline on the design page via the Razorpay Checkout overlay now. */
 export default async function CheckoutPage({
   params,
 }: {
   params: Promise<{ designId: string }>;
 }) {
   const { designId } = await params;
-  return (
-    <PlaceholderPage
-      title={`Checkout: ${designId}`}
-      description="Razorpay test-mode checkout lands in Phase 6."
-    />
-  );
+  redirect(`/design/${designId}`);
 }
