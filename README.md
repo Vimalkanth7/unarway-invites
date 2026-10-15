@@ -115,7 +115,10 @@ unarway-invitation-company/
       built on the proven template engine; every asset logged in `ASSETS.md`.
 - [ ] **Phase 8 — Legal pages + deploy**: real About/Contact/Terms/Privacy/Refund
       content, production Supabase project, Vercel env vars, Razorpay live keys
-      (still server-gated), full paid-flow smoke test.
+      (still server-gated), full paid-flow smoke test. No `sitemap.ts` exists yet --
+      if one is added here, it must not list `/i/<short-id>` URLs (see `src/app/robots.ts`
+      and the `robots: noindex` metadata on that route: hosted invitations are personal,
+      link-shared pages, not for search engines).
 
 ## Launch checklist
 

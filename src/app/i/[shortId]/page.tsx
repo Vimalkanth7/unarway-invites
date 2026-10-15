@@ -67,8 +67,12 @@ export async function generateMetadata({
   params: Promise<{ shortId: string }>;
 }): Promise<Metadata> {
   const { shortId } = await params;
+  // Hosted invitations are personal and link-shared, not for search engines
+  // -- this applies regardless of whether the lookup below succeeds.
+  const robots = { index: false, follow: false };
+
   const data = await getHostedInvitation(shortId);
-  if (!data || data.expired) return { title: "Invitation" };
+  if (!data || data.expired) return { title: "Invitation", robots };
 
   const { title, description } = buildShareCopy(data.invitation, data.bundle);
 
@@ -80,6 +84,7 @@ export async function generateMetadata({
   return {
     title,
     description,
+    robots,
     openGraph: { title, description, images: [imageUrl], type: "website" },
     twitter: { card: "summary_large_image", title, description, images: [imageUrl] },
   };
