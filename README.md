@@ -116,9 +116,14 @@ unarway-invitation-company/
 - [ ] **Phase 8 — Legal pages + deploy**: real About/Contact/Terms/Privacy/Refund
       content, production Supabase project, Vercel env vars, Razorpay live keys
       (still server-gated), full paid-flow smoke test. No `sitemap.ts` exists yet --
-      if one is added here, it must not list `/i/<short-id>` URLs (see `src/app/robots.ts`
-      and the `robots: noindex` metadata on that route: hosted invitations are personal,
-      link-shared pages, not for search engines).
+      if one is added here, it must not list `/i/<short-id>` URLs: hosted invitations are
+      personal, link-shared pages, not for search engines. That's enforced via the
+      `robots: { index: false, follow: false }` metadata on `/i/[shortId]/page.tsx` and
+      an `X-Robots-Tag: noindex` header on the og-image route -- deliberately *not* via
+      `src/app/robots.ts` (which allows everything), because a `robots.txt` disallow
+      would also block WhatsApp's/Facebook's link-preview crawlers from fetching the
+      page (breaking the whole point of sharing it) and would stop search engines from
+      ever reaching the page to read its `noindex` tag in the first place.
 
 ## Launch checklist
 
