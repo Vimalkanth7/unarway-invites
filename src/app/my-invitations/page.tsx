@@ -7,7 +7,7 @@ import type { InvitationRow } from "@/types/invitation";
 
 type InvitationListRow = Pick<
   InvitationRow,
-  "id" | "design_id" | "title" | "status" | "short_id" | "updated_at"
+  "id" | "design_id" | "title" | "status" | "short_id" | "paid_at" | "updated_at"
 >;
 
 export default async function MyInvitationsPage() {
@@ -32,7 +32,7 @@ export default async function MyInvitationsPage() {
 
   const { data } = await supabase
     .from("invitations")
-    .select("id, design_id, title, status, short_id, updated_at")
+    .select("id, design_id, title, status, short_id, paid_at, updated_at")
     .order("updated_at", { ascending: false })
     .returns<InvitationListRow[]>();
 

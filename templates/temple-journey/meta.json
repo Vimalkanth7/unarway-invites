@@ -1,5 +1,13 @@
 {
   "id": "temple-journey",
   "title": "Temple Journey",
-  "category": "reception"
+  "category": "reception",
+  "previewImage": "assets/54d722b725.jpg",
+  "share": {
+    "titleFields": ["groomName", "brideName"],
+    "titleJoiner": " weds ",
+    "dateField": "eventDate",
+    "locationField": "venueName",
+    "imageField": "couplePhoto"
+  }
 }

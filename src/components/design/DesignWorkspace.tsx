@@ -5,8 +5,10 @@ import { usePathname, useRouter } from "next/navigation";
 import { SchemaEditor } from "@/components/editor/SchemaEditor";
 import { PreviewFrame } from "@/components/preview/PreviewFrame";
 import { PayButton } from "@/components/design/PayButton";
+import { PublishedShare } from "@/components/design/PublishedShare";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import { COUPLE_PHOTOS_BUCKET } from "@/lib/supabase/storage";
+import { siteConfig } from "@/lib/config";
 import type { DesignConfig, TemplateBundle } from "@/types/template";
 import type { InvitationStatus } from "@/types/invitation";
 
@@ -33,6 +35,7 @@ export function DesignWorkspace({
   initialInvitationId,
   initialStatus,
   initialShortId,
+  initialPaidAt,
   initialConfig,
   initialPhotoPaths,
 }: {
@@ -42,6 +45,7 @@ export function DesignWorkspace({
   initialInvitationId: string | null;
   initialStatus: InvitationStatus;
   initialShortId: string | null;
+  initialPaidAt: string | null;
   initialConfig: DesignConfig;
   initialPhotoPaths: Record<string, string>;
 }) {
@@ -54,6 +58,7 @@ export function DesignWorkspace({
   const [invitationId, setInvitationId] = useState(initialInvitationId);
   const [status, setStatus] = useState<InvitationStatus>(initialStatus);
   const [shortId, setShortId] = useState(initialShortId);
+  const [paidAt, setPaidAt] = useState(initialPaidAt);
   const [downloadState, setDownloadState] = useState<DownloadState>("idle");
 
   const invitationIdRef = useRef(initialInvitationId);
@@ -213,53 +218,54 @@ export function DesignWorkspace({
         </div>
       </div>
 
-      <div className="flex items-center justify-between gap-4 rounded-2xl border border-neutral-200 p-4">
-        {status === "paid" ? (
-          <>
-            <div className="text-sm">
-              <p className="font-medium text-emerald-700">Paid</p>
-              {shortId && (
-                <a
-                  href={`/i/${shortId}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-neutral-600 underline"
+      {status === "paid" && shortId ? (
+        <div className="flex flex-col gap-3">
+          <PublishedShare
+            shortId={shortId}
+            paidAt={paidAt}
+            expiryMonths={siteConfig.hostedLinkExpiryMonths}
+          />
+          {siteConfig.enableZipDownload && (
+            <div className="flex items-center justify-between gap-4 rounded-2xl border border-neutral-200 p-4">
+              <p className="text-sm text-neutral-700">Prefer a file? You can still download the ZIP.</p>
+              <div className="flex flex-col items-end gap-1">
+                <button
+                  type="button"
+                  onClick={handleDownload}
+                  disabled={downloadState === "preparing"}
+                  className="rounded-full bg-neutral-900 px-5 py-2 text-sm font-medium text-white disabled:opacity-60"
                 >
-                  View hosted invitation
-                </a>
-              )}
+                  {downloadState === "preparing" ? "Preparing…" : "Download ZIP"}
+                </button>
+                {downloadState === "error" && (
+                  <p className="text-xs text-red-600">Couldn&apos;t prepare the download. Try again.</p>
+                )}
+              </div>
             </div>
-            <div className="flex flex-col items-end gap-1">
-              <button
-                type="button"
-                onClick={handleDownload}
-                disabled={downloadState === "preparing"}
-                className="rounded-full bg-neutral-900 px-5 py-2 text-sm font-medium text-white disabled:opacity-60"
-              >
-                {downloadState === "preparing" ? "Preparing…" : "Download ZIP"}
-              </button>
-              {downloadState === "error" && (
-                <p className="text-xs text-red-600">Couldn&apos;t prepare the download. Try again.</p>
-              )}
-            </div>
-          </>
-        ) : userId ? (
-          <>
-            <p className="text-sm text-neutral-700">Download for &#8377;{price}</p>
-            <PayButton price={price} getInvitationId={ensureInvitation} onPaid={() => setStatus("paid")} />
-          </>
-        ) : (
-          <>
-            <p className="text-sm text-neutral-700">Download for &#8377;{price}</p>
+          )}
+        </div>
+      ) : (
+        <div className="flex items-center justify-between gap-4 rounded-2xl border border-neutral-200 p-4">
+          <p className="text-sm text-neutral-700">Publish to get a shareable link.</p>
+          {userId ? (
+            <PayButton
+              price={price}
+              getInvitationId={ensureInvitation}
+              onPaid={() => {
+                setStatus("paid");
+                setPaidAt(new Date().toISOString());
+              }}
+            />
+          ) : (
             <a
               href="/login"
               className="rounded-full border border-neutral-300 px-5 py-2 text-sm font-medium text-neutral-900 hover:border-neutral-500"
             >
               Sign in to buy
             </a>
-          </>
-        )}
-      </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }

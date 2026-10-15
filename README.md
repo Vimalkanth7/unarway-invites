@@ -100,14 +100,17 @@ unarway-invitation-company/
       from the design page (browser client, no server API routes needed — RLS
       does the gating), "My invitations" page (list/open/rename/delete),
       short-id generated at creation (no public `/i/<short-id>` route yet).
-- [x] **Phase 6 — Razorpay test mode + download gating**: `src/lib/payments/razorpay.ts`
+- [x] **Phase 6 — Razorpay test mode + publish gating**: `src/lib/payments/razorpay.ts`
       (Orders API + signature checks, the one module to swap for another gateway),
-      `create-order`/`verify` routes plus an idempotent webhook, a server-built ZIP
-      (`src/lib/zip/build.ts`) behind a short-lived signed Storage URL, and
-      `/i/<short-id>` serving only paid, non-expired invitations without a watermark.
-      Re-download and live edits after paying both work -- nothing is a frozen
-      snapshot from the moment of payment. Still TEST MODE; see "Testing payments"
-      below before this goes anywhere near a real customer.
+      `create-order`/`verify` routes plus an idempotent webhook, and `/i/<short-id>`
+      serving only paid, non-expired invitations without a watermark, with per-invitation
+      Open Graph/Twitter metadata. The hosted link is the deliverable: paying surfaces a
+      copy/WhatsApp/QR share panel (`PublishedShare`), not a file. The ZIP
+      (`src/lib/zip/build.ts`) still works end to end but stays hidden in the UI behind
+      `siteConfig.enableZipDownload` (default `false`). Re-publishing after further edits
+      and re-sharing both work -- nothing is a frozen snapshot from the moment of payment.
+      Still TEST MODE; see "Testing payments" below before this goes anywhere near a real
+      customer.
 - [ ] **Phase 7 — Designs 2 and 3**: a new Marriage design and a new Birthday design
       built on the proven template engine; every asset logged in `ASSETS.md`.
 - [ ] **Phase 8 — Legal pages + deploy**: real About/Contact/Terms/Privacy/Refund
@@ -194,30 +197,46 @@ wherever the key is displayed (Razorpay dashboard, a `console.log` of
 
 1. `npm run dev`, sign in, open any design (e.g. `/design/temple-journey`),
    edit something so a draft autosaves.
-2. Click **Pay &#8377;599 to download** (or whatever the design's price is).
+2. Click **Pay &#8377;599 to publish** (or whatever the design's price is).
    The Razorpay Checkout overlay opens.
 3. Pay with a **test card**: card number `4111 1111 1111 1111`, any future
    expiry, any 3-digit CVV, any name. Or switch to **UPI** in the overlay and
    enter the VPA `success@razorpay` to simulate a successful payment (use
    `failure@razorpay` to simulate a decline and check the "failed" state).
-4. On success, the button should become **Download ZIP** and a **View
-   hosted invitation** link should appear. Click Download -- a `.zip`
-   containing `index.html` + `assets/` should download; open it locally and
-   confirm it renders with your edited values and no watermark.
-5. Open the **View hosted invitation** link (`/i/<short-id>`) in an
-   incognito window (no session) -- it should render the same way, watermark-free.
-6. In Supabase → Table Editor: `orders` should have one row with
+4. On success, the Pay button is replaced by the **Published** panel: the
+   hosted link, a **Copy** button, **Share on WhatsApp** (opens
+   `wa.me` with the link prefilled), a QR code with a **Download QR (PNG)**
+   link, and "Live until <date>" (12 months out, `siteConfig.hostedLinkExpiryMonths`).
+   Confirm Copy actually puts the link on your clipboard, and that the QR
+   code scans to the same link.
+5. Open the hosted link in an incognito window (no session) -- it should
+   render the same invitation, watermark-free, without signing in.
+6. Paste the hosted link into Slack/WhatsApp/a link-preview debugger (e.g.
+   Facebook's Sharing Debugger or Twitter's Card Validator) and confirm the
+   preview shows a title built from the design's configured name fields
+   (e.g. "`<groom>` weds `<bride>`" for Temple Journey), a date/venue
+   description, and an image -- the couple's uploaded photo if they set one,
+   otherwise the design's `previewImage`.
+7. In Supabase → Table Editor: `orders` should have one row with
    `status = 'paid'` and a `razorpay_payment_id`; `invitations` should show
    `status = 'paid'` and a `paid_at` timestamp for that row.
-7. **Cancel test**: start a payment, close the Checkout overlay without
+8. **Cancel test**: start a payment, close the Checkout overlay without
    paying -- the button should show "Payment cancelled." and let you retry.
-8. **Idempotency test**: re-run step 3's success case, then manually POST
+9. **Idempotency test**: re-run step 3's success case, then manually POST
    the same `/api/checkout/verify` body again (e.g. via your browser's
    devtools) -- it should return `{"status":"paid"}` again without erroring
    or double-writing (check `orders`/`invitations` are unchanged).
-9. **Re-download / live-update test**: after paying, edit the invitation
-   again (new field value), then Download again -- the new ZIP and the
-   hosted page should both reflect the edit, with no new payment required.
+10. **Re-publish / live-update test**: after paying, edit the invitation
+    again (new field value) -- the hosted link should reflect the edit
+    immediately on refresh, with no new payment required.
+11. **Unpaid draft stays hidden**: open the hosted link for a *different*,
+    never-paid-for invitation (or any `short_id` you haven't paid for) --
+    it must 404, never render the clean version.
+12. **ZIP flag**: with `siteConfig.enableZipDownload` left at its default
+    `false`, confirm no Download/ZIP button appears anywhere (design page or
+    My Invitations) for a paid invitation. Flip it to `true` in
+    `src/lib/config.ts` and confirm the button reappears and still produces
+    a working ZIP -- the code never went away, it's just hidden.
 
 ### 4. Webhook (optional for local dev)
 

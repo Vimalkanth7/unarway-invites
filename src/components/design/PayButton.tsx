@@ -146,7 +146,7 @@ export function PayButton({
         disabled={state === "paying"}
         className="rounded-full bg-neutral-900 px-5 py-2 text-sm font-medium text-white disabled:opacity-60"
       >
-        {state === "paying" ? "Processing…" : `Pay ₹${price} to download`}
+        {state === "paying" ? "Processing…" : `Pay ₹${price} to publish`}
       </button>
       {state === "cancelled" && <p className="text-xs text-neutral-500">Payment cancelled.</p>}
       {state === "failed" && (

@@ -6,4 +6,6 @@ export const siteConfig = {
   name: "Unarway Invites",
   defaultPriceInInr: 599,
   hostedLinkExpiryMonths: 12,
+  /** ZIP download stays off (hosted link is the deliverable) until this flips. */
+  enableZipDownload: false,
 } as const;

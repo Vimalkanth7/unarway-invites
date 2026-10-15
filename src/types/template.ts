@@ -13,12 +13,33 @@ export interface FieldSchema {
   required?: boolean;
 }
 
+/**
+ * Declares which config keys to pull share copy from, so /i/<short-id>'s
+ * Open Graph metadata is generic across templates instead of the metadata
+ * generator hardcoding field names like "groomName".
+ */
+export interface ShareMeta {
+  /** Config keys joined (with titleJoiner) to build the share title. */
+  titleFields: string[];
+  /** Defaults to " & ". */
+  titleJoiner?: string;
+  /** Config key holding a date/datetime string for the share description. */
+  dateField?: string;
+  /** Config key holding a short place name for the share description. */
+  locationField?: string;
+  /** Config key (type "photo") to use as the share image when set by the user. */
+  imageField?: string;
+}
+
 export interface TemplateMeta {
   id: string;
   title: string;
   category: CategorySlug;
   /** Overrides siteConfig.defaultPriceInInr when set. */
   priceInInr?: number;
+  /** Asset-relative path (e.g. "assets/foo.jpg") used as the share image when imageField isn't set by the user. */
+  previewImage?: string;
+  share?: ShareMeta;
 }
 
 export type DesignConfig = Record<string, string>;
