@@ -3,6 +3,13 @@
 import { Fragment, useId, useMemo, useState } from "react";
 import type { DesignConfig, FieldSchema } from "@/types/template";
 import { validateConfig } from "@/lib/templates/validate";
+import {
+  DEFAULT_MAX_LIST_ITEMS,
+  emptyListItem,
+  parseListValue,
+  serializeListValue,
+  type ListItemValue,
+} from "@/lib/templates/list-field";
 
 const MAX_PHOTO_DIMENSION = 1400;
 const PHOTO_JPEG_QUALITY = 0.84;
@@ -134,6 +141,10 @@ function FieldInput({
     );
   }
 
+  if (field.type === "list") {
+    return <ListFieldInput field={field} value={value} onChange={onChange} />;
+  }
+
   if (field.type === "photo") {
     return (
       <div className="flex flex-col gap-2">
@@ -202,5 +213,113 @@ function FieldInput({
       onChange={(e) => onChange(e.target.value)}
       onBlur={onBlur}
     />
+  );
+}
+
+/**
+ * Items are stored as a JSON string in the same string-valued DesignConfig
+ * slot every other field uses -- onChange still just takes a string, so the
+ * rest of the editor (and the postMessage contract to templates) needs no
+ * changes to support this field type.
+ */
+function ListFieldInput({
+  field,
+  value,
+  onChange,
+}: {
+  field: FieldSchema;
+  value: string;
+  onChange: (next: string) => void;
+}) {
+  const itemFields = field.itemFields ?? [];
+  const maxItems = field.maxItems ?? DEFAULT_MAX_LIST_ITEMS;
+  const items = parseListValue(value);
+
+  function commit(next: ListItemValue[]) {
+    onChange(serializeListValue(next));
+  }
+
+  function updateItem(index: number, key: string, itemValue: string) {
+    commit(items.map((item, i) => (i === index ? { ...item, [key]: itemValue } : item)));
+  }
+
+  function addItem() {
+    if (items.length >= maxItems) return;
+    commit([...items, emptyListItem(itemFields)]);
+  }
+
+  function removeItem(index: number) {
+    commit(items.filter((_, i) => i !== index));
+  }
+
+  function moveItem(index: number, direction: -1 | 1) {
+    const target = index + direction;
+    if (target < 0 || target >= items.length) return;
+    const next = [...items];
+    [next[index], next[target]] = [next[target], next[index]];
+    commit(next);
+  }
+
+  return (
+    <div className="flex flex-col gap-3">
+      {items.map((item, index) => (
+        <div key={index} className="flex flex-col gap-3 rounded-lg border border-neutral-300 p-3">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-medium text-neutral-500">Item {index + 1}</span>
+            <div className="flex items-center gap-3 text-xs">
+              <button
+                type="button"
+                onClick={() => moveItem(index, -1)}
+                disabled={index === 0}
+                className="text-neutral-600 underline disabled:pointer-events-none disabled:opacity-40"
+              >
+                Move up
+              </button>
+              <button
+                type="button"
+                onClick={() => moveItem(index, 1)}
+                disabled={index === items.length - 1}
+                className="text-neutral-600 underline disabled:pointer-events-none disabled:opacity-40"
+              >
+                Move down
+              </button>
+              <button
+                type="button"
+                onClick={() => removeItem(index)}
+                className="text-red-600 underline"
+              >
+                Remove
+              </button>
+            </div>
+          </div>
+          {itemFields.map((itemField) => {
+            const itemHtmlType = itemField.type === "date" ? "datetime-local" : "text";
+            return (
+              <label key={itemField.key} className="flex flex-col gap-1">
+                <span className="text-xs text-neutral-600">
+                  {itemField.label}
+                  {itemField.required && <span className="text-red-600"> *</span>}
+                </span>
+                <input
+                  type={itemHtmlType}
+                  value={item[itemField.key] ?? ""}
+                  onChange={(e) => updateItem(index, itemField.key, e.target.value)}
+                  className="min-h-[40px] w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm focus:border-neutral-500 focus:outline-none"
+                />
+                {itemField.hint && <span className="text-xs text-neutral-500">{itemField.hint}</span>}
+              </label>
+            );
+          })}
+        </div>
+      ))}
+      <button
+        type="button"
+        onClick={addItem}
+        disabled={items.length >= maxItems}
+        className="self-start rounded-full border border-neutral-300 px-4 py-1.5 text-xs text-neutral-700 disabled:pointer-events-none disabled:opacity-40"
+      >
+        Add item ({items.length}/{maxItems})
+      </button>
+    </div>
   );
 }

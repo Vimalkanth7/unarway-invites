@@ -1,6 +1,19 @@
 import type { CategorySlug } from "@/lib/categories";
 
-export type FieldType = "text" | "long" | "date" | "url" | "tel" | "photo";
+export type FieldType = "text" | "long" | "date" | "url" | "tel" | "photo" | "list";
+
+/**
+ * Shape of one item inside a "list" field (e.g. one event in a schedule).
+ * Deliberately a small subset of FieldType -- no nested lists or photos,
+ * so the editor never has to render a list inside a list.
+ */
+export interface ListItemFieldSchema {
+  key: string;
+  label: string;
+  type: "text" | "date";
+  required?: boolean;
+  hint?: string;
+}
 
 export interface FieldSchema {
   key: string;
@@ -11,6 +24,10 @@ export interface FieldSchema {
   clearLabel?: string;
   clearTo?: string;
   required?: boolean;
+  /** Only meaningful when type === "list": shape of each item. */
+  itemFields?: ListItemFieldSchema[];
+  /** Only meaningful when type === "list". Defaults to 5. */
+  maxItems?: number;
 }
 
 /**

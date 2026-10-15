@@ -9,5 +9,19 @@
     "hint": "Shown formatted on the card."
   },
   { "key": "photo", "label": "Photo", "type": "photo", "section": "Details", "clearLabel": "Remove photo" },
-  { "key": "link", "label": "More info link", "type": "url", "section": "Details" }
+  { "key": "link", "label": "More info link", "type": "url", "section": "Details" },
+  {
+    "key": "events",
+    "label": "Schedule",
+    "type": "list",
+    "section": "Schedule",
+    "hint": "Add up to 5 events. Try reordering and removing them too.",
+    "maxItems": 5,
+    "itemFields": [
+      { "key": "title", "label": "Event title", "type": "text", "required": true },
+      { "key": "titleTamil", "label": "Event title (Tamil)", "type": "text" },
+      { "key": "dateTime", "label": "Date and time", "type": "date", "required": true },
+      { "key": "venueName", "label": "Venue", "type": "text", "required": true }
+    ]
+  }
 ]

@@ -3,5 +3,6 @@
   "message": "Join us to celebrate together.",
   "eventDate": "2026-12-25T18:00",
   "photo": "",
-  "link": ""
+  "link": "",
+  "events": "[{\"title\":\"Welcome drinks\",\"titleTamil\":\"\",\"dateTime\":\"2026-12-24T19:00\",\"venueName\":\"The Garden Room\"},{\"title\":\"Celebration\",\"titleTamil\":\"\",\"dateTime\":\"2026-12-25T18:00\",\"venueName\":\"Main Hall\"}]"
 }
