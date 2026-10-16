@@ -18,10 +18,10 @@
     "hint": "Add up to 5 events. Try reordering and removing them too.",
     "maxItems": 5,
     "itemFields": [
-      { "key": "title", "label": "Event title", "type": "text", "required": true },
+      { "key": "title", "label": "Event title", "type": "text", "required": true, "maxLength": 60 },
       { "key": "titleTamil", "label": "Event title (Tamil)", "type": "text" },
       { "key": "dateTime", "label": "Date and time", "type": "date", "required": true },
-      { "key": "venueName", "label": "Venue", "type": "text", "required": true }
+      { "key": "venueName", "label": "Venue", "type": "text", "maxLength": 80 }
     ]
   }
 ]

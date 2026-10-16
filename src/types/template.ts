@@ -13,6 +13,8 @@ export interface ListItemFieldSchema {
   type: "text" | "date";
   required?: boolean;
   hint?: string;
+  /** Only meaningful for type "text". */
+  maxLength?: number;
 }
 
 export interface FieldSchema {

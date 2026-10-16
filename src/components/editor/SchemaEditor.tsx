@@ -2,7 +2,7 @@
 
 import { Fragment, useId, useMemo, useState } from "react";
 import type { DesignConfig, FieldSchema } from "@/types/template";
-import { validateConfig } from "@/lib/templates/validate";
+import { validateConfig, type FieldErrors } from "@/lib/templates/validate";
 import {
   DEFAULT_MAX_LIST_ITEMS,
   emptyListItem,
@@ -94,6 +94,9 @@ export function SchemaEditor({
                       hasError={Boolean(error)}
                       onChange={(next) => setField(field.key, next)}
                       onBlur={() => markTouched(field.key)}
+                      errors={errors}
+                      touched={touched}
+                      markTouched={markTouched}
                     />
                     {error && <p className="text-xs text-red-600">{error}</p>}
                     {field.hint && <p className="text-xs text-neutral-500">{field.hint}</p>}
@@ -115,6 +118,9 @@ function FieldInput({
   hasError,
   onChange,
   onBlur,
+  errors,
+  touched,
+  markTouched,
 }: {
   id: string;
   field: FieldSchema;
@@ -122,6 +128,9 @@ function FieldInput({
   hasError: boolean;
   onChange: (next: string) => void;
   onBlur: () => void;
+  errors: FieldErrors;
+  touched: Record<string, boolean>;
+  markTouched: (key: string) => void;
 }) {
   const [photoError, setPhotoError] = useState<string | null>(null);
   const inputClass = `min-h-[44px] w-full rounded-lg border px-3 py-2 text-sm focus:outline-none ${
@@ -142,7 +151,16 @@ function FieldInput({
   }
 
   if (field.type === "list") {
-    return <ListFieldInput field={field} value={value} onChange={onChange} />;
+    return (
+      <ListFieldInput
+        field={field}
+        value={value}
+        onChange={onChange}
+        errors={errors}
+        touched={touched}
+        markTouched={markTouched}
+      />
+    );
   }
 
   if (field.type === "photo") {
@@ -226,10 +244,16 @@ function ListFieldInput({
   field,
   value,
   onChange,
+  errors,
+  touched,
+  markTouched,
 }: {
   field: FieldSchema;
   value: string;
   onChange: (next: string) => void;
+  errors: FieldErrors;
+  touched: Record<string, boolean>;
+  markTouched: (key: string) => void;
 }) {
   const itemFields = field.itemFields ?? [];
   const maxItems = field.maxItems ?? DEFAULT_MAX_LIST_ITEMS;
@@ -294,6 +318,11 @@ function ListFieldInput({
           </div>
           {itemFields.map((itemField) => {
             const itemHtmlType = itemField.type === "date" ? "datetime-local" : "text";
+            const itemKey = `${field.key}.${index}.${itemField.key}`;
+            const itemError = touched[itemKey] ? errors[itemKey] : undefined;
+            const itemInputClass = `min-h-[40px] w-full rounded-lg border px-3 py-2 text-sm focus:outline-none ${
+              itemError ? "border-red-400 focus:border-red-500" : "border-neutral-300 focus:border-neutral-500"
+            }`;
             return (
               <label key={itemField.key} className="flex flex-col gap-1">
                 <span className="text-xs text-neutral-600">
@@ -303,9 +332,12 @@ function ListFieldInput({
                 <input
                   type={itemHtmlType}
                   value={item[itemField.key] ?? ""}
+                  maxLength={itemField.maxLength}
                   onChange={(e) => updateItem(index, itemField.key, e.target.value)}
-                  className="min-h-[40px] w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm focus:border-neutral-500 focus:outline-none"
+                  onBlur={() => markTouched(itemKey)}
+                  className={itemInputClass}
                 />
+                {itemError && <p className="text-xs text-red-600">{itemError}</p>}
                 {itemField.hint && <span className="text-xs text-neutral-500">{itemField.hint}</span>}
               </label>
             );
