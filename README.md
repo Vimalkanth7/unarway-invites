@@ -11,10 +11,14 @@ code style) that apply to every change in this repo.
 
 ## Status
 
-Phase 6 done, test mode — Razorpay order creation, signature-verified
-checkout, an idempotent webhook, gated ZIP downloads, and the `/i/<short-id>`
-hosted page are live. See "Phased plan" below, and the Launch checklist
-before selling any design.
+**Phase 6 complete, in test mode.** Razorpay order creation, signature-verified
+checkout, an idempotent webhook, and the `/i/<short-id>` hosted page (the paid
+deliverable — ZIP download still works but stays hidden behind
+`siteConfig.enableZipDownload`) are all live against Razorpay's test-mode keys.
+Switching to live keys is a Launch checklist item, not done yet. Phase 7 is
+in progress: the "list" field type (Part A) has landed; the `malligai-mandapam`
+design itself hasn't started. See "Phased plan" below, and the Launch
+checklist before selling any design.
 
 ## Planned folder structure
 

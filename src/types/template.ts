@@ -57,6 +57,8 @@ export interface TemplateMeta {
   /** Asset-relative path (e.g. "assets/foo.jpg") used as the share image when imageField isn't set by the user. */
   previewImage?: string;
   share?: ShareMeta;
+  /** Dev fixture, not a sellable design -- hidden from browsing and blocked outright when NODE_ENV === "production". */
+  devOnly?: boolean;
 }
 
 export type DesignConfig = Record<string, string>;

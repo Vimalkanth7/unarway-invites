@@ -42,8 +42,12 @@ export async function loadTemplateBundle(designId: string): Promise<TemplateBund
 export async function listTemplatesByCategory(category: string): Promise<TemplateBundle[]> {
   const ids = await listTemplateIds();
   const bundles = await Promise.all(ids.map((id) => loadTemplateBundle(id)));
+  const isProduction = process.env.NODE_ENV === "production";
   return bundles.filter(
-    (bundle): bundle is TemplateBundle => bundle !== null && bundle.meta.category === category
+    (bundle): bundle is TemplateBundle =>
+      bundle !== null &&
+      bundle.meta.category === category &&
+      !(isProduction && bundle.meta.devOnly)
   );
 }
 

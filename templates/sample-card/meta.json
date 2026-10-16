@@ -1,5 +1,6 @@
 {
   "id": "sample-card",
   "title": "Sample Card (dev fixture)",
-  "category": "other"
+  "category": "other",
+  "devOnly": true
 }

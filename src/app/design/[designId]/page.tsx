@@ -20,6 +20,7 @@ export default async function DesignPage({
   const { invitation: requestedInvitationId = null } = await searchParams;
   const bundle = await loadTemplateBundle(designId);
   if (!bundle) notFound();
+  if (bundle.meta.devOnly && process.env.NODE_ENV === "production") notFound();
 
   const price = bundle.meta.priceInInr ?? siteConfig.defaultPriceInInr;
 
