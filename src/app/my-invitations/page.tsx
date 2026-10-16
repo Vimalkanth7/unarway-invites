@@ -30,15 +30,33 @@ export default async function MyInvitationsPage() {
     );
   }
 
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from("invitations")
     .select("id, design_id, title, status, short_id, paid_at, updated_at")
     .order("updated_at", { ascending: false })
     .returns<InvitationListRow[]>();
 
+  if (error) {
+    // Same reasoning as design/[designId]/page.tsx: never let a query
+    // failure look identical to "you just don't have any invitations yet".
+    console.error("Failed to load invitations list:", {
+      code: error.code,
+      message: error.message,
+      details: error.details,
+      hint: error.hint,
+    });
+  }
+
   const rows = data ?? [];
 
   if (rows.length === 0) {
+    if (!error) {
+      // No error and genuinely zero rows: with RLS filtering to
+      // `user_id = auth.uid()`, this is the signed-in user's own account id
+      // -- cross-check it against the owner shown in Supabase's dashboard
+      // if rows are known to exist.
+      console.error("No invitations matched for the current session", { signedInUserId: user.id });
+    }
     return (
       <PlaceholderPage
         title="My invitations"

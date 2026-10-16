@@ -45,8 +45,23 @@ export default async function DesignPage({
 
     if (error) {
       // Query genuinely failed (not just "no row") -- never silently fall
-      // back to defaults without a trace of why.
-      console.error("Failed to load invitation for resume:", error);
+      // back to defaults without a trace of why. Logging the raw error
+      // object prints as "{}" (Next's dev overlay doesn't serialize
+      // PostgrestError's own properties), so pull the fields out explicitly.
+      console.error("Failed to load invitation for resume:", {
+        code: error.code,
+        message: error.message,
+        details: error.details,
+        hint: error.hint,
+      });
+    } else if (!data) {
+      // No error, but no row either -- genuinely unmatched, which (given
+      // RLS is `user_id = auth.uid()`) means either the id doesn't exist at
+      // all or it belongs to a different account than the current session.
+      console.error("Invitation not found for the current session", {
+        requestedInvitationId,
+        signedInUserId: user.id,
+      });
     } else if (data && data.design_id === designId) {
       initialInvitationId = data.id;
       initialStatus = data.status;
