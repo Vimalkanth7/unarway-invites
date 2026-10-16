@@ -191,7 +191,7 @@ a{color:#F7E2A8}a:hover{color:#FFFFFF}
     <span class="lab" style="font-size: 12px; color: #E3B75C">Wedding Reception</span>
     <span class="tam">திருமண அழைப்பிதழ்</span>
   </div>
-  <div class="hero-arch"><video class="vid-g" src="assets/5c517b8490.mp4" poster="assets/54d722b725.jpg" muted="" autoplay="" loop="" playsinline="" preload="auto" aria-label="Baby Ganesha writing at the temple"></video></div>
+  <div class="hero-arch"><video class="vid-g" crossorigin="anonymous" src="assets/5c517b8490.mp4" poster="assets/54d722b725.jpg" muted="" autoplay="" loop="" playsinline="" preload="auto" aria-label="Baby Ganesha writing at the temple"></video></div>
   <div class="hero-bottom">
     <span class="tam hb-ta">சுபாரம்பம்</span>
     <span class="hb-sub">Every auspicious beginning starts with Pillaiyar</span>
@@ -642,7 +642,12 @@ class Component extends DCLogic {
     const mgr = new T.LoadingManager();
     mgr.onLoad = () => this.hideVeil();
     setTimeout(() => this.hideVeil(), 5000);
+    // Required for WebGL to accept these as texture sources inside the
+    // sandboxed preview iframe (opaque origin, so even same-host asset
+    // requests count as cross-origin) -- paired with the asset route's
+    // Access-Control-Allow-Origin header.
     const loader = new T.TextureLoader(mgr);
+    loader.setCrossOrigin("anonymous");
     const tex = (u) => { const t = loader.load(u); t.colorSpace = T.SRGBColorSpace; t.anisotropy = 4; return t; };
     const cut = (u, w, h, opts) => new T.Mesh(new T.PlaneGeometry(w, h), new T.MeshBasicMaterial(Object.assign({ map: tex(u), alphaTest: 0.45, side: T.DoubleSide }, opts || {})));
 
