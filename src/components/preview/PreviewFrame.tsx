@@ -30,6 +30,16 @@ export function PreviewFrame({
     return () => window.removeEventListener("message", onMessage);
   }, [reloadKey]);
 
+  // Backup for the "ready" postMessage: the iframe is a separate document
+  // load that can finish and post unarway:ready before this component has
+  // even mounted/hydrated and attached the listener above, in which case
+  // that message is lost forever and config never gets sent. The native
+  // iframe load event can't have that problem -- it can't fire before React
+  // has committed the <iframe> (and this handler) to the DOM.
+  function handleIframeLoad() {
+    setStatus((current) => (current === "loading" ? "ready" : current));
+  }
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setStatus((current) => (current === "loading" ? "error" : current));
@@ -43,7 +53,7 @@ export function PreviewFrame({
       { type: PREVIEW_CONFIG_MESSAGE, payload: config },
       "*"
     );
-  }, [status, config]);
+  }, [status, config, designId]);
 
   function retry() {
     setStatus("loading");
@@ -59,6 +69,7 @@ export function PreviewFrame({
         sandbox="allow-scripts"
         title="Invitation preview"
         className="h-full w-full"
+        onLoad={handleIframeLoad}
         onError={() => setStatus("error")}
       />
 

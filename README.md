@@ -180,6 +180,37 @@ only; it never contains a token or key). Start there:
   `.../rest/v1/invitations` directly -- status code and response body show
   exactly what Supabase sent back.
 
+### How draft resume works
+
+Opening `/design/<id>?invitation=<uuid>` (from autosave's own `router.replace`,
+or from a My Invitations "Open" link) makes the **server** -- not the browser --
+the source of truth for what the editor and preview start with:
+
+1. `design/[designId]/page.tsx` looks the row up with the signed-in user's own
+   RLS-scoped session, merges it *over* `defaults.json` (so a schema field added
+   after the draft was created still gets a sane default instead of `undefined`),
+   resolves any photo field to a signed Storage URL, and passes the result to
+   `DesignWorkspace` as `initialConfig` -- a plain prop, not something fetched
+   client-side after mount.
+2. If a `?invitation=` was present but the row couldn't be loaded (RLS denial,
+   wrong design, genuinely missing, a query error), the page says so explicitly
+   (`loadFailed`) instead of silently handing back `defaults.json` with no trace
+   of why. `DesignWorkspace` shows a "Couldn't load your saved draft" banner and
+   refuses to autosave in that state -- without this guard, the first edit would
+   call `ensureInvitation()`, see no known id, and silently create a *second*
+   draft row instead of resuming the first.
+3. `PreviewFrame` reaches "ready" either from the iframe's `unarway:ready`
+   postMessage, or -- if that message was fired before this component had even
+   mounted and attached its listener (the iframe is a separate document load
+   that can finish first) -- from the iframe's own native `load` event as a
+   backup. Either way, only once "ready" is it allowed to postMessage the
+   *current* config into the iframe; until then the iframe is just showing its
+   own hardcoded seed values from `<script id="inv-config">`, which is expected.
+
+If a resumed draft ever looks wrong again, Supabase dashboard → **Logs** →
+**Postgres Logs**/**API Logs** (per above) will show whether the `SELECT` on
+`invitations` for that id/user actually returned a row.
+
 ## Testing payments (Razorpay test mode)
 
 ### 1. Apply the Phase 6 migrations

@@ -38,6 +38,7 @@ export function DesignWorkspace({
   initialPaidAt,
   initialConfig,
   initialPhotoPaths,
+  loadFailed,
 }: {
   bundle: TemplateBundle;
   price: number;
@@ -48,6 +49,8 @@ export function DesignWorkspace({
   initialPaidAt: string | null;
   initialConfig: DesignConfig;
   initialPhotoPaths: Record<string, string>;
+  /** True when a ?invitation= was requested but the server couldn't load it -- see page.tsx. */
+  loadFailed: boolean;
 }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -99,7 +102,10 @@ export function DesignWorkspace({
   }, [bundle.meta.id, bundle.meta.title, pathname, router, userId]);
 
   useEffect(() => {
-    if (!userId || !dirtyRef.current) return;
+    // loadFailed means a specific draft was requested by id but the server
+    // couldn't load it -- autosaving now would silently create a brand-new
+    // row instead of resuming the one the user actually meant to edit.
+    if (!userId || !dirtyRef.current || loadFailed) return;
 
     const timer = setTimeout(() => {
       void persist();
@@ -171,7 +177,7 @@ export function DesignWorkspace({
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [config, userId, ensureInvitation]);
+  }, [config, userId, ensureInvitation, loadFailed]);
 
   async function handleDownload() {
     if (!invitationId) return;
@@ -190,6 +196,19 @@ export function DesignWorkspace({
 
   return (
     <div className="flex flex-col gap-6">
+      {loadFailed && (
+        <div className="rounded-2xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-900">
+          <p className="font-medium">Couldn&apos;t load your saved draft.</p>
+          <p className="mt-1">
+            Editing here would start a brand-new draft instead of resuming the one you meant to
+            open.{" "}
+            <button type="button" onClick={() => window.location.reload()} className="underline">
+              Reload
+            </button>{" "}
+            to try again.
+          </p>
+        </div>
+      )}
       <div className="flex gap-2 md:hidden">
         <TabButton active={activeTab === "edit"} onClick={() => setActiveTab("edit")}>
           Edit
@@ -247,7 +266,9 @@ export function DesignWorkspace({
       ) : (
         <div className="flex items-center justify-between gap-4 rounded-2xl border border-neutral-200 p-4">
           <p className="text-sm text-neutral-700">Publish to get a shareable link.</p>
-          {userId ? (
+          {loadFailed ? (
+            <span className="text-xs text-amber-700">Reload before publishing.</span>
+          ) : userId ? (
             <PayButton
               price={price}
               getInvitationId={ensureInvitation}

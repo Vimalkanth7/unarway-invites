@@ -17,7 +17,7 @@ export default async function DesignPage({
   searchParams: Promise<{ invitation?: string }>;
 }) {
   const { designId } = await params;
-  const { invitation: invitationId } = await searchParams;
+  const { invitation: requestedInvitationId = null } = await searchParams;
   const bundle = await loadTemplateBundle(designId);
   if (!bundle) notFound();
 
@@ -35,20 +35,27 @@ export default async function DesignPage({
   let initialPaidAt: string | null = null;
   const initialPhotoPaths: Record<string, string> = {};
 
-  if (user && invitationId) {
-    const { data } = await supabase
+  if (user && requestedInvitationId) {
+    const { data, error } = await supabase
       .from("invitations")
       .select("id, design_id, config, status, short_id, paid_at")
-      .eq("id", invitationId)
+      .eq("id", requestedInvitationId)
       .eq("user_id", user.id)
       .maybeSingle<Pick<InvitationRow, "id" | "design_id" | "config" | "status" | "short_id" | "paid_at">>();
 
-    if (data && data.design_id === designId) {
+    if (error) {
+      // Query genuinely failed (not just "no row") -- never silently fall
+      // back to defaults without a trace of why.
+      console.error("Failed to load invitation for resume:", error);
+    } else if (data && data.design_id === designId) {
       initialInvitationId = data.id;
       initialStatus = data.status;
       initialShortId = data.short_id;
       initialPaidAt = data.paid_at;
-      const resolvedConfig: DesignConfig = { ...data.config };
+      // Merge over defaults, not just the saved row, so a schema key added
+      // after this draft was created (or simply absent from an old row)
+      // falls back to its default instead of silently becoming undefined.
+      const resolvedConfig: DesignConfig = { ...bundle.defaults, ...data.config };
 
       for (const field of bundle.schema) {
         if (field.type !== "photo") continue;
@@ -63,8 +70,17 @@ export default async function DesignPage({
       }
 
       initialConfig = resolvedConfig;
+    } else if (data) {
+      console.error(
+        `Invitation ${requestedInvitationId} belongs to design "${data.design_id}", not "${designId}"`
+      );
     }
   }
+
+  // A draft was requested by id but never ended up loaded (query error, RLS
+  // denial, wrong design, or genuinely missing) -- the client needs to know
+  // this explicitly so it can refuse to autosave into a brand-new duplicate.
+  const loadFailed = Boolean(user && requestedInvitationId && !initialInvitationId);
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-10">
@@ -82,6 +98,7 @@ export default async function DesignPage({
         initialPaidAt={initialPaidAt}
         initialConfig={initialConfig}
         initialPhotoPaths={initialPhotoPaths}
+        loadFailed={loadFailed}
       />
     </div>
   );
