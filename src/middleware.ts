@@ -27,6 +27,17 @@ export async function middleware(request: NextRequest) {
 
   await supabase.auth.getUser();
 
+  // Only the real production deployment should ever be indexable -- Vercel
+  // preview deployments and plain `next dev` both get a blanket
+  // X-Robots-Tag here so a stray branch preview can never outrank (or just
+  // duplicate-content-pollute) the real site in search results. VERCEL_ENV
+  // is "production" | "preview" | "development"; it's unset locally, which
+  // correctly falls into the non-production branch too. This is separate
+  // from and in addition to /i/[shortId]'s own always-noindex metadata.
+  if (process.env.VERCEL_ENV !== "production") {
+    response.headers.set("X-Robots-Tag", "noindex, nofollow");
+  }
+
   return response;
 }
 
