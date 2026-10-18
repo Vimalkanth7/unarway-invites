@@ -169,17 +169,27 @@ unarway-invitation-company/
       "Testing `christian-garden`" note below for the manual pass still needed
       (scroll-beat behaviour, music-on-gate-tap, `wa.me`/tap-to-call/map links, and
       the real-device/WhatsApp-in-app-browser checks) before it's considered done.
-- [ ] **Phase 8 — Legal pages + deploy**: real About/Contact/Terms/Privacy/Refund
-      content, production Supabase project, Vercel env vars, Razorpay live keys
-      (still server-gated), full paid-flow smoke test. No `sitemap.ts` exists yet --
-      if one is added here, it must not list `/i/<short-id>` URLs: hosted invitations are
-      personal, link-shared pages, not for search engines. That's enforced via the
-      `robots: { index: false, follow: false }` metadata on `/i/[shortId]/page.tsx` and
-      an `X-Robots-Tag: noindex` header on the og-image route -- deliberately *not* via
-      `src/app/robots.ts` (which allows everything), because a `robots.txt` disallow
-      would also block WhatsApp's/Facebook's link-preview crawlers from fetching the
-      page (breaking the whole point of sharing it) and would stop search engines from
-      ever reaching the page to read its `noindex` tag in the first place.
+- [ ] **Phase 8 — Legal pages + deploy** (legal pages and sitemap done, deploy/live-keys not
+      started): About/Contact/Terms/Privacy/Refund now have real written content (replacing
+      the `PlaceholderPage` stubs from earlier phases) -- all marked as a working draft with
+      no legal review yet, and two spots (`Contact`, `Terms`, `Privacy`) carry a
+      `[to be added before launch]` placeholder for the registered business address, since
+      that wasn't available when this was written. Support email is `unarway@gmail.com`.
+      Refund policy: no refunds once an invitation is unlocked/shared, except when payment
+      succeeded but unlocking failed due to a fault on our end.
+      `src/app/sitemap.ts` now exists -- it deliberately excludes `/i/<short-id>` URLs
+      (hosted invitations are personal, link-shared pages, not for search engines; enforced
+      separately via the `robots: { index: false, follow: false }` metadata on
+      `/i/[shortId]/page.tsx` and an `X-Robots-Tag: noindex` header on the og-image route,
+      not via `src/app/robots.ts`, which deliberately allows everything so WhatsApp's/
+      Facebook's link-preview crawlers and search engines can still reach that page to read
+      its own `noindex` tag) and excludes account-only routes (`/login`, `/my-invitations`,
+      `/checkout`, `/auth`). It lists `/`, the five legal pages, one URL per category, and
+      one `/design/<id>` per non-`devOnly` template, using `NEXT_PUBLIC_SITE_URL` (already
+      documented in `.env.example`, not previously read anywhere in the code) as the base.
+      Still open for Phase 8: production Supabase project, Vercel env vars, Razorpay live
+      keys (still server-gated), full paid-flow smoke test against production, and filling
+      in the real business address placeholder.
 
 ## Launch checklist
 
