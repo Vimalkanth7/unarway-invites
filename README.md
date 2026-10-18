@@ -199,6 +199,24 @@ customer (test/dev use is fine without them):
 - [ ] Every file marked "UNLICENSED - replace before launch" in `ASSETS.md`
       is replaced with licensed or custom-shot media, and `ASSETS.md` is
       updated with the replacement's source and licence.
+- [ ] **Licensed assets**: every design's `meta.json` has `"licensed": true`
+      (currently only `malligai-mandapam` and `sample-card` do --
+      `temple-journey` and `christian-garden` don't, and are hidden from
+      `/design`, `/api/templates/*`, and `/i` in both dev and production
+      until this is fixed or `ALLOW_UNLICENSED_TEMPLATES=1` is explicitly
+      set). `npm run check:templates` prints a `⚠` warning for every design
+      that isn't licensed, and hard-fails if `licensed: true` is ever set
+      while `ASSETS.md` still has an UNLICENSED row for that design.
+- [ ] **Business address**: `src/app/contact/page.tsx`, `terms/page.tsx`,
+      and `privacy/page.tsx` each have a literal `[to be added before
+      launch]` placeholder where the registered business address should be
+      -- replace all three with the real address once there is one.
+      `npm run check:templates` warns if any of the three still has it.
+- [ ] **Legal review**: the Terms, Privacy, and Refund pages are a working
+      draft written without legal review (each page says so at the bottom)
+      -- have them reviewed before relying on them with real customers.
+      `npm run check:templates` prints this as a standing reminder on every
+      run since it isn't something a script can verify.
 - [ ] `templates/christian-garden/defaults.json`'s placeholder dates (currently
       ~2027-11) are far enough in the past that its countdown/"Save the date"
       card would show "The celebration has taken place" to anyone previewing
@@ -218,6 +236,45 @@ customer (test/dev use is fine without them):
       verify-after-checkout route is what actually marks payments paid in the
       meantime, the webhook is the belt-and-suspenders backstop for when a
       browser never gets to call it (closed tab, crashed network).
+
+## Deploy to Vercel
+
+1. **Env vars** (Vercel project → Settings → Environment Variables), all in
+   the Production environment at minimum:
+   - `NEXT_PUBLIC_SITE_URL` — the real `https://` domain. **Required**:
+     `sitemap.ts` (via `getSiteUrl()` in `src/lib/config.ts`) throws at
+     build time on Vercel if this is missing, specifically so a misconfigured
+     production deploy fails loudly instead of shipping a sitemap full of
+     `http://localhost:3000` links.
+   - `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`,
+     `SUPABASE_SERVICE_ROLE_KEY` — from a **production** Supabase project
+     (Settings → API), not the one used for local dev.
+   - `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET` — live keys (`rzp_live_...`),
+     not test keys, once ready to take real payments (see Launch checklist).
+   - `RAZORPAY_WEBHOOK_SECRET` — from a webhook configured in the Razorpay
+     dashboard pointed at `https://<your-domain>/api/razorpay/webhook`
+     (see "Testing payments" below for the local equivalent). Until this is
+     set, that route safely rejects every call with 503 rather than
+     accepting anything unverified.
+   - Leave `ALLOW_UNLICENSED_TEMPLATES` **unset** in production -- setting
+     it to `1` is only for locally reviewing a design that still has
+     UNLICENSED placeholder media (see the Launch checklist item above).
+2. **Build command**: Vercel's default (`next build`) is correct; nothing
+   custom is needed.
+3. **Supabase**: run every migration in `supabase/migrations/` against the
+   production project (SQL editor or `supabase db push`), and complete the
+   custom-SMTP Launch checklist item before real users sign up.
+4. **Indexing**: non-production deployments (local dev, and any Vercel
+   preview/branch deploy -- anything where `VERCEL_ENV` isn't exactly
+   `"production"`) get a blanket `X-Robots-Tag: noindex, nofollow` header
+   from `src/middleware.ts` on every response, so a preview URL can never
+   get indexed or compete with the real site in search results. This is
+   separate from, and in addition to, `/i/[shortId]`'s own always-noindex
+   metadata (hosted invitations are never indexable, in any environment).
+5. **Smoke test after deploy**: run through "Testing payments" below
+   against the live site once live Razorpay keys are in place, and confirm
+   `https://<your-domain>/sitemap.xml` resolves with real `https://` URLs
+   (not `localhost`).
 
 ## Testing christian-garden (manual, not yet done)
 
