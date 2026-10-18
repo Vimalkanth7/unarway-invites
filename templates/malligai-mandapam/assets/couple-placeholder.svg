@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" role="img" aria-label="Illustrated placeholder of a couple">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="38%" r="75%">
+      <stop offset="0%" stop-color="#0E3B38"/>
+      <stop offset="100%" stop-color="#06141A"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#E6B85C"/>
+      <stop offset="100%" stop-color="#F2A13B"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="300" height="400" fill="url(#bg)"/>
+  <rect x="6" y="6" width="288" height="388" rx="18" fill="none" stroke="url(#gold)" stroke-width="2" opacity="0.6"/>
+
+  <!-- jasmine garland -->
+  <g fill="#FBF3E2" opacity="0.9">
+    <circle cx="150" cy="70" r="5"/>
+    <circle cx="132" cy="74" r="4.2"/>
+    <circle cx="168" cy="74" r="4.2"/>
+    <circle cx="114" cy="82" r="3.6"/>
+    <circle cx="186" cy="82" r="3.6"/>
+    <circle cx="98" cy="94" r="3"/>
+    <circle cx="202" cy="94" r="3"/>
+  </g>
+
+  <!-- groom silhouette -->
+  <g fill="#0E3B38" stroke="url(#gold)" stroke-width="1.5">
+    <circle cx="112" cy="170" r="30"/>
+    <path d="M70 290 C70 230 92 198 112 198 C132 198 154 230 154 290 Z"/>
+  </g>
+
+  <!-- bride silhouette, with a simple draped veil -->
+  <g fill="#0E3B38" stroke="url(#gold)" stroke-width="1.5">
+    <path d="M158 185 C158 230 150 270 140 300 L236 300 C226 270 218 230 218 185 Z" opacity="0.55"/>
+    <circle cx="188" cy="170" r="30"/>
+    <path d="M146 300 C146 232 168 198 188 198 C208 198 230 232 230 300 Z"/>
+  </g>
+
+  <circle cx="112" cy="166" r="2.4" fill="#B3202A"/>
+  <circle cx="188" cy="166" r="2.4" fill="#B3202A"/>
+
+  <text x="150" y="350" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="14" fill="#FBF3E2" opacity="0.85">Your photo here</text>
+</svg>

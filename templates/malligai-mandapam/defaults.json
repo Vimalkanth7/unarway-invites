@@ -1,0 +1,17 @@
+{
+  "groomName": "Groom",
+  "brideName": "Bride",
+  "groomNameTamil": "மணமகன்",
+  "brideNameTamil": "மணமகள்",
+  "groomFather": "",
+  "groomMother": "",
+  "brideFather": "",
+  "brideMother": "",
+  "couplePhoto": "assets/couple-placeholder.svg",
+  "eventDate": "2027-01-24T06:00",
+  "events": "[{\"title\":\"Muhurtham\",\"titleTamil\":\"முஹூர்தம்\",\"dateTime\":\"2027-01-24T06:00\",\"venueName\":\"\"},{\"title\":\"Reception\",\"titleTamil\":\"\",\"dateTime\":\"2027-01-24T18:30\",\"venueName\":\"\"}]",
+  "venueName": "",
+  "venueAddress": "",
+  "mapLink": "",
+  "hashtag": ""
+}

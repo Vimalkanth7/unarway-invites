@@ -1,0 +1,64 @@
+[
+  { "key": "groomName", "label": "Groom's name", "type": "text", "section": "The couple", "required": true },
+  { "key": "brideName", "label": "Bride's name", "type": "text", "section": "The couple", "required": true },
+  {
+    "key": "groomNameTamil",
+    "label": "Groom's name in Tamil",
+    "type": "text",
+    "section": "The couple",
+    "hint": "Type in Tamil using your phone's keyboard, or type in English at google.com/inputtools and paste the result here."
+  },
+  {
+    "key": "brideNameTamil",
+    "label": "Bride's name in Tamil",
+    "type": "text",
+    "section": "The couple",
+    "hint": "Type in Tamil using your phone's keyboard, or type in English at google.com/inputtools and paste the result here."
+  },
+  { "key": "groomFather", "label": "Groom's father (Thiru.)", "type": "text", "section": "Families" },
+  { "key": "groomMother", "label": "Groom's mother (Tmt.)", "type": "text", "section": "Families" },
+  { "key": "brideFather", "label": "Bride's father (Thiru.)", "type": "text", "section": "Families" },
+  { "key": "brideMother", "label": "Bride's mother (Tmt.)", "type": "text", "section": "Families" },
+  {
+    "key": "couplePhoto",
+    "label": "Couple photo",
+    "type": "photo",
+    "section": "Photos",
+    "hint": "Optional. Until you add one, an illustrated placeholder is shown instead -- never a stock photo.",
+    "clearLabel": "Use illustrated placeholder",
+    "clearTo": "assets/couple-placeholder.svg"
+  },
+  {
+    "key": "eventDate",
+    "label": "Muhurtham date and time",
+    "type": "date",
+    "section": "The wedding",
+    "required": true,
+    "hint": "Drives the countdown and the date shown on the invite. Interpreted in Indian Standard Time (IST, +05:30)."
+  },
+  {
+    "key": "events",
+    "label": "Schedule",
+    "type": "list",
+    "section": "The wedding",
+    "hint": "The muhurtham, reception, and any other events -- shown as a scrolling timeline. Add up to 5.",
+    "maxItems": 5,
+    "itemFields": [
+      { "key": "title", "label": "Event title", "type": "text", "required": true, "maxLength": 60 },
+      { "key": "titleTamil", "label": "Event title (Tamil)", "type": "text" },
+      { "key": "dateTime", "label": "Date and time", "type": "date", "required": true },
+      { "key": "venueName", "label": "Venue", "type": "text", "maxLength": 80 }
+    ]
+  },
+  { "key": "venueName", "label": "Venue name", "type": "text", "section": "Venue", "required": true },
+  { "key": "venueAddress", "label": "Venue address", "type": "text", "section": "Venue", "required": true },
+  {
+    "key": "mapLink",
+    "label": "Google Maps link to the venue",
+    "type": "url",
+    "section": "RSVP and sharing",
+    "required": true,
+    "hint": "Open the venue in Google Maps, tap Share, and paste the link here."
+  },
+  { "key": "hashtag", "label": "Wedding hashtag", "type": "text", "section": "RSVP and sharing" }
+]

@@ -1,0 +1,12 @@
+{
+  "id": "malligai-mandapam",
+  "title": "Malligai Mandapam",
+  "category": "marriage",
+  "share": {
+    "titleFields": ["groomName", "brideName"],
+    "titleJoiner": " weds ",
+    "dateField": "eventDate",
+    "locationField": "venueName",
+    "imageField": "couplePhoto"
+  }
+}

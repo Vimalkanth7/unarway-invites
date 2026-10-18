@@ -34,7 +34,12 @@
   (function () {
     function formatDate(iso) {
       if (!iso) return "";
-      var d = new Date(iso);
+      // All invitation designs are for events in India; a bare
+      // "YYYY-MM-DDTHH:mm" (what a datetime-local input gives us) is
+      // interpreted as IST (+05:30) so every guest sees the same instant
+      // regardless of their own time zone.
+      var hasOffset = /[Zz]$|[+-]\d{2}:?\d{2}$/.test(iso);
+      var d = new Date(hasOffset ? iso : iso + "+05:30");
       if (isNaN(d.getTime())) return "";
       try {
         return d.toLocaleString("en-IN", {

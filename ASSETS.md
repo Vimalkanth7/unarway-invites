@@ -35,6 +35,26 @@ licensed open-source code/fonts, not placeholder content:
 | `assets/js/three.min.js` | Three.js, MIT |
 | Google Fonts: Gloock, Kavivanar, Manrope, Marcellus (loaded via `fonts.googleapis.com`, not bundled) | Google Fonts, OFL/Apache |
 
+## templates/malligai-mandapam/
+
+No stock photos, no downloaded audio -- everything visual is SVG/CSS/canvas/
+Three.js built from scratch, and the background audio is synthesized at
+runtime rather than a shipped file.
+
+| File | Used for | Status |
+| --- | --- | --- |
+| `assets/couple-placeholder.svg` | Default couple-photo placeholder (shown until the couple uploads a real photo) | Original artwork, made for this project. No licence needed. |
+| Background ambient drone | Scene 1 (gate tap unlocks it), mute button | Original: synthesized at runtime with the Web Audio API (oscillators + gain nodes, see `template/index.html`). Not a file -- nothing to license or replace before launch. |
+
+Not sample media, tracked separately because they're already properly
+licensed open-source code/fonts, not placeholder content:
+
+| File | Licence |
+| --- | --- |
+| `assets/js/gsap.min.js`, `assets/js/ScrollTrigger.min.js` | GSAP (GreenSock); verify current terms at gsap.com before shipping |
+| `assets/js/three.min.js` (loaded dynamically, only once the capability check passes) | Three.js, MIT |
+| Google Fonts: Cormorant Garamond, Noto Serif Tamil, Manrope (loaded via `fonts.googleapis.com`, not bundled) | Google Fonts, SIL Open Font License 1.1 |
+
 ## templates/sample-card/
 
 Dev fixture only (see README.md Phase 2 note); ships no bundled media — the

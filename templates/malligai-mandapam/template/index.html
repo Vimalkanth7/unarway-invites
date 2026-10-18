@@ -1,0 +1,883 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wedding Invitation</title>
+<!--
+  No og/twitter meta here: this document only ever runs inside a sandboxed
+  preview iframe or gets packaged into the paid download. The public share
+  page is /i/<short-id>, which owns its own social meta tags.
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Noto+Serif+Tamil:wght@400;600&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#06141A}
+a{color:#E6B85C}a:hover{color:#FBF3E2}
+.inv7{--vh:900px;--teal:#06141A;--green:#0E3B38;--saffron:#F2A13B;--gold:#E6B85C;--ivory:#FBF3E2;--kum:#B3202A;font-family:Manrope,'Segoe UI',sans-serif;color:var(--ivory);background:var(--teal);position:relative;overflow-x:clip}
+.inv7 *{box-sizing:border-box}
+.dis{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500}
+.tam{font-family:'Noto Serif Tamil','Latha',serif}
+.lab{font-family:Manrope,'Segoe UI',sans-serif;font-weight:600;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}
+.glass{background:linear-gradient(180deg,rgba(6,20,26,.72),rgba(6,20,26,.88));border:1px solid rgba(230,184,92,.35);border-radius:22px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 30px 70px rgba(0,0,0,.45)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:50px;padding:0 26px;border-radius:999px;border:1px solid var(--gold);color:var(--ivory);text-decoration:none;font-family:Manrope,sans-serif;font-weight:600;font-size:13px;letter-spacing:.14em;text-transform:uppercase;background:rgba(6,20,26,.5);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.btn.gold{background:linear-gradient(180deg,var(--ivory),var(--gold) 60%,#B4832F);color:#1A0D04;border-color:var(--gold)}
+.story{position:relative;z-index:2}
+.s{position:relative}
+.stick{position:relative;min-height:calc(var(--vh,100vh)*1);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10vh 20px;text-align:center}
+
+/* petals: present for every device, every scene */
+.petals{position:fixed;inset:0;z-index:5;pointer-events:none;overflow:hidden}
+.petal{position:absolute;top:-6vh;width:10px;height:7px;border-radius:70% 0 70% 0;background:var(--ivory);opacity:.85;animation:fall linear infinite}
+@keyframes fall{from{transform:translateY(-6vh) translateX(0) rotate(0deg)}to{transform:translateY(112vh) translateX(var(--sway,40px)) rotate(300deg)}}
+.inv7.reduced .petal{animation:none;opacity:.4}
+
+/* gate */
+#gate{position:fixed;inset:0;z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:24px;text-align:center;background:radial-gradient(120% 90% at 50% 20%,#0E3B38 0%,#06141A 70%);color:var(--ivory);touch-action:none;cursor:pointer;transition:opacity .7s ease,visibility .7s;-webkit-tap-highlight-color:transparent}
+#gate.gone{opacity:0;visibility:hidden;pointer-events:none}
+#gate svg.kolam{width:min(220px,58vw);height:min(220px,58vw)}
+#gate svg.kolam path{fill:none;stroke:var(--gold);stroke-width:1.6;stroke-linecap:round;stroke-dasharray:1200;stroke-dashoffset:1200;animation:draw 2.6s ease forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+#gate .g-names{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,8vw,42px);line-height:1.15;margin-top:8px}
+#gate .g-names i{font-style:normal;color:var(--gold);font-size:.7em}
+#gate .g-date{font-size:14px;color:#D8CBB3;letter-spacing:.06em;margin-top:2px}
+#gate .g-btn{margin-top:14px;min-height:50px;padding:0 30px;border-radius:999px;border:0;font:600 14px/1 Manrope,sans-serif;letter-spacing:.08em;color:#1A0D04;background:linear-gradient(180deg,var(--ivory),var(--gold) 60%,#B4832F);cursor:pointer;animation:gpulse 2.2s ease-in-out infinite}
+@keyframes gpulse{0%,100%{box-shadow:0 0 0 0 rgba(230,184,92,.4)}50%{box-shadow:0 0 0 14px rgba(230,184,92,0)}}
+#gate .g-hint{font-size:11px;color:#B9AA90;opacity:.85}
+#muteBtn{display:none;position:fixed;right:max(12px,env(safe-area-inset-right));top:calc(66px + env(safe-area-inset-top));z-index:9999;width:42px;height:42px;border-radius:50%;border:1px solid var(--gold);background:rgba(6,20,26,.75);color:var(--ivory);font-size:17px;line-height:1;cursor:pointer;-webkit-tap-highlight-color:transparent}
+
+/* sky / dawn */
+.s-sky .sky-bg{position:absolute;inset:0;z-index:-2;background:var(--teal)}
+.s-sky .sky-dawn{position:absolute;inset:0;z-index:-1;opacity:0;background:radial-gradient(90% 60% at 50% 100%,var(--saffron) 0%,var(--green) 55%,var(--teal) 100%)}
+.stars{position:absolute;inset:0;z-index:-1;pointer-events:none}
+.stars i{position:absolute;width:3px;height:3px;border-radius:50%;background:var(--ivory);opacity:.8}
+.s-sky h2{font-size:clamp(34px,6vw,58px);margin:0}
+.s-sky p{max-width:520px;color:#D8CBB3;font-size:16px;line-height:1.6}
+
+/* lamp */
+.s-lamp{min-height:calc(var(--vh,100vh)*1.6)}
+.lamp-wrap{position:relative;width:min(220px,50vw);aspect-ratio:1/2;margin:0 auto}
+.lamp-svg{position:absolute;inset:0;width:100%;height:100%}
+.lamp-glow{position:absolute;left:50%;top:6%;width:140px;height:140px;margin-left:-70px;border-radius:50%;background:radial-gradient(circle,rgba(242,161,59,.9),rgba(242,161,59,0) 70%);opacity:0;filter:blur(2px)}
+canvas.lamp-gl{position:absolute;inset:0;width:100%;height:100%;display:none}
+.inv7.gl-on .lamp-gl{display:block}
+.inv7.gl-on .lamp-svg,.inv7.gl-on .lamp-glow{display:none}
+
+/* names */
+.name-block{display:flex;flex-direction:column;gap:14px;align-items:center}
+.name-en{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,10vw,76px);line-height:1.1}
+.name-en .ch,.name-ta .ch{display:inline-block;opacity:0;transform:translateY(16px)}
+.name-ta{font-family:'Noto Serif Tamil',serif;font-size:clamp(22px,4.4vw,34px);color:var(--gold)}
+.amp{color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:0.6em;margin:0 10px}
+
+/* five lamps + date */
+.s-lamps5{gap:40px}
+.lamps-row{display:flex;gap:18px;justify-content:center}
+.lamp5{width:28px;height:52px;position:relative}
+.lamp5 svg{width:100%;height:100%}
+.lamp5 .flame{position:absolute;left:50%;top:-6px;width:10px;height:16px;margin-left:-5px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:var(--saffron);opacity:0;filter:blur(.3px)}
+.date-card{margin-top:10px;padding:28px 34px;border-radius:20px}
+.date-card b{display:block;font-family:'Cormorant Garamond',serif;font-size:clamp(50px,10vw,84px);line-height:1}
+.date-card span{display:block;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.cd{display:flex;gap:10px;justify-content:center;margin-top:14px;flex-wrap:wrap}
+.cd div{min-width:68px;padding:10px 6px;border-radius:12px;border:1px solid rgba(230,184,92,.4);display:flex;flex-direction:column;gap:2px}
+.cd b{font-family:'Cormorant Garamond',serif;font-size:26px;line-height:1}
+.cd span{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+
+/* timeline (horizontal pin) */
+.s-timeline{padding:0;min-height:calc(var(--vh,100vh)*1)}
+.tl-head{padding-top:8vh}
+.tl-viewport{width:100%;overflow:hidden;margin-top:24px}
+.tl-track{display:flex;gap:22px;padding:10px 6vw;will-change:transform}
+.tl-card{flex:0 0 min(280px,78vw);padding:26px 22px;display:flex;flex-direction:column;gap:8px;text-align:left}
+.tl-card .lab{color:var(--gold)}
+.tl-card h3{margin:4px 0 0;font-family:'Cormorant Garamond',serif;font-size:28px}
+.tl-card .tam{color:var(--ivory);font-size:16px}
+.tl-card .meta{font-size:14px;color:#D8CBB3}
+.inv7.reduced .tl-viewport{overflow-x:auto}
+.inv7.reduced .tl-track{flex-direction:column;overflow:visible}
+.inv7.reduced .tl-card{flex:none;width:min(420px,88vw);margin:0 auto}
+
+/* venue */
+.s-venue .vwrap{max-width:720px;display:flex;flex-direction:column;gap:18px;align-items:center}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px 26px;width:100%;text-align:left}
+.fld span{display:block;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
+.fld b{display:block;font-family:'Cormorant Garamond',serif;font-size:22px}
+.fld small{display:block;font-size:14px;color:#D8CBB3;margin-top:2px}
+.fam{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:20px;max-width:760px;margin-top:10px;width:100%}
+.fam h4{margin:0 0 6px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.fam p{margin:0;font-family:'Cormorant Garamond',serif;font-size:20px}
+
+/* finale */
+.s-finale p.msg{max-width:480px;font-size:17px;line-height:1.6;color:#D8CBB3}
+.foot{margin-top:24px;display:flex;flex-direction:column;align-items:center;gap:8px}
+
+@media (max-width:760px){
+  .fields{text-align:center;justify-items:center}
+}
+</style>
+
+<script src="assets/js/gsap.min.js"></script>
+<script src="assets/js/ScrollTrigger.min.js"></script>
+</head>
+<body>
+<div id="app"></div>
+<template id="tpl">
+
+<div class="inv7">
+<div class="petals" aria-hidden="true"></div>
+
+<div class="story">
+
+<!-- 2 - Night sky turning to dawn -->
+<section class="s s-sky" aria-label="Opening">
+<div class="stick">
+  <div class="sky-bg" aria-hidden="true"></div>
+  <div class="sky-dawn" aria-hidden="true"></div>
+  <div class="stars" aria-hidden="true"></div>
+  <span class="lab">Together with their families</span>
+  <h2 class="dis">{{groom}} <span class="amp">&amp;</span> {{bride}}</h2>
+  <p>invite you to a wedding at dawn, among jasmine and brass lamps.</p>
+</div>
+</section>
+
+<!-- 3 - Brass lamp lighting up -->
+<section class="s s-lamp" aria-label="The lamp">
+<div class="stick">
+  <span class="lab">Kuthuvilakku</span>
+  <div class="lamp-wrap">
+    <div class="lamp-glow" aria-hidden="true"></div>
+    <svg class="lamp-svg" viewBox="0 0 100 200" aria-hidden="true">
+      <path d="M50 10 L54 30 L46 30 Z" fill="#E6B85C"/>
+      <ellipse cx="50" cy="40" rx="18" ry="6" fill="#E6B85C"/>
+      <path d="M38 40 C34 70 34 90 44 96 L56 96 C66 90 66 70 62 40 Z" fill="#0E3B38" stroke="#E6B85C" stroke-width="2"/>
+      <rect x="46" y="96" width="8" height="60" fill="#E6B85C"/>
+      <ellipse cx="50" cy="162" rx="26" ry="8" fill="#E6B85C"/>
+      <ellipse cx="50" cy="178" rx="34" ry="10" fill="#0E3B38" stroke="#E6B85C" stroke-width="2"/>
+    </svg>
+    <canvas class="lamp-gl" aria-hidden="true"></canvas>
+  </div>
+  <p style="max-width:420px;color:#D8CBB3">One flame, lit for the two who begin their journey together.</p>
+</div>
+</section>
+
+<!-- 4 - Names reveal -->
+<section class="s s-names" aria-label="The couple's names">
+<div class="stick">
+  <span class="lab">The couple</span>
+  <div class="name-block">
+    <div class="name-en"><span class="ch">&nbsp;</span></div>
+    <div class="name-ta tam"><span class="ch">&nbsp;</span></div>
+  </div>
+</div>
+</section>
+
+<!-- 5 - Five lamps, then the date -->
+<section class="s s-lamps5" aria-label="Save the date">
+<div class="stick">
+  <span class="lab">Beneath five small flames</span>
+  <div class="lamps-row" aria-hidden="true">
+    <div class="lamp5"><div class="flame"></div><svg viewBox="0 0 28 52"><path d="M14 4 C6 24 6 34 14 38 C22 34 22 24 14 4 Z" fill="#0E3B38" stroke="#E6B85C" stroke-width="1.5"/><rect x="11" y="38" width="6" height="10" fill="#E6B85C"/><ellipse cx="14" cy="49" rx="12" ry="3" fill="#E6B85C"/></svg></div>
+    <div class="lamp5"><div class="flame"></div><svg viewBox="0 0 28 52"><path d="M14 4 C6 24 6 34 14 38 C22 34 22 24 14 4 Z" fill="#0E3B38" stroke="#E6B85C" stroke-width="1.5"/><rect x="11" y="38" width="6" height="10" fill="#E6B85C"/><ellipse cx="14" cy="49" rx="12" ry="3" fill="#E6B85C"/></svg></div>
+    <div class="lamp5"><div class="flame"></div><svg viewBox="0 0 28 52"><path d="M14 4 C6 24 6 34 14 38 C22 34 22 24 14 4 Z" fill="#0E3B38" stroke="#E6B85C" stroke-width="1.5"/><rect x="11" y="38" width="6" height="10" fill="#E6B85C"/><ellipse cx="14" cy="49" rx="12" ry="3" fill="#E6B85C"/></svg></div>
+    <div class="lamp5"><div class="flame"></div><svg viewBox="0 0 28 52"><path d="M14 4 C6 24 6 34 14 38 C22 34 22 24 14 4 Z" fill="#0E3B38" stroke="#E6B85C" stroke-width="1.5"/><rect x="11" y="38" width="6" height="10" fill="#E6B85C"/><ellipse cx="14" cy="49" rx="12" ry="3" fill="#E6B85C"/></svg></div>
+    <div class="lamp5"><div class="flame"></div><svg viewBox="0 0 28 52"><path d="M14 4 C6 24 6 34 14 38 C22 34 22 24 14 4 Z" fill="#0E3B38" stroke="#E6B85C" stroke-width="1.5"/><rect x="11" y="38" width="6" height="10" fill="#E6B85C"/><ellipse cx="14" cy="49" rx="12" ry="3" fill="#E6B85C"/></svg></div>
+  </div>
+  <div class="date-card glass">
+    <b>{{day}}</b>
+    <span>{{monthYear}}</span>
+    <span class="tam" style="color:#FBF3E2;margin-top:6px">{{taDate}}</span>
+  </div>
+  <div class="cd" aria-label="Countdown to the muhurtham">
+    <div><b>{{cd.d}}</b><span>Days</span></div>
+    <div><b>{{cd.h}}</b><span>Hours</span></div>
+    <div><b>{{cd.m}}</b><span>Min</span></div>
+    <div><b>{{cd.s}}</b><span>Sec</span></div>
+  </div>
+</div>
+</section>
+
+<!-- 6 - Muhurtham & reception timeline -->
+<section class="s s-timeline" aria-label="Wedding schedule">
+<div class="tl-head">
+  <span class="lab">The schedule</span>
+  <h2 class="dis" style="margin:6px 0 0">A morning, then an evening</h2>
+</div>
+<div class="tl-viewport">
+  <div class="tl-track"></div>
+</div>
+</section>
+
+<!-- 7 - Venue, directions, countdown, families -->
+<section class="s s-venue" aria-label="Venue and families">
+<div class="stick">
+  <div class="vwrap">
+    <span class="lab">The celebration</span>
+    <h2 class="dis" style="margin:4px 0 0">Join us at the mandapam</h2>
+    <div class="fields glass" style="padding:24px 28px">
+      <div class="fld"><span>Date</span><b>{{dateLong}}</b><small>{{weekday}}</small></div>
+      <div class="fld"><span>Venue</span><b>{{venueName}}</b><small>{{venueAddress}}</small></div>
+    </div>
+    <a class="btn gold" href="{{mapLink}}" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12Z"></path><circle cx="12" cy="9" r="2.5"></circle></svg>
+      Directions
+    </a>
+    <div class="fam glass" style="padding:22px 20px">
+      <div><h4>The Groom's Family</h4><p>Thiru.&nbsp;{{groomFather}}&nbsp;&amp; Tmt.&nbsp;{{groomMother}}</p></div>
+      <div><h4>The Bride's Family</h4><p>Thiru.&nbsp;{{brideFather}}&nbsp;&amp; Tmt.&nbsp;{{brideMother}}</p></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- 8 - Blessing and share -->
+<section class="s s-finale" aria-label="Blessing">
+<div class="stick">
+  <div class="cp-photo" style="width:min(180px,46vw);aspect-ratio:3/4;border-radius:999px 999px 14px 14px;overflow:hidden;box-shadow:0 0 0 2px #E6B85C,0 0 0 8px rgba(6,20,26,.7);margin-bottom:18px">
+    <img src="{{couplePhoto}}" alt="The couple" style="width:100%;height:100%;object-fit:cover">
+  </div>
+  <span class="tam" style="font-size:20px;color:#FBF3E2">மணமக்கள்</span>
+  <p class="msg dis" style="font-size:22px">Your presence is the blessing we wish for.</p>
+  <a class="btn gold" href="{{share}}" target="_blank" rel="noopener">Share</a>
+  <div class="foot">
+    <span class="lab">{{hashtag}}</span>
+    <span class="dis" style="font-size:17px">With love, the families of {{groom}} &amp; {{bride}}</span>
+  </div>
+</div>
+</section>
+
+</div>
+</div>
+</template>
+<!--
+  Seed values only, matching defaults.json: lets this file render something
+  sensible if opened directly (outside the parent app). The parent always
+  overwrites these via the unarway:config postMessage immediately after this
+  document signals unarway:ready - see the runtime script below.
+-->
+<script id="inv-config" type="application/json">{"groomName":"Groom","brideName":"Bride","groomNameTamil":"மணமகன்","brideNameTamil":"மணமகள்","groomFather":"","groomMother":"","brideFather":"","brideMother":"","couplePhoto":"assets/couple-placeholder.svg","eventDate":"2027-01-24T06:00","events":"[{\"title\":\"Muhurtham\",\"titleTamil\":\"முஹூர்தம்\",\"dateTime\":\"2027-01-24T06:00\",\"venueName\":\"\"},{\"title\":\"Reception\",\"titleTamil\":\"\",\"dateTime\":\"2027-01-24T18:30\",\"venueName\":\"\"}]","venueName":"","venueAddress":"","mapLink":"","hashtag":""}</script>
+<script>/* Tiny template runtime: renders the <template id="tpl"> with the Component class.
+   This engine (interpolation, sc-for/sc-if, DCLogic, postMessage contract) is
+   reused verbatim from templates/temple-journey -- it's the shared, proven
+   contract every design runs on, not something to reinvent per design. */
+(function () {
+  // No localStorage/cookies: this document runs in a sandbox="allow-scripts"
+  // iframe with an opaque origin, which can't access either. Field values
+  // come from the parent app over postMessage instead - see the listener
+  // registered below, next to window.__mountInvite.
+  var BASE = JSON.parse(document.getElementById('inv-config').textContent);
+  var CFG = Object.assign({}, BASE);
+
+  var ROOT = {};
+  var bindings = [];
+  var comp = null;
+
+  function get(path, scope) {
+    path = String(path).trim();
+    if (path === 'true') return true;
+    if (path === 'false') return false;
+    if (/^-?\d+(\.\d+)?$/.test(path)) return +path;
+    if (/^(['"]).*\1$/.test(path)) return path.slice(1, -1);
+    return path.split('.').reduce(function (o, k) { return o == null ? undefined : o[k]; }, scope);
+  }
+  var WHOLE = /^\s*\{\{\s*([^}]+?)\s*\}\}\s*$/;
+  function interp(str, scope) {
+    var m = str.match(WHOLE);
+    if (m) return get(m[1], scope);
+    return str.replace(/\{\{\s*([^}]+?)\s*\}\}/g, function (_, p) { var v = get(p, scope); return v == null ? '' : String(v); });
+  }
+  function hasHole(s) { return s.indexOf('{{') >= 0; }
+
+  function build(src, scope, parent) {
+    var kids = src.childNodes;
+    for (var i = 0; i < kids.length; i++) {
+      var c = kids[i];
+      if (c.nodeType === 3) {
+        var t = document.createTextNode('');
+        if (hasHole(c.nodeValue)) { var b = { type: 'text', node: t, tpl: c.nodeValue, scope: scope }; bindings.push(b); t.nodeValue = val(interp(b.tpl, scope)); b.last = t.nodeValue; }
+        else t.nodeValue = c.nodeValue;
+        parent.appendChild(t);
+        continue;
+      }
+      if (c.nodeType !== 1) continue;
+      var tag = c.localName.toLowerCase();
+      if (tag === 'sc-for') {
+        var la = c.getAttribute('list') || '';
+        var list = interp(la, scope) || [];
+        var as = c.getAttribute('as') || 'item';
+        for (var j = 0; j < list.length; j++) {
+          var s2 = Object.create(scope); s2[as] = list[j]; s2.$index = j;
+          build(c, s2, parent);
+        }
+        continue;
+      }
+      if (tag === 'sc-if') {
+        var w = document.createElement('span');
+        w.style.display = 'contents';
+        var bi = { type: 'if', node: w, tpl: c.getAttribute('value') || '', scope: scope };
+        bindings.push(bi);
+        w.style.display = interp(bi.tpl, scope) ? 'contents' : 'none';
+        build(c, scope, w);
+        parent.appendChild(w);
+        continue;
+      }
+      var el = document.createElementNS(c.namespaceURI, c.localName);
+      for (var a = 0; a < c.attributes.length; a++) {
+        var at = c.attributes[a], name = at.name, v = at.value;
+        if (name.indexOf('hint-') === 0) continue;
+        if (/^on[a-z]+$/i.test(name) && hasHole(v)) {
+          (function (path, sc, evt) { el.addEventListener(evt, function (e) { var f = get(path, sc); if (typeof f === 'function') f(e); }); })(v.match(WHOLE)[1], scope, name.slice(2).toLowerCase());
+          continue;
+        }
+        if (hasHole(v)) {
+          var ba = { type: 'attr', node: el, name: name, tpl: v, scope: scope };
+          var r = interp(v, scope);
+          if (r !== false && r != null) { el.setAttribute(name, String(r)); ba.last = String(r); }
+          bindings.push(ba);
+        } else el.setAttribute(name, v);
+      }
+      build(c.localName === 'template' ? c.content : c, scope, el);
+      parent.appendChild(el);
+    }
+  }
+  function val(v) { return v == null ? '' : String(v); }
+
+  function setRoot() {
+    var vals = comp.renderVals();
+    Object.keys(ROOT).forEach(function (k) { delete ROOT[k]; });
+    Object.assign(ROOT, CFG, vals);
+  }
+  function update() {
+    if (!comp) return;
+    setRoot();
+    bindings.forEach(function (b) {
+      if (b.type === 'text') { var t = val(interp(b.tpl, b.scope)); if (t !== b.last) { b.node.nodeValue = t; b.last = t; } }
+      else if (b.type === 'attr') { var r = interp(b.tpl, b.scope); var s = (r === false || r == null) ? null : String(r); if (s !== b.last) { if (s == null) b.node.removeAttribute(b.name); else b.node.setAttribute(b.name, s); b.last = s; } }
+      else if (b.type === 'if') { var d = interp(b.tpl, b.scope) ? 'contents' : 'none'; if (b.node.style.display !== d) b.node.style.display = d; }
+    });
+    if (comp.componentDidUpdate) comp.componentDidUpdate();
+  }
+
+  window.DCLogic = function DCLogic(props) { this.props = props; this.state = {}; };
+  window.DCLogic.prototype.setState = function (p) {
+    var n = typeof p === 'function' ? p(this.state, this.props) : p;
+    this.state = Object.assign({}, this.state, n);
+    if (this.__mounted) update();
+  };
+  window.DCLogic.prototype.forceUpdate = function () { update(); };
+
+  window.__mountInvite = function (Component) {
+    comp = new Component(Object.assign({}, CFG));
+    if (!comp.state) comp.state = {};
+    setRoot();
+    var app = document.getElementById('app');
+    build(document.getElementById('tpl').content, ROOT, app);
+    comp.__mounted = true;
+    if (comp.componentDidMount) comp.componentDidMount();
+    window.parent.postMessage({ type: 'unarway:ready' }, '*');
+  };
+
+  window.addEventListener('message', function (event) {
+    if (event.source !== window.parent) return;
+    if (!event.data || event.data.type !== 'unarway:config') return;
+    Object.assign(CFG, event.data.payload || {});
+    if (comp) { comp.props = Object.assign({}, CFG); update(); }
+  });
+})();</script>
+<script>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { now: Date.now(), muted: false };
+    this._namesKey = '';
+    this._eventsKey = '';
+  }
+
+  componentDidMount() {
+    this._tick = setInterval(() => this.setState({ now: Date.now() }), 1000);
+    this.boot();
+  }
+
+  componentDidUpdate() {
+    this.syncNames();
+    this.syncEvents();
+    if (this._updateLamp) this._updateLamp();
+  }
+
+  componentWillUnmount() {
+    clearInterval(this._tick);
+    if (this._raf) cancelAnimationFrame(this._raf);
+    if (this._ctx) this._ctx.revert();
+    if (this._onResize) window.removeEventListener('resize', this._onResize);
+  }
+
+  // ---------- data ----------
+  // All invitation designs are for events in India; a bare "YYYY-MM-DDTHH:mm"
+  // (what a datetime-local input gives us) is interpreted as IST so the
+  // countdown lands on the same instant for every guest, in any time zone.
+  parseEventDate(v) {
+    if (!v) return null;
+    const hasOffset = /[Zz]$|[+-]\d{2}:?\d{2}$/.test(v);
+    const d = new Date(hasOffset ? v : v + '+05:30');
+    return isNaN(d.getTime()) ? null : d;
+  }
+
+  // Splits a display string into the units a stagger reveal should animate
+  // one at a time. Intl.Segmenter's grapheme granularity keeps a consonant
+  // plus its vowel sign / combining marks together as one unit, so a Tamil
+  // syllable is never torn apart mid-glyph. Where Intl.Segmenter isn't
+  // available, falling back to naive character-splitting WOULD break Tamil
+  // (and any other combining-mark script) -- so the fallback is word-level
+  // instead, which can never split inside a word.
+  splitGraphemes(str) {
+    if (!str) return [];
+    if (typeof Intl !== 'undefined' && typeof Intl.Segmenter === 'function') {
+      try {
+        const seg = new Intl.Segmenter(undefined, { granularity: 'grapheme' });
+        return Array.from(seg.segment(str), (s) => s.segment);
+      } catch (e) {}
+    }
+    return str.split(/(\s+)/).filter(Boolean);
+  }
+
+  info() {
+    const p = this.props;
+    const groom = (p.groomName ?? 'Groom') || 'Groom';
+    const bride = (p.brideName ?? 'Bride') || 'Bride';
+    const d = this.parseEventDate(p.eventDate) || this.parseEventDate('2027-01-24T06:00');
+    const ok = !isNaN(d.getTime());
+    const fmt = (o, loc) => { try { return d.toLocaleDateString(loc || 'en-IN', o); } catch (e) { return ''; } };
+    return {
+      groom, bride, ok, d,
+      groomTa: p.groomNameTamil ?? 'மணமகன்', brideTa: p.brideNameTamil ?? 'மணமகள்',
+      weekday: ok ? fmt({ weekday: 'long' }) : '[Weekday]',
+      day: ok ? String(d.getDate()).padStart(2, '0') : '00',
+      monthYear: ok ? fmt({ month: 'long', year: 'numeric' }) : '[Month Year]',
+      dateLong: ok ? fmt({ day: 'numeric', month: 'long', year: 'numeric' }) : '[Date]',
+      taDate: ok ? fmt({ weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }, 'ta-IN') : ''
+    };
+  }
+
+  parseEvents() {
+    try {
+      const parsed = JSON.parse(this.props.events || '[]');
+      return Array.isArray(parsed) ? parsed : [];
+    } catch (e) { return []; }
+  }
+
+  formatEventWhen(iso) {
+    const d = this.parseEventDate(iso);
+    if (!d) return { day: '', time: '' };
+    let time = '';
+    try { time = d.toLocaleTimeString('en-IN', { hour: 'numeric', minute: '2-digit', hour12: true }).toUpperCase(); } catch (e) {}
+    let day = '';
+    try { day = d.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short' }); } catch (e) {}
+    return { day, time };
+  }
+
+  // ---------- boot ----------
+  scroller() {
+    const R = document.querySelector('.inv7');
+    let el = R ? R.parentElement : null;
+    while (el && el !== document.body && el !== document.documentElement) {
+      const cs = getComputedStyle(el);
+      if (/(auto|scroll)/.test(cs.overflowY) && el.scrollHeight > el.clientHeight + 4) return el;
+      el = el.parentElement;
+    }
+    return null;
+  }
+
+  loadThree() {
+    return new Promise((resolve, reject) => {
+      if (window.THREE) return resolve();
+      const s = document.createElement('script');
+      s.src = 'assets/js/three.min.js';
+      s.onload = () => resolve();
+      s.onerror = () => reject(new Error('three.min.js failed to load'));
+      document.head.appendChild(s);
+    });
+  }
+
+  boot() {
+    const g = window.gsap, ST = window.ScrollTrigger, R = document.querySelector('.inv7');
+    if (!g || !ST || !R) { if ((this._tries = (this._tries || 0) + 1) < 80) this._bt = setTimeout(() => this.boot(), 100); return; }
+    if (this._booted) return;
+    this._booted = true;
+    g.registerPlugin(ST);
+    const sc = this.scroller();
+    if (sc) ST.defaults({ scroller: sc });
+    const setVh = () => { R.style.setProperty('--vh', (sc ? sc.clientHeight : window.innerHeight) + 'px'); };
+    setVh();
+
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this._reduced = reduce;
+    if (reduce) R.classList.add('reduced');
+    const vh = sc ? sc.clientHeight : window.innerHeight;
+    const capable = !reduce && vh <= 1500;
+
+    this.initPetals(R);
+    this.syncNames();
+    this.syncEvents();
+    this.initTimeline(g, ST, R);
+    this.initSky(g, ST, R);
+    this.initLamp5(g, ST, R);
+    this.initReveals(g, ST, R);
+
+    if (capable) {
+      this.loadThree().then(() => {
+        try { this.initLampGL(R); } catch (e) { this.initLampCSS(g, ST, R); }
+      }).catch(() => this.initLampCSS(g, ST, R));
+    } else {
+      this.initLampCSS(g, ST, R);
+    }
+
+    this._onResize = () => {
+      setVh();
+      if (this._gl) this.resizeGL();
+      ST.refresh();
+    };
+    window.addEventListener('resize', this._onResize);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => ST.refresh());
+    setTimeout(() => ST.refresh(), 900);
+  }
+
+  // ---------- petals (every device) ----------
+  initPetals(R) {
+    const host = R.querySelector('.petals');
+    if (!host) return;
+    const colors = ['#FBF3E2', '#F2A13B', '#E6B85C'];
+    const count = this._reduced ? 10 : 26;
+    for (let i = 0; i < count; i++) {
+      const p = document.createElement('div');
+      p.className = 'petal';
+      const left = Math.random() * 100;
+      const dur = 9 + Math.random() * 10;
+      const delay = Math.random() * dur;
+      const sway = (Math.random() - 0.5) * 120;
+      p.style.left = left + 'vw';
+      p.style.background = colors[i % colors.length];
+      p.style.setProperty('--sway', sway + 'px');
+      p.style.animationDuration = dur + 's';
+      p.style.animationDelay = '-' + delay + 's';
+      host.appendChild(p);
+    }
+  }
+
+  // ---------- sky scrub ----------
+  initSky(g, ST, R) {
+    const dawn = R.querySelector('.sky-dawn');
+    const starsHost = R.querySelector('.stars');
+    if (starsHost && !starsHost.childElementCount) {
+      for (let i = 0; i < 60; i++) {
+        const s = document.createElement('i');
+        s.style.left = Math.random() * 100 + '%';
+        s.style.top = Math.random() * 70 + '%';
+        s.style.opacity = String(0.3 + Math.random() * 0.7);
+        starsHost.appendChild(s);
+      }
+    }
+    if (dawn) {
+      g.to(dawn, { opacity: 1, ease: 'none', scrollTrigger: { trigger: '.s-sky', start: 'top top', end: 'bottom top', scrub: true } });
+    }
+    if (starsHost) {
+      g.to(starsHost, { y: -60, ease: 'none', scrollTrigger: { trigger: '.s-sky', start: 'top top', end: 'bottom top', scrub: true } });
+    }
+  }
+
+  // ---------- lamp: capable (WebGL) path ----------
+  initLampGL(R) {
+    const T = window.THREE;
+    const wrap = R.querySelector('.lamp-wrap');
+    const cv = wrap && wrap.querySelector('.lamp-gl');
+    if (!wrap || !cv) throw new Error('lamp DOM missing');
+    const renderer = new T.WebGLRenderer({ canvas: cv, antialias: true, alpha: true });
+    if (!renderer.getContext()) throw new Error('no webgl context');
+    R.classList.add('gl-on');
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    const resize = () => { const w = wrap.clientWidth, h = wrap.clientHeight; renderer.setSize(w, h, false); if (this._lampCam) { this._lampCam.aspect = w / h; this._lampCam.updateProjectionMatrix(); } };
+    const scene = new T.Scene();
+    const cam = new T.PerspectiveCamera(32, 1, 0.1, 10);
+    cam.position.set(0, 0.2, 3.2);
+    this._lampCam = cam;
+    scene.add(new T.AmbientLight(0xffe2b8, 0.7));
+    const key = new T.PointLight(0xffb45a, 0, 4, 2);
+    key.position.set(0, 1, 1.2);
+    scene.add(key);
+    const gold = new T.MeshStandardMaterial({ color: 0xe6b85c, metalness: 0.9, roughness: 0.3 });
+    const body = new T.Mesh(new T.ConeGeometry(0.55, 1.5, 24, 1, true), gold);
+    body.position.y = -0.1;
+    scene.add(body);
+    const base = new T.Mesh(new T.CylinderGeometry(0.75, 0.9, 0.22, 24), gold);
+    base.position.y = -1.0;
+    scene.add(base);
+    const flame = new T.Sprite(new T.SpriteMaterial({ color: 0xffb45a, transparent: true, opacity: 0, blending: T.AdditiveBlending, depthWrite: false }));
+    flame.scale.set(0.3, 0.5, 1);
+    flame.position.y = 0.95;
+    scene.add(flame);
+    this._gl = { renderer, scene, cam, flame, light: key, t0: performance.now() };
+    this.resizeGL = resize;
+    resize();
+
+    window.gsap.to({ v: 0 }, {
+      v: 1,
+      scrollTrigger: { trigger: '.s-lamp', start: 'top 70%', end: 'top 10%', scrub: 1 },
+      onUpdate: () => {}
+    });
+    const lit = { v: 0 };
+    window.gsap.to(lit, { v: 1, ease: 'none', scrollTrigger: { trigger: '.s-lamp', start: 'top 75%', end: 'top 20%', scrub: 1 } });
+    let last = performance.now();
+    const loop = () => {
+      this._raf = requestAnimationFrame(loop);
+      const now = performance.now(), dt = Math.min(0.05, (now - last) / 1000); last = now;
+      const t = (now - this._gl.t0) / 1000;
+      const on = lit.v;
+      flame.material.opacity = 0.9 * on;
+      flame.scale.set(0.3 * (1 + Math.sin(t * 10) * 0.08), 0.5 * (1 + Math.sin(t * 13) * 0.1), 1);
+      key.intensity = 4 * on;
+      renderer.render(scene, cam);
+    };
+    loop();
+  }
+
+  // ---------- lamp: baseline (CSS/SVG) path ----------
+  initLampCSS(g, ST, R) {
+    const glow = R.querySelector('.lamp-glow');
+    if (!glow) return;
+    g.to(glow, { opacity: 0.9, ease: 'none', scrollTrigger: { trigger: '.s-lamp', start: 'top 75%', end: 'top 20%', scrub: 1 } });
+    if (!this._reduced) {
+      let raf;
+      const flicker = () => {
+        glow.style.transform = `scale(${1 + Math.sin(Date.now() / 140) * 0.04})`;
+        raf = requestAnimationFrame(flicker);
+      };
+      flicker();
+      this._cssFlickerRaf = raf;
+    }
+  }
+
+  // ---------- five lamps + date ----------
+  initLamp5(g, ST, R) {
+    const flames = Array.from(R.querySelectorAll('.lamp5 .flame'));
+    const tl = g.timeline({ scrollTrigger: { trigger: '.s-lamps5', start: 'top 70%', end: 'top 10%', scrub: 1 } });
+    flames.forEach((f, i) => tl.to(f, { opacity: 1, duration: 0.15 }, i * 0.18));
+    g.from('.date-card', { y: 30, opacity: 0, scrollTrigger: { trigger: '.date-card', start: 'top 85%', end: 'top 55%', scrub: 1 } });
+  }
+
+  // ---------- names: rebuilt imperatively (grapheme spans change length,
+  // which the binding engine's text/attr-only update() can't reflect) ----------
+  syncNames() {
+    const R = document.querySelector('.inv7');
+    if (!R) return;
+    const I = this.info();
+    const key = [I.groom, I.bride, I.groomTa, I.brideTa].join('|');
+    if (key === this._namesKey) return;
+    this._namesKey = key;
+
+    const en = R.querySelector('.name-en');
+    const ta = R.querySelector('.name-ta');
+    if (en) {
+      en.innerHTML = '';
+      const parts = this.splitGraphemes(I.groom);
+      parts.forEach((ch) => { const s = document.createElement('span'); s.className = 'ch'; s.textContent = ch; en.appendChild(s); });
+      const amp = document.createElement('span'); amp.className = 'amp'; amp.textContent = '&'; en.appendChild(amp);
+      this.splitGraphemes(I.bride).forEach((ch) => { const s = document.createElement('span'); s.className = 'ch'; s.textContent = ch; en.appendChild(s); });
+    }
+    if (ta) {
+      ta.innerHTML = '';
+      const combined = I.groomTa + ' · ' + I.brideTa;
+      this.splitGraphemes(combined).forEach((ch) => { const s = document.createElement('span'); s.className = 'ch'; s.textContent = ch; ta.appendChild(s); });
+    }
+    const g = window.gsap, ST = window.ScrollTrigger;
+    if (g && ST) {
+      g.set(R.querySelectorAll('.name-en .ch, .name-ta .ch'), { opacity: 0, y: 16 });
+      ST.batch(R.querySelectorAll('.name-en .ch, .name-ta .ch'), {
+        start: 'top 85%',
+        onEnter: (els) => g.to(els, { opacity: 1, y: 0, duration: 0.4, stagger: 0.025, ease: 'power2.out' })
+      });
+    }
+  }
+
+  // ---------- timeline cards: rebuilt imperatively for the same reason ----------
+  syncEvents() {
+    const R = document.querySelector('.inv7');
+    if (!R) return;
+    const events = this.parseEvents();
+    const key = JSON.stringify(events);
+    if (key === this._eventsKey) return;
+    this._eventsKey = key;
+
+    const track = R.querySelector('.tl-track');
+    if (!track) return;
+    track.innerHTML = '';
+    events.forEach((ev) => {
+      const when = this.formatEventWhen(ev.dateTime);
+      const card = document.createElement('div');
+      card.className = 'tl-card glass';
+      card.innerHTML =
+        '<span class="lab">' + (when.day || '') + (when.time ? ' &middot; ' + when.time : '') + '</span>' +
+        '<h3 class="dis">' + this.escapeHtml(ev.title || '') + '</h3>' +
+        (ev.titleTamil ? '<span class="tam">' + this.escapeHtml(ev.titleTamil) + '</span>' : '') +
+        (ev.venueName ? '<span class="meta">' + this.escapeHtml(ev.venueName) + '</span>' : '');
+      track.appendChild(card);
+    });
+    if (this._pinST) { this._pinST.kill(); this._pinST = null; }
+    this.initTimeline(window.gsap, window.ScrollTrigger, R);
+  }
+
+  escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  }
+
+  // ---------- horizontal-pinned timeline ----------
+  initTimeline(g, ST, R) {
+    const section = R.querySelector('.s-timeline');
+    const track = R.querySelector('.tl-track');
+    if (!section || !track) return;
+    if (this._reduced) return; // stacked via .reduced CSS, no pin needed
+
+    g.set(track, { x: 0 });
+    const distance = Math.max(0, track.scrollWidth - section.clientWidth);
+    if (distance <= 0) return;
+    this._pinST = g.to(track, {
+      x: -distance,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: section,
+        start: 'top top',
+        end: () => '+=' + (distance + window.innerHeight * 0.4),
+        scrub: true,
+        pin: true,
+        invalidateOnRefresh: true
+      }
+    }).scrollTrigger;
+  }
+
+  // ---------- generic reveal-on-scroll for venue/finale panels ----------
+  initReveals(g, ST, R) {
+    g.set('.glass', { y: 0 });
+    ST.batch(R.querySelectorAll('.s-venue .fields, .s-venue .fam, .s-finale .cp-photo'), {
+      start: 'top 88%',
+      onEnter: (els) => g.from(els, { y: 40, opacity: 0, duration: 1, stagger: 0.1, ease: 'expo.out' })
+    });
+  }
+
+  renderVals() {
+    const I = this.info();
+    const p = this.props;
+    const pad = (n) => String(Math.max(0, n)).padStart(2, '0');
+    let cd = { d: '00', h: '00', m: '00', s: '00' };
+    if (I.ok) { const t = Math.floor(Math.max(0, I.d.getTime() - this.state.now) / 1000); cd = { d: pad(Math.floor(t / 86400)), h: pad(Math.floor(t / 3600) % 24), m: pad(Math.floor(t / 60) % 60), s: pad(t % 60) }; }
+    const venueName = p.venueName ?? '[Venue Name]';
+    const shareText = 'You are invited to the wedding of ' + I.groom + ' & ' + I.bride + ' on ' + I.dateLong + ' at ' + venueName + '.';
+    return {
+      groom: I.groom, bride: I.bride, groomTa: I.groomTa, brideTa: I.brideTa,
+      weekday: I.weekday, day: I.day, monthYear: I.monthYear, dateLong: I.dateLong, taDate: I.taDate, cd,
+      couplePhoto: (p.couplePhoto ?? 'assets/couple-placeholder.svg') || 'assets/couple-placeholder.svg',
+      venueName, venueAddress: p.venueAddress ?? '[Street, Area, City]',
+      mapLink: p.mapLink ?? 'https://maps.google.com',
+      groomFather: p.groomFather ?? '', groomMother: p.groomMother ?? '',
+      brideFather: p.brideFather ?? '', brideMother: p.brideMother ?? '',
+      share: 'https://wa.me/?text=' + encodeURIComponent(shareText + ' ' + (typeof location !== 'undefined' && /^https?:/.test(location.href) ? location.href.split('#')[0] : '')),
+      hashtag: p.hashtag ?? '#YourWeddingHashtag'
+    };
+  }
+}
+
+window.__mountInvite(Component);</script>
+<!--
+  No in-file editor here: field values are supplied by the parent app's
+  schema-driven edit panel (see src/components/editor/SchemaEditor.tsx) over
+  postMessage, and downloads are built and gated server-side after payment.
+-->
+
+<!-- Welcome gate: the guest's tap on "Open Invitation" is what lets the phone start the audio -->
+<div id="gate" role="dialog" aria-label="Open the invitation">
+  <svg class="kolam" viewBox="0 0 200 200" aria-hidden="true">
+    <circle cx="100" cy="100" r="70" />
+    <path d="M100 30 C140 30 170 60 170 100 C170 140 140 170 100 170 C60 170 30 140 30 100 C30 60 60 30 100 30" />
+    <path d="M100 55 C122 55 145 78 145 100 C145 122 122 145 100 145 C78 145 55 122 55 100 C55 78 78 55 100 55" />
+  </svg>
+  <div class="g-names dis">Groom <i>&amp;</i> Bride</div>
+  <div class="g-date">Save the dawn</div>
+  <button class="g-btn" type="button">Open Invitation</button>
+  <span class="g-hint">&#127925; with sound</span>
+</div>
+<button id="muteBtn" type="button" aria-label="Sound on/off">&#128263;</button>
+<script>
+(function () {
+  // Original ambient drone, synthesized at runtime with the Web Audio API --
+  // no audio file is downloaded or shipped (see ASSETS.md). Two detuned sine
+  // oscillators through a slowly-modulated lowpass filter, faded in once the
+  // gate tap gives us the required user gesture to start an AudioContext.
+  var ctx = null, master = null, oscillators = [];
+  var started = false, userMuted = false;
+  var muteBtn = document.getElementById('muteBtn');
+  var gate = document.getElementById('gate');
+
+  function startDrone() {
+    if (started) return;
+    started = true;
+    try {
+      var AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      ctx = new AudioCtx();
+      master = ctx.createGain();
+      master.gain.value = 0;
+      master.connect(ctx.destination);
+      var filter = ctx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.value = 500;
+      filter.connect(master);
+      [110, 164.81].forEach(function (freq) {
+        var osc = ctx.createOscillator();
+        osc.type = 'sine';
+        osc.frequency.value = freq;
+        var g = ctx.createGain();
+        g.gain.value = 0.5;
+        osc.connect(g); g.connect(filter);
+        osc.start();
+        oscillators.push(osc);
+      });
+      var lfo = ctx.createOscillator();
+      lfo.frequency.value = 0.07;
+      var lfoGain = ctx.createGain();
+      lfoGain.gain.value = 150;
+      lfo.connect(lfoGain); lfoGain.connect(filter.frequency);
+      lfo.start();
+      oscillators.push(lfo);
+      master.gain.linearRampToValueAtTime(userMuted ? 0 : 0.16, ctx.currentTime + 2.2);
+      muteBtn.style.display = 'block';
+      muteBtn.innerHTML = userMuted ? '&#128263;' : '&#128266;';
+    } catch (e) {}
+  }
+
+  function setMuted(muted) {
+    userMuted = muted;
+    muteBtn.innerHTML = muted ? '&#128263;' : '&#128266;';
+    if (!master || !ctx) return;
+    master.gain.linearRampToValueAtTime(muted ? 0 : 0.16, ctx.currentTime + 0.5);
+  }
+
+  muteBtn.addEventListener('click', function (ev) {
+    ev.stopPropagation();
+    setMuted(!userMuted);
+  });
+
+  function openGate(ev) {
+    if (ev) ev.preventDefault();
+    startDrone();
+    gate.classList.add('gone');
+  }
+  gate.addEventListener('click', openGate);
+  gate.addEventListener('wheel', function (ev) { ev.preventDefault(); }, { passive: false });
+  gate.addEventListener('touchmove', function (ev) { ev.preventDefault(); }, { passive: false });
+
+  document.addEventListener('visibilitychange', function () {
+    if (!ctx) return;
+    if (document.hidden) { if (ctx.state === 'running') ctx.suspend(); }
+    else if (started && !userMuted && ctx.state === 'suspended') ctx.resume();
+  });
+})();
+</script>
+</body>
+</html>

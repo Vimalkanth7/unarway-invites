@@ -16,9 +16,9 @@ checkout, an idempotent webhook, and the `/i/<short-id>` hosted page (the paid
 deliverable — ZIP download still works but stays hidden behind
 `siteConfig.enableZipDownload`) are all live against Razorpay's test-mode keys.
 Switching to live keys is a Launch checklist item, not done yet. Phase 7 is
-in progress: the "list" field type (Part A) has landed; the `malligai-mandapam`
-design itself hasn't started. See "Phased plan" below, and the Launch
-checklist before selling any design.
+in progress: the "list" field type landed, and design 2 (`malligai-mandapam`,
+a Marriage design) is built -- design 3 (Birthday) hasn't started. See
+"Phased plan" below, and the Launch checklist before selling any design.
 
 ## Planned folder structure
 
@@ -115,8 +115,20 @@ unarway-invitation-company/
       and re-sharing both work -- nothing is a frozen snapshot from the moment of payment.
       Still TEST MODE; see "Testing payments" below before this goes anywhere near a real
       customer.
-- [ ] **Phase 7 — Designs 2 and 3**: a new Marriage design and a new Birthday design
-      built on the proven template engine; every asset logged in `ASSETS.md`.
+- [ ] **Phase 7 — Designs 2 and 3** (design 2 done, design 3 not started): engine gained a "list" field type (per-item
+      validation, used for repeatable event schedules). Design 2, `malligai-mandapam`
+      (a Marriage design, dawn/jasmine/brass-lamp theme), is built: no stock photos or
+      downloaded audio -- visuals are SVG/CSS/canvas/Three.js, the ambient background
+      sound is synthesized at runtime with the Web Audio API, `three.min.js` loads
+      dynamically only once a capability check passes, and name reveals split by
+      Unicode grapheme (falling back to word-level) so Tamil is never cut mid-glyph.
+      `npm run check:templates` validates every design's contract (postMessage,
+      no localStorage/cookies/external requests, size budget, +05:30 on date fields,
+      every asset logged in `ASSETS.md`) -- currently passing for `malligai-mandapam`
+      and `sample-card`; `temple-journey` fails the new 3 MB size budget on its
+      existing (already-flagged-UNLICENSED) placeholder video/audio, which is exactly
+      the Launch checklist item above about replacing that media, not a new problem.
+      Design 3 (Birthday) hasn't started.
 - [ ] **Phase 8 — Legal pages + deploy**: real About/Contact/Terms/Privacy/Refund
       content, production Supabase project, Vercel env vars, Razorpay live keys
       (still server-gated), full paid-flow smoke test. No `sitemap.ts` exists yet --
