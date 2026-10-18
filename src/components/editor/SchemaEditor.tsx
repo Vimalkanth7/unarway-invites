@@ -287,6 +287,16 @@ function ListFieldInput({
     commit(items.map((item, i) => (i === index ? { ...item, [key]: itemValue } : item)));
   }
 
+  /** Strips everything but digits, then an optional leading "91" or "0" -- so
+   *  "+91 90000-00000" and "090000 00000" both normalize to the same 10
+   *  digits before validateListField checks the 6-9-starting-10-digit shape. */
+  function normalizeTel(itemValue: string): string {
+    let digits = itemValue.replace(/\D/g, "");
+    if (digits.length === 12 && digits.startsWith("91")) digits = digits.slice(2);
+    else if (digits.length === 11 && digits.startsWith("0")) digits = digits.slice(1);
+    return digits;
+  }
+
   function addItem() {
     if (items.length >= maxItems) return;
     commit([...items, emptyListItem(itemFields)]);
@@ -337,7 +347,14 @@ function ListFieldInput({
             </div>
           </div>
           {itemFields.map((itemField) => {
-            const itemHtmlType = itemField.type === "date" ? "datetime-local" : "text";
+            const itemHtmlType =
+              itemField.type === "date"
+                ? "datetime-local"
+                : itemField.type === "tel"
+                  ? "tel"
+                  : itemField.type === "url"
+                    ? "url"
+                    : "text";
             const itemKey = `${field.key}.${index}.${itemField.key}`;
             const itemError = touched[itemKey] ? errors[itemKey] : undefined;
             const itemInputClass = `min-h-[40px] w-full rounded-lg border px-3 py-2 text-sm focus:outline-none ${
@@ -353,7 +370,13 @@ function ListFieldInput({
                   type={itemHtmlType}
                   value={item[itemField.key] ?? ""}
                   maxLength={itemField.maxLength}
-                  onChange={(e) => updateItem(index, itemField.key, e.target.value)}
+                  onChange={(e) =>
+                    updateItem(
+                      index,
+                      itemField.key,
+                      itemField.type === "tel" ? normalizeTel(e.target.value) : e.target.value
+                    )
+                  }
                   onBlur={() => markTouched(itemKey)}
                   className={itemInputClass}
                 />

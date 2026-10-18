@@ -10,7 +10,7 @@ export type FieldType = "text" | "long" | "date" | "url" | "tel" | "photo" | "li
 export interface ListItemFieldSchema {
   key: string;
   label: string;
-  type: "text" | "date";
+  type: "text" | "date" | "tel" | "url";
   required?: boolean;
   hint?: string;
   /** Only meaningful for type "text". */

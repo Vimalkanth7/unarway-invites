@@ -2,11 +2,30 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { DesignConfig } from "@/types/template";
-import { PREVIEW_CONFIG_MESSAGE, PREVIEW_READY_MESSAGE } from "@/lib/templates/preview-protocol";
+import {
+  PREVIEW_CONFIG_MESSAGE,
+  PREVIEW_OPEN_MESSAGE,
+  PREVIEW_READY_MESSAGE,
+} from "@/lib/templates/preview-protocol";
+import { isAllowedHttpsUrl, TEL_HREF_PATTERN } from "@/lib/templates/link-allowlist";
 
 const READY_TIMEOUT_MS = 8000;
 
 type Status = "loading" | "ready" | "error";
+
+/**
+ * Only a template's own iframe can trigger this (checked by event.source
+ * before onMessage even calls in here), and only an https link on the
+ * allowlist or a well-formed Indian tel: link is ever acted on -- everything
+ * else (javascript:, data:, arbitrary hosts) is silently ignored.
+ */
+function openAllowedLink(href: unknown) {
+  if (typeof href !== "string") return;
+  const allowed = TEL_HREF_PATTERN.test(href) || isAllowedHttpsUrl(href);
+  if (!allowed) return;
+  const win = window.open(href, "_blank", "noopener");
+  if (!win) window.location.href = href;
+}
 
 export function PreviewFrame({
   designId,
@@ -25,6 +44,7 @@ export function PreviewFrame({
     function onMessage(event: MessageEvent) {
       if (event.source !== iframeRef.current?.contentWindow) return;
       if (event.data?.type === PREVIEW_READY_MESSAGE) setStatus("ready");
+      if (event.data?.type === PREVIEW_OPEN_MESSAGE) openAllowedLink(event.data.href);
     }
     window.addEventListener("message", onMessage);
     return () => window.removeEventListener("message", onMessage);

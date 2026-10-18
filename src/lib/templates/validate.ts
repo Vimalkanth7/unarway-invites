@@ -1,5 +1,6 @@
 import type { DesignConfig, FieldSchema } from "@/types/template";
 import { DEFAULT_MAX_LIST_ITEMS, parseListValue } from "@/lib/templates/list-field";
+import { isAllowedHttpsUrl } from "@/lib/templates/link-allowlist";
 
 /**
  * Keyed by field key so both the editor and the pay-button gate can look up
@@ -33,6 +34,12 @@ function validateListField(field: FieldSchema, config: DesignConfig, errors: Fie
 
       if (itemField.type === "date" && !isValidDate(itemValue)) {
         errors[key] = "Enter a valid date.";
+        hasItemError = true;
+      } else if (itemField.type === "tel" && !/^[6-9]\d{9}$/.test(itemValue)) {
+        errors[key] = "Enter a 10-digit mobile number starting 6-9.";
+        hasItemError = true;
+      } else if (itemField.type === "url" && !isAllowedHttpsUrl(itemValue)) {
+        errors[key] = "Enter an https Google Maps or wa.me link.";
         hasItemError = true;
       } else if (itemField.maxLength && itemValue.length > itemField.maxLength) {
         errors[key] = `Keep it under ${itemField.maxLength} characters.`;
