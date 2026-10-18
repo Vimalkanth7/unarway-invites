@@ -18,16 +18,18 @@ a{color:#E6B85C}a:hover{color:#FBF3E2}
 .inv7 *{box-sizing:border-box}
 .dis{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500}
 .tam{font-family:'Noto Serif Tamil','Latha',serif}
-.lab{font-family:Manrope,'Segoe UI',sans-serif;font-weight:600;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}
+.lab{font-family:Manrope,'Segoe UI',sans-serif;font-weight:600;font-size:14px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
 .glass{background:linear-gradient(180deg,rgba(6,20,26,.72),rgba(6,20,26,.88));border:1px solid rgba(230,184,92,.35);border-radius:22px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 30px 70px rgba(0,0,0,.45)}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:50px;padding:0 26px;border-radius:999px;border:1px solid var(--gold);color:var(--ivory);text-decoration:none;font-family:Manrope,sans-serif;font-weight:600;font-size:13px;letter-spacing:.14em;text-transform:uppercase;background:rgba(6,20,26,.5);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:50px;padding:0 26px;border-radius:999px;border:1px solid var(--gold);color:var(--ivory);text-decoration:none;font-family:Manrope,sans-serif;font-weight:600;font-size:14px;letter-spacing:.1em;text-transform:uppercase;background:rgba(6,20,26,.5);cursor:pointer;-webkit-tap-highlight-color:transparent}
 .btn.gold{background:linear-gradient(180deg,var(--ivory),var(--gold) 60%,#B4832F);color:#1A0D04;border-color:var(--gold)}
 .story{position:relative;z-index:2}
 .s{position:relative}
 .stick{position:relative;min-height:calc(var(--vh,100vh)*1);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10vh 20px;text-align:center}
 
 /* petals: present for every device, every scene */
-.petals{position:fixed;inset:0;z-index:5;pointer-events:none;overflow:hidden}
+/* Below .story (z-index:2), not above it -- petals should never visually
+   cross over text, even momentarily. */
+.petals{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
 .petal{position:absolute;top:-6vh;width:10px;height:7px;border-radius:70% 0 70% 0;background:var(--ivory);opacity:.85;animation:fall linear infinite}
 @keyframes fall{from{transform:translateY(-6vh) translateX(0) rotate(0deg)}to{transform:translateY(112vh) translateX(var(--sway,40px)) rotate(300deg)}}
 .inv7.reduced .petal{animation:none;opacity:.4}
@@ -43,7 +45,7 @@ a{color:#E6B85C}a:hover{color:#FBF3E2}
 #gate .g-date{font-size:14px;color:#D8CBB3;letter-spacing:.06em;margin-top:2px}
 #gate .g-btn{margin-top:14px;min-height:50px;padding:0 30px;border-radius:999px;border:0;font:600 14px/1 Manrope,sans-serif;letter-spacing:.08em;color:#1A0D04;background:linear-gradient(180deg,var(--ivory),var(--gold) 60%,#B4832F);cursor:pointer;animation:gpulse 2.2s ease-in-out infinite}
 @keyframes gpulse{0%,100%{box-shadow:0 0 0 0 rgba(230,184,92,.4)}50%{box-shadow:0 0 0 14px rgba(230,184,92,0)}}
-#gate .g-hint{font-size:11px;color:#B9AA90;opacity:.85}
+#gate .g-hint{font-size:14px;color:#B9AA90;opacity:.85}
 #muteBtn{display:none;position:fixed;right:max(12px,env(safe-area-inset-right));top:calc(66px + env(safe-area-inset-top));z-index:9999;width:42px;height:42px;border-radius:50%;border:1px solid var(--gold);background:rgba(6,20,26,.75);color:var(--ivory);font-size:17px;line-height:1;cursor:pointer;-webkit-tap-highlight-color:transparent}
 
 /* sky / dawn */
@@ -53,12 +55,16 @@ a{color:#E6B85C}a:hover{color:#FBF3E2}
 .stars i{position:absolute;width:3px;height:3px;border-radius:50%;background:var(--ivory);opacity:.8}
 .s-sky h2{font-size:clamp(34px,6vw,58px);margin:0}
 .s-sky p{max-width:520px;color:#D8CBB3;font-size:16px;line-height:1.6}
+/* The dawn gradient can get bright enough (saffron) that light text directly
+   on it fails contrast -- a stronger-than-.glass scrim guarantees a dark
+   backdrop regardless of how far the sky has scrubbed toward sunrise. */
+.sky-scrim{display:flex;flex-direction:column;align-items:center;gap:14px;padding:28px 26px;border-radius:24px;background:linear-gradient(180deg,rgba(6,20,26,.88),rgba(6,20,26,.95));backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
 
 /* lamp */
 .s-lamp{min-height:calc(var(--vh,100vh)*1.6)}
 .lamp-wrap{position:relative;width:min(220px,50vw);aspect-ratio:1/2;margin:0 auto}
 .lamp-svg{position:absolute;inset:0;width:100%;height:100%}
-.lamp-glow{position:absolute;left:50%;top:6%;width:140px;height:140px;margin-left:-70px;border-radius:50%;background:radial-gradient(circle,rgba(242,161,59,.9),rgba(242,161,59,0) 70%);opacity:0;filter:blur(2px)}
+.lamp-glow{position:absolute;left:50%;top:6%;width:140px;height:140px;margin-left:-70px;border-radius:50%;background:radial-gradient(circle,rgba(242,161,59,.65),rgba(242,161,59,0) 65%);opacity:0;filter:blur(2px)}
 canvas.lamp-gl{position:absolute;inset:0;width:100%;height:100%;display:none}
 .inv7.gl-on .lamp-gl{display:block}
 .inv7.gl-on .lamp-svg,.inv7.gl-on .lamp-glow{display:none}
@@ -78,11 +84,11 @@ canvas.lamp-gl{position:absolute;inset:0;width:100%;height:100%;display:none}
 .lamp5 .flame{position:absolute;left:50%;top:-6px;width:10px;height:16px;margin-left:-5px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:var(--saffron);opacity:0;filter:blur(.3px)}
 .date-card{margin-top:10px;padding:28px 34px;border-radius:20px}
 .date-card b{display:block;font-family:'Cormorant Garamond',serif;font-size:clamp(50px,10vw,84px);line-height:1}
-.date-card span{display:block;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.date-card span{display:block;font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
 .cd{display:flex;gap:10px;justify-content:center;margin-top:14px;flex-wrap:wrap}
-.cd div{min-width:68px;padding:10px 6px;border-radius:12px;border:1px solid rgba(230,184,92,.4);display:flex;flex-direction:column;gap:2px}
+.cd div{min-width:76px;padding:10px 8px;border-radius:12px;border:1px solid rgba(230,184,92,.4);display:flex;flex-direction:column;gap:2px}
 .cd b{font-family:'Cormorant Garamond',serif;font-size:26px;line-height:1}
-.cd span{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.cd span{font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
 
 /* timeline (horizontal pin) */
 .s-timeline{padding:0;min-height:calc(var(--vh,100vh)*1)}
@@ -101,11 +107,11 @@ canvas.lamp-gl{position:absolute;inset:0;width:100%;height:100%;display:none}
 /* venue */
 .s-venue .vwrap{max-width:720px;display:flex;flex-direction:column;gap:18px;align-items:center}
 .fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px 26px;width:100%;text-align:left}
-.fld span{display:block;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
+.fld span{display:block;font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
 .fld b{display:block;font-family:'Cormorant Garamond',serif;font-size:22px}
 .fld small{display:block;font-size:14px;color:#D8CBB3;margin-top:2px}
 .fam{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:20px;max-width:760px;margin-top:10px;width:100%}
-.fam h4{margin:0 0 6px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.fam h4{margin:0 0 6px;font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
 .fam p{margin:0;font-family:'Cormorant Garamond',serif;font-size:20px}
 
 /* finale */
@@ -135,9 +141,11 @@ canvas.lamp-gl{position:absolute;inset:0;width:100%;height:100%;display:none}
   <div class="sky-bg" aria-hidden="true"></div>
   <div class="sky-dawn" aria-hidden="true"></div>
   <div class="stars" aria-hidden="true"></div>
-  <span class="lab">Together with their families</span>
-  <h2 class="dis">{{groom}} <span class="amp">&amp;</span> {{bride}}</h2>
-  <p>invite you to a wedding at dawn, among jasmine and brass lamps.</p>
+  <div class="sky-scrim">
+    <span class="lab">Together with their families</span>
+    <h2 class="dis">{{groom}} <span class="amp">&amp;</span> {{bride}}</h2>
+    <p>invite you to a wedding at dawn, among jasmine and brass lamps.</p>
+  </div>
 </div>
 </section>
 
@@ -510,10 +518,14 @@ class Component extends DCLogic {
     setVh();
 
     const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Testing/debugging escape hatch: open this template's own view URL
+    // (e.g. /api/templates/malligai-mandapam/view?no3d) to force the
+    // baseline CSS/SVG path without needing to change OS-level settings.
+    const forceNo3d = /(?:^\?|[?&])no3d(?:=|&|$)/.test(location.search);
     this._reduced = reduce;
     if (reduce) R.classList.add('reduced');
     const vh = sc ? sc.clientHeight : window.innerHeight;
-    const capable = !reduce && vh <= 1500;
+    const capable = !reduce && !forceNo3d && vh <= 1500;
 
     this.initPetals(R);
     this.syncNames();
@@ -643,7 +655,7 @@ class Component extends DCLogic {
   initLampCSS(g, ST, R) {
     const glow = R.querySelector('.lamp-glow');
     if (!glow) return;
-    g.to(glow, { opacity: 0.9, ease: 'none', scrollTrigger: { trigger: '.s-lamp', start: 'top 75%', end: 'top 20%', scrub: 1 } });
+    g.to(glow, { opacity: 0.65, ease: 'none', scrollTrigger: { trigger: '.s-lamp', start: 'top 75%', end: 'top 20%', scrub: 1 } });
     if (!this._reduced) {
       let raf;
       const flicker = () => {

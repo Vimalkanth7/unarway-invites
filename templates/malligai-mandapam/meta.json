@@ -2,6 +2,7 @@
   "id": "malligai-mandapam",
   "title": "Malligai Mandapam",
   "category": "marriage",
+  "previewImage": "assets/couple-placeholder.svg",
   "share": {
     "titleFields": ["groomName", "brideName"],
     "titleJoiner": " weds ",

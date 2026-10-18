@@ -15,6 +15,7 @@ const CONTENT_TYPES: Record<string, string> = {
   ".jpeg": "image/jpeg",
   ".webp": "image/webp",
   ".gif": "image/gif",
+  ".svg": "image/svg+xml",
 };
 
 type HostedInvitation = Pick<InvitationRow, "design_id" | "config" | "status" | "paid_at">;

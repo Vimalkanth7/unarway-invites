@@ -129,6 +129,13 @@ unarway-invitation-company/
       existing (already-flagged-UNLICENSED) placeholder video/audio, which is exactly
       the Launch checklist item above about replacing that media, not a new problem.
       Design 3 (Birthday) hasn't started.
+      `three.min.js` (vendored for both designs, same file) logs a harmless console
+      deprecation warning ("Scripts build/three.js and build/three.min.js are
+      deprecated with r150+") -- it's r160, confirmed via its own embedded `REVISION`
+      string. The last build without that warning is r149; kept the current one rather
+      than swap it blind, since there's no way to verify the lamp scene still renders
+      identically without a real browser to look at. Revisit if it's ever actually
+      removed (the warning says r160, i.e. now) rather than just deprecated.
 - [ ] **Phase 8 — Legal pages + deploy**: real About/Contact/Terms/Privacy/Refund
       content, production Supabase project, Vercel env vars, Razorpay live keys
       (still server-gated), full paid-flow smoke test. No `sitemap.ts` exists yet --

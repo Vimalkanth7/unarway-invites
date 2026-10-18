@@ -4,6 +4,12 @@ Every image, video, font, and music file used by a template, with its source
 and licence, per the CLAUDE.md rule: no Pinterest images, no copyrighted
 music, nothing ships without this record.
 
+## Site-wide
+
+| File | Used for | Status |
+| --- | --- | --- |
+| `src/app/icon.svg` | Browser tab / favicon for the whole site -- an 8-point kolam dot motif in gold on a near-black badge | Original artwork, made for this project. No licence needed. |
+
 ## templates/temple-journey/
 
 Ported from `reference/temple-journey/` (a one-off personal invitation) as
