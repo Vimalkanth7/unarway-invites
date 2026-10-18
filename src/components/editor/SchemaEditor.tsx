@@ -39,17 +39,18 @@ function readPhotoAsDataUrl(file: File): Promise<string> {
 }
 
 /**
- * Photo field values are either a data: URL, a signed Storage https:// URL,
- * or a template-relative sample path like "assets/couple.jpg". That last
- * form is meant to be resolved against the template's own asset route, not
- * against whatever page happens to be rendering this editor -- used bare as
- * an <img src>, the browser resolves it against /design/<id> instead and 404s.
+ * Display-only path resolution -- never changes what's stored in config.
+ * Photo field values are either a data: URL, a signed Storage https:// URL
+ * (or any other absolute URL), or a template-relative sample path like
+ * "assets/couple.jpg". That last form is meant to be resolved against the
+ * template's own asset route, not against whatever page happens to be
+ * rendering this editor -- used bare as an <img src> on /design/<id>, the
+ * browser resolves it against that page's own URL instead and 404s.
  */
 function resolvePhotoSrc(designId: string, value: string): string {
-  if (value.startsWith("assets/")) {
-    return `/api/templates/${designId}/assets/${value.slice("assets/".length)}`;
-  }
-  return value;
+  if (/^(?:https?:|data:|blob:|\/)/.test(value)) return value;
+  const relativePath = value.startsWith("assets/") ? value.slice("assets/".length) : value;
+  return `/api/templates/${designId}/assets/${relativePath}`;
 }
 
 function groupBySection(schema: FieldSchema[]): { section: string; fields: FieldSchema[] }[] {
