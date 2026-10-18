@@ -9,6 +9,7 @@ music, nothing ships without this record.
 | File | Used for | Status |
 | --- | --- | --- |
 | `src/app/icon.svg` | Browser tab / favicon for the whole site -- an 8-point kolam dot motif in gold on a near-black badge | Original artwork, made for this project. No licence needed. |
+| `src/app/favicon.ico` | Legacy `/favicon.ico` fallback (16/32/48 px), rendered directly from `icon.svg` above | Same original artwork, re-rasterized. No licence needed. |
 
 ## templates/temple-journey/
 
