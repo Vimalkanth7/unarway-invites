@@ -230,7 +230,7 @@ export function DesignWorkspace({
             </button>
             <SaveIndicator userId={userId} state={saveState} error={saveError} />
           </div>
-          <SchemaEditor schema={bundle.schema} value={config} onChange={updateConfig} />
+          <SchemaEditor schema={bundle.schema} value={config} onChange={updateConfig} designId={bundle.meta.id} />
         </div>
         <div className={activeTab === "preview" ? "block" : "hidden md:block"}>
           <PreviewFrame designId={bundle.meta.id} config={config} />

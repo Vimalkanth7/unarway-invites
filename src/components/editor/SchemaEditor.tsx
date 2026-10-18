@@ -38,6 +38,20 @@ function readPhotoAsDataUrl(file: File): Promise<string> {
   });
 }
 
+/**
+ * Photo field values are either a data: URL, a signed Storage https:// URL,
+ * or a template-relative sample path like "assets/couple.jpg". That last
+ * form is meant to be resolved against the template's own asset route, not
+ * against whatever page happens to be rendering this editor -- used bare as
+ * an <img src>, the browser resolves it against /design/<id> instead and 404s.
+ */
+function resolvePhotoSrc(designId: string, value: string): string {
+  if (value.startsWith("assets/")) {
+    return `/api/templates/${designId}/assets/${value.slice("assets/".length)}`;
+  }
+  return value;
+}
+
 function groupBySection(schema: FieldSchema[]): { section: string; fields: FieldSchema[] }[] {
   const groups: { section: string; fields: FieldSchema[] }[] = [];
   for (const field of schema) {
@@ -52,10 +66,12 @@ export function SchemaEditor({
   schema,
   value,
   onChange,
+  designId,
 }: {
   schema: FieldSchema[];
   value: DesignConfig;
   onChange: (next: DesignConfig) => void;
+  designId: string;
 }) {
   const idPrefix = useId();
   const [touched, setTouched] = useState<Record<string, boolean>>({});
@@ -97,6 +113,7 @@ export function SchemaEditor({
                       errors={errors}
                       touched={touched}
                       markTouched={markTouched}
+                      designId={designId}
                     />
                     {error && <p className="text-xs text-red-600">{error}</p>}
                     {field.hint && <p className="text-xs text-neutral-500">{field.hint}</p>}
@@ -121,6 +138,7 @@ function FieldInput({
   errors,
   touched,
   markTouched,
+  designId,
 }: {
   id: string;
   field: FieldSchema;
@@ -131,6 +149,7 @@ function FieldInput({
   errors: FieldErrors;
   touched: Record<string, boolean>;
   markTouched: (key: string) => void;
+  designId: string;
 }) {
   const [photoError, setPhotoError] = useState<string | null>(null);
   const inputClass = `min-h-[44px] w-full rounded-lg border px-3 py-2 text-sm focus:outline-none ${
@@ -170,7 +189,7 @@ function FieldInput({
           {value && (
             // eslint-disable-next-line @next/next/no-img-element
             <img
-              src={value}
+              src={resolvePhotoSrc(designId, value)}
               alt=""
               className="h-20 w-16 rounded-lg border border-neutral-300 object-cover"
             />
