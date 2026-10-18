@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { categories } from "@/lib/categories";
+import { getSiteUrl } from "@/lib/config";
 import { listTemplateIds, loadTemplateBundle } from "@/lib/templates/loader";
 
 /**
@@ -10,7 +11,7 @@ import { listTemplateIds, loadTemplateBundle } from "@/lib/templates/loader";
  * there is useful to a search engine.
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  const baseUrl = getSiteUrl();
   const isProduction = process.env.NODE_ENV === "production";
 
   const ids = await listTemplateIds();
