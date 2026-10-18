@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import { NextRequest, NextResponse } from "next/server";
-import { resolveTemplateViewPath } from "@/lib/templates/loader";
+import { isTemplateVisible, loadTemplateBundle, resolveTemplateViewPath } from "@/lib/templates/loader";
 
 // Served into a sandbox="allow-scripts" iframe (no allow-same-origin), so the
 // template runs with an opaque origin and can't reach the parent page's DOM,
@@ -21,6 +21,9 @@ export async function GET(
   { params }: { params: Promise<{ designId: string }> }
 ) {
   const { designId } = await params;
+  const bundle = await loadTemplateBundle(designId);
+  if (!bundle || !isTemplateVisible(bundle.meta)) return new NextResponse("Not found", { status: 404 });
+
   const filePath = resolveTemplateViewPath(designId);
   if (!filePath) return new NextResponse("Not found", { status: 404 });
 

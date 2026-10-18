@@ -2,6 +2,7 @@
   "id": "christian-garden",
   "title": "Christian Garden",
   "category": "marriage",
+  "licensed": false,
   "previewImage": "assets/preview.jpg",
   "share": {
     "titleFields": ["groomName", "brideName"],

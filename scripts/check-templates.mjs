@@ -63,6 +63,16 @@ function usesDateType(schema) {
 const assetsMdPath = path.join(ROOT, "ASSETS.md");
 const assetsMd = fs.existsSync(assetsMdPath) ? fs.readFileSync(assetsMdPath, "utf8") : "";
 
+/** Just this design's own section of ASSETS.md, between its "## templates/<id>/" heading and the next "## ". */
+function assetsMdSection(designId) {
+  const marker = `## templates/${designId}/`;
+  const start = assetsMd.indexOf(marker);
+  if (start === -1) return "";
+  const rest = assetsMd.slice(start + marker.length);
+  const nextHeading = rest.indexOf("\n## ");
+  return nextHeading === -1 ? rest : rest.slice(0, nextHeading);
+}
+
 const designIds = fs
   .readdirSync(TEMPLATES_DIR, { withFileTypes: true })
   .filter((entry) => entry.isDirectory())
@@ -154,7 +164,35 @@ for (const designId of designIds) {
   } else {
     console.log(`✓ ${designId}: ${(totalBytes / 1024).toFixed(0)} KB`);
   }
+
+  // meta.licensed is what gates visibility in production (see
+  // isTemplateVisible() in src/lib/templates/loader.ts) -- a mismatch
+  // against ASSETS.md is a real data-integrity bug, not just a reminder.
+  const hasUnlicensedRow = /UNLICENSED/.test(assetsMdSection(designId));
+  if (meta.licensed === true && hasUnlicensedRow) {
+    fail(designId, `meta.json says "licensed": true but ASSETS.md still has an UNLICENSED row for this design`);
+  } else if (meta.licensed !== true) {
+    console.warn(`⚠ ${designId}: not licensed (meta.licensed is not true) -- hidden from /design, /api/templates/*, and /i in both dev and production unless ALLOW_UNLICENSED_TEMPLATES=1 is set`);
+  }
 }
+
+// Launch-readiness reminders. Not part of the per-template contract above
+// and don't fail the build -- these are business/legal blockers, not code
+// correctness -- but should be impossible to miss on every run.
+console.log("\n--- Launch checklist reminders ---");
+const legalPageChecks = [
+  ["src/app/contact/page.tsx", "Contact"],
+  ["src/app/terms/page.tsx", "Terms"],
+  ["src/app/privacy/page.tsx", "Privacy"],
+];
+for (const [rel, label] of legalPageChecks) {
+  const filePath = path.join(ROOT, rel);
+  const content = fs.existsSync(filePath) ? fs.readFileSync(filePath, "utf8") : "";
+  if (content.includes("[to be added before launch]")) {
+    console.warn(`⚠ ${label} page still has the registered-business-address placeholder -- blocking, see README Launch checklist.`);
+  }
+}
+console.warn("⚠ Terms/Privacy/Refund pages have not had a legal review -- blocking, see README Launch checklist.");
 
 if (failed) {
   console.error("\ncheck:templates failed.");

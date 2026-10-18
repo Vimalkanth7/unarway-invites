@@ -2,6 +2,7 @@
   "id": "temple-journey",
   "title": "Temple Journey",
   "category": "reception",
+  "licensed": false,
   "previewImage": "assets/54d722b725.jpg",
   "share": {
     "titleFields": ["groomName", "brideName"],

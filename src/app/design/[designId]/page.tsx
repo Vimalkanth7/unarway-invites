@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { DesignWorkspace } from "@/components/design/DesignWorkspace";
-import { loadTemplateBundle } from "@/lib/templates/loader";
+import { isTemplateVisible, loadTemplateBundle } from "@/lib/templates/loader";
 import { siteConfig } from "@/lib/config";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { COUPLE_PHOTOS_BUCKET, isStoragePhotoPath } from "@/lib/supabase/storage";
@@ -20,7 +20,7 @@ export default async function DesignPage({
   const { invitation: requestedInvitationId = null } = await searchParams;
   const bundle = await loadTemplateBundle(designId);
   if (!bundle) notFound();
-  if (bundle.meta.devOnly && process.env.NODE_ENV === "production") notFound();
+  if (!isTemplateVisible(bundle.meta)) notFound();
 
   const price = bundle.meta.priceInInr ?? siteConfig.defaultPriceInInr;
 

@@ -3,7 +3,7 @@ import { createReadStream } from "node:fs";
 import { Readable } from "node:stream";
 import path from "node:path";
 import { NextRequest, NextResponse } from "next/server";
-import { resolveTemplateAssetPath } from "@/lib/templates/loader";
+import { isTemplateVisible, loadTemplateBundle, resolveTemplateAssetPath } from "@/lib/templates/loader";
 
 const CONTENT_TYPES: Record<string, string> = {
   ".png": "image/png",
@@ -73,6 +73,9 @@ export async function GET(
   { params }: { params: Promise<{ designId: string; path: string[] }> }
 ) {
   const { designId, path: segments } = await params;
+  const bundle = await loadTemplateBundle(designId);
+  if (!bundle || !isTemplateVisible(bundle.meta)) return new NextResponse("Not found", { status: 404 });
+
   const filePath = resolveTemplateAssetPath(designId, segments);
   if (!filePath) return new NextResponse("Not found", { status: 404 });
 

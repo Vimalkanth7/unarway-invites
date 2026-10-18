@@ -39,15 +39,25 @@ export async function loadTemplateBundle(designId: string): Promise<TemplateBund
   }
 }
 
+/**
+ * A design whose meta.licensed isn't exactly true ships at least one asset
+ * still logged "UNLICENSED" in ASSETS.md -- not safe to show a real
+ * customer. Hidden everywhere (listings, /design, /api/templates/*, /i),
+ * in both dev and production, unless ALLOW_UNLICENSED_TEMPLATES=1 is set
+ * (for locally reviewing an in-progress design's own placeholder media).
+ * devOnly fixtures stay dev-only regardless of that override.
+ */
+export function isTemplateVisible(meta: TemplateMeta): boolean {
+  if (process.env.NODE_ENV === "production" && meta.devOnly) return false;
+  if (meta.licensed !== true && process.env.ALLOW_UNLICENSED_TEMPLATES !== "1") return false;
+  return true;
+}
+
 export async function listTemplatesByCategory(category: string): Promise<TemplateBundle[]> {
   const ids = await listTemplateIds();
   const bundles = await Promise.all(ids.map((id) => loadTemplateBundle(id)));
-  const isProduction = process.env.NODE_ENV === "production";
   return bundles.filter(
-    (bundle): bundle is TemplateBundle =>
-      bundle !== null &&
-      bundle.meta.category === category &&
-      !(isProduction && bundle.meta.devOnly)
+    (bundle): bundle is TemplateBundle => bundle !== null && bundle.meta.category === category && isTemplateVisible(bundle.meta)
   );
 }
 

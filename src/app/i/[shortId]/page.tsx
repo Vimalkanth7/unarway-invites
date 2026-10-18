@@ -6,7 +6,7 @@ import { PreviewFrame } from "@/components/preview/PreviewFrame";
 import { createSupabaseServiceRoleClient } from "@/lib/supabase/service-role";
 import { COUPLE_PHOTOS_BUCKET, isStoragePhotoPath } from "@/lib/supabase/storage";
 import { isInvitationExpired } from "@/lib/payments/orders";
-import { loadTemplateBundle } from "@/lib/templates/loader";
+import { isTemplateVisible, loadTemplateBundle } from "@/lib/templates/loader";
 import { siteConfig } from "@/lib/config";
 import type { DesignConfig, TemplateBundle } from "@/types/template";
 import type { InvitationRow } from "@/types/invitation";
@@ -33,7 +33,7 @@ const getHostedInvitation = cache(async (shortId: string) => {
 
   const expired = isInvitationExpired(invitation, siteConfig.hostedLinkExpiryMonths);
   const bundle = await loadTemplateBundle(invitation.design_id);
-  if (!bundle) return null;
+  if (!bundle || !isTemplateVisible(bundle.meta)) return null;
 
   return { invitation, expired, bundle };
 });

@@ -61,6 +61,14 @@ export interface TemplateMeta {
   share?: ShareMeta;
   /** Dev fixture, not a sellable design -- hidden from browsing and blocked outright when NODE_ENV === "production". */
   devOnly?: boolean;
+  /**
+   * True only once every asset this design ships is confirmed licensed or
+   * original (no row left "UNLICENSED" in ASSETS.md). Missing/false hides
+   * the design everywhere (listings, /design, /api/templates/*, /i) unless
+   * ALLOW_UNLICENSED_TEMPLATES=1 is set -- see isTemplateVisible() in
+   * src/lib/templates/loader.ts. Defaults to false (fail closed) when absent.
+   */
+  licensed?: boolean;
 }
 
 export type DesignConfig = Record<string, string>;
