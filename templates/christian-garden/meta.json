@@ -1,0 +1,12 @@
+{
+  "id": "christian-garden",
+  "title": "Christian Garden",
+  "category": "marriage",
+  "previewImage": "assets/preview.jpg",
+  "share": {
+    "titleFields": ["groomName", "brideName"],
+    "titleJoiner": " & ",
+    "dateField": "ceremonyDate",
+    "locationField": "ceremonyVenue"
+  }
+}

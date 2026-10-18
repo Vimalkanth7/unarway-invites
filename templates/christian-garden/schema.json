@@ -1,0 +1,89 @@
+[
+  { "key": "groomName", "label": "Groom's name", "type": "text", "section": "The couple", "required": true },
+  { "key": "brideName", "label": "Bride's name", "type": "text", "section": "The couple", "required": true },
+  { "key": "groomFull", "label": "Groom's full name", "type": "text", "section": "The couple", "required": true },
+  { "key": "brideFull", "label": "Bride's full name", "type": "text", "section": "The couple", "required": true },
+  {
+    "key": "couplePhoto",
+    "label": "Couple photo",
+    "type": "photo",
+    "section": "Photos",
+    "hint": "Optional. Until you add one, the arch illustration is shown on the welcome screen instead.",
+    "clearLabel": "Use the illustration instead",
+    "clearTo": ""
+  },
+  { "key": "groomParents", "label": "Groom's parents", "type": "text", "section": "Families" },
+  { "key": "brideParents", "label": "Bride's parents", "type": "text", "section": "Families" },
+  {
+    "key": "ceremonyDate",
+    "label": "Wedding ceremony date and time",
+    "type": "date",
+    "section": "The wedding",
+    "required": true,
+    "hint": "Drives the welcome screen, the date card and the countdown. Interpreted in Indian Standard Time (IST, +05:30)."
+  },
+  {
+    "key": "ceremonyVenue",
+    "label": "Wedding ceremony venue",
+    "type": "text",
+    "section": "The wedding",
+    "required": true
+  },
+  {
+    "key": "events",
+    "label": "Celebrations",
+    "type": "list",
+    "section": "The celebrations",
+    "hint": "Engagement, wedding ceremony, reception -- shown on one schedule page. Add up to 3.",
+    "maxItems": 3,
+    "itemFields": [
+      { "key": "name", "label": "Event name", "type": "text", "required": true, "maxLength": 40 },
+      { "key": "date", "label": "Date and time", "type": "date", "required": true },
+      { "key": "venue", "label": "Venue", "type": "text", "maxLength": 60 },
+      { "key": "place", "label": "Town / city", "type": "text", "maxLength": 40 },
+      {
+        "key": "map",
+        "label": "Google Maps link (optional)",
+        "type": "url",
+        "hint": "Leave blank to hide the Directions button for this event."
+      }
+    ]
+  },
+  {
+    "key": "wishes",
+    "label": "Best wishes from",
+    "type": "list",
+    "section": "Families & wishes",
+    "hint": "Shown on the families page. Leave empty to hide this part of the page.",
+    "maxItems": 6,
+    "itemFields": [
+      { "key": "role", "label": "Relation", "type": "text", "required": true, "maxLength": 24 },
+      { "key": "name", "label": "Name", "type": "text", "required": true, "maxLength": 40 }
+    ]
+  },
+  {
+    "key": "callsGroom",
+    "label": "Groom's side -- contacts",
+    "type": "list",
+    "section": "Contacts",
+    "hint": "Shown as tap-to-call cards. Leave empty to hide this card.",
+    "maxItems": 5,
+    "itemFields": [
+      { "key": "name", "label": "Name", "type": "text", "required": true, "maxLength": 30 },
+      { "key": "phone", "label": "Phone", "type": "tel", "required": true }
+    ]
+  },
+  {
+    "key": "callsBride",
+    "label": "Bride's side -- contacts",
+    "type": "list",
+    "section": "Contacts",
+    "hint": "Shown as tap-to-call cards. Leave empty to hide this card.",
+    "maxItems": 5,
+    "itemFields": [
+      { "key": "name", "label": "Name", "type": "text", "required": true, "maxLength": 30 },
+      { "key": "phone", "label": "Phone", "type": "tel", "required": true }
+    ]
+  },
+  { "key": "hashtag", "label": "Wedding hashtag", "type": "text", "section": "Contacts" }
+]

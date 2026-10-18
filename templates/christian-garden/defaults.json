@@ -1,0 +1,16 @@
+{
+  "groomName": "Daniel",
+  "brideName": "Grace",
+  "groomFull": "Daniel Joseph Thomas",
+  "brideFull": "Grace Mary Paul",
+  "couplePhoto": "",
+  "groomParents": "Mr. Joseph Thomas & Mrs. Mary Thomas",
+  "brideParents": "Mr. Paul Samuel & Mrs. Ruth Paul",
+  "ceremonyDate": "2027-11-20T10:30",
+  "ceremonyVenue": "Grace Community Church, Rosewood Town",
+  "events": "[{\"name\":\"Engagement\",\"date\":\"2027-11-19T18:00\",\"venue\":\"Garden Court Hall\",\"place\":\"Rosewood Town\",\"map\":\"https://www.google.com/maps\"},{\"name\":\"Wedding Ceremony\",\"date\":\"2027-11-20T10:30\",\"venue\":\"Grace Community Church\",\"place\":\"Rosewood Town\",\"map\":\"https://www.google.com/maps\"},{\"name\":\"Reception\",\"date\":\"2027-11-20T12:30\",\"venue\":\"Garden Court Hall\",\"place\":\"Rosewood Town\",\"map\":\"https://www.google.com/maps\"}]",
+  "wishes": "[{\"role\":\"Brother\",\"name\":\"Mr. Jacob Thomas\"},{\"role\":\"Sister\",\"name\":\"Ms. Hannah Thomas\"},{\"role\":\"Friend\",\"name\":\"Mr. Samuel Peter\"}]",
+  "callsGroom": "[{\"name\":\"Daniel\",\"phone\":\"9000000000\"},{\"name\":\"Jacob\",\"phone\":\"9000000001\"},{\"name\":\"Samuel\",\"phone\":\"9000000002\"}]",
+  "callsBride": "[{\"name\":\"Paul\",\"phone\":\"9000000003\"},{\"name\":\"Ruth\",\"phone\":\"9000000004\"},{\"name\":\"Hannah\",\"phone\":\"9000000005\"}]",
+  "hashtag": "#DanielAndGraceForever"
+}

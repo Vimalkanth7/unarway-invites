@@ -62,6 +62,38 @@ licensed open-source code/fonts, not placeholder content:
 | `assets/js/three.min.js` (loaded dynamically, only once the capability check passes) | Three.js, MIT |
 | Google Fonts: Cormorant Garamond, Noto Serif Tamil, Manrope (loaded via `fonts.googleapis.com`, not bundled) | Google Fonts, SIL Open Font License 1.1 |
 
+## templates/christian-garden/
+
+Ported from `reference/christian-garden/` (a one-off client project, cloned
+from a private repo for this port) as placeholder media so the design has
+something to show. All personal data (real names, dates, phone numbers) was
+replaced with invented placeholders before anything here was written -- see
+`defaults.json`. **None of the media below is cleared for commercial use.**
+Every row must be replaced with licensed or custom-shot media before this
+design is sold to a real customer -- tracked in README.md's Launch checklist.
+
+| File | Used for | Status |
+| --- | --- | --- |
+| `assets/aisle.webp` | Scene 3, the church aisle | UNLICENSED - client project asset, replace before sale |
+| `assets/church.webp` | Scene 4, the schedule page watercolor | UNLICENSED - client project asset, replace before sale |
+| `assets/hero-arch.webp` | Scene 1 background, welcome-screen default photo, and source of `assets/preview.jpg` | UNLICENSED - client project asset, replace before sale |
+| `assets/rings.webp` | Scene 2, the rings | UNLICENSED - client project asset, replace before sale |
+| `assets/swing.webp` | Scene 5, the garden swing | UNLICENSED - client project asset, replace before sale |
+| `assets/music.mp3` | Background music, started on the welcome-screen tap | UNLICENSED - client project asset, replace before sale |
+| `assets/preview.jpg` | `meta.previewImage` / social share fallback -- a cover crop of `hero-arch.webp`, no names or text added | Same status as `hero-arch.webp` above (it's a crop of that file) |
+
+Scripture quotes (Psalm 128:1, Numbers 6:24, Psalm 126:3) are the King James
+Version (KJV, 1611/1769 Authorized Version) — public domain in the US, used
+word-for-word in `defaults.json`/`template/index.html`.
+
+Not sample media, tracked separately because they're already properly
+licensed open-source code/fonts, not placeholder content:
+
+| File | Licence |
+| --- | --- |
+| `assets/js/gsap.min.js`, `assets/js/ScrollTrigger.min.js` | GSAP (GreenSock); verify current terms at gsap.com before shipping |
+| `assets/fonts/CormorantGaramond-*.woff2`, `assets/fonts/Jost-*.woff2`, `assets/fonts/PinyonScript-400.woff2` (self-hosted) | Google Fonts, SIL Open Font License 1.1 |
+
 ## templates/sample-card/
 
 Dev fixture only (see README.md Phase 2 note); ships no bundled media — the
