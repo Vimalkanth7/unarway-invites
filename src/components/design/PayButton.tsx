@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { siteConfig } from "@/lib/config";
 
 const CHECKOUT_SCRIPT_SRC = "https://checkout.razorpay.com/v1/checkout.js";
 
@@ -140,6 +141,9 @@ export function PayButton({
 
   return (
     <div className="flex flex-col items-end gap-1">
+      <p className="text-xs text-neutral-500">
+        Link stays live for {siteConfig.hostedLinkExpiryMonths} months from payment
+      </p>
       <button
         type="button"
         onClick={startPayment}

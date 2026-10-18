@@ -24,6 +24,19 @@ export default function PrivacyPage() {
             from Razorpay (amount, status, and Razorpay&apos;s own transaction ID — not
             your card or bank details, which Razorpay handles directly).
           </p>
+          <p>
+            Some invitation designs have fields for your guests&apos; or family&apos;s
+            names and phone numbers (for example, a contacts or best-wishes section) --
+            whatever you, the customer, choose to type into those fields is stored the
+            same way as the rest of the invitation&apos;s details. Only enter a phone
+            number or name if you have the right to share it.
+          </p>
+          <p>
+            A photo you upload is stored as a file in our storage provider
+            (Supabase Storage), in a bucket that isn&apos;t publicly listable; it&apos;s
+            only ever served through a short-lived signed link generated when your
+            invitation is viewed.
+          </p>
         </Section>
 
         <Section title="2. How we use it">
@@ -34,20 +47,27 @@ export default function PrivacyPage() {
           </p>
         </Section>
 
-        <Section title="3. Who else sees it">
+        <Section title="3. Who else sees it, and where it's processed">
           <p>
-            Supabase (our database, authentication, and file storage provider) and
-            Razorpay (our payment processor) each handle the data needed to do their
-            part — login/storage and payment, respectively. We don&apos;t share your
-            data with anyone else except where the law requires it.
+            Supabase (our database, authentication, and file storage provider),
+            Razorpay (our payment processor), and Vercel (our hosting provider) each
+            handle the data needed to do their part — storage/login, payment, and
+            running the website itself, respectively. We don&apos;t share your data
+            with anyone else except where the law requires it.
+          </p>
+          <p>
+            Our Supabase project's database and storage are hosted in{" "}
+            <span className="italic text-neutral-500">[region]</span> — we&apos;ll fill
+            this in once the production project is set up. Razorpay and Vercel process
+            data under their own respective policies.
           </p>
         </Section>
 
         <Section title="4. How long we keep it">
           <p>
-            A paid invitation&apos;s hosted link, and the data behind it, stays
-            available for the period shown at checkout (currently 12 months). Your
-            account and draft invitations stay until you ask us to delete them.
+            A paid invitation&apos;s hosted link, and the data behind it, stays live
+            for 12 months from the date of payment. Your account and draft
+            invitations stay until you ask us to delete them.
           </p>
         </Section>
 
@@ -63,8 +83,9 @@ export default function PrivacyPage() {
           <p>
             You can ask us to access, correct, or delete your account data at any time
             by emailing <a href="mailto:unarway@gmail.com" className="underline hover:text-neutral-950">unarway@gmail.com</a>.
-            Deleting your account also takes down any hosted invitation links tied to
-            it.
+            Account deletion is a manual process handled by us, completed within 30
+            days of your request, and also takes down any hosted invitation links tied
+            to your account.
           </p>
         </Section>
 

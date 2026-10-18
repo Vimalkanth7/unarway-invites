@@ -18,9 +18,11 @@ export default function ContactPage() {
           — it helps us find your record faster.
         </p>
         <p>
+          Seller: <span className="italic text-neutral-500">[legal seller name and trade name, to be confirmed with my CA]</span>.
           Registered business address: <span className="italic text-neutral-500">[to be added before launch]</span>.
         </p>
       </div>
+      <p className="mt-10 text-xs text-neutral-400">This text has not had a legal review.</p>
     </div>
   );
 }

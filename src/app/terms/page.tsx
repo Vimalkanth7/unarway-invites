@@ -45,10 +45,9 @@ export default function TermsPage() {
         <Section title="4. What you get">
           <p>
             Paying for an invitation unlocks a hosted link you can share with your
-            guests. The link stays active for the period shown at checkout (currently
-            12 months from the date it&apos;s shared). You can keep editing and
-            re-publishing an invitation you&apos;ve paid for — changes don&apos;t
-            require paying again.
+            guests. The link stays live for 12 months from the date of payment. You can
+            keep editing and re-publishing an invitation you&apos;ve paid for — changes
+            don&apos;t require paying again.
           </p>
         </Section>
 
@@ -68,7 +67,9 @@ export default function TermsPage() {
             Invites or licensed to us. Paying for an invitation gives you the right to
             use that one finished invitation for your event — it doesn&apos;t give you
             the underlying design, template, or source files to resell or reuse
-            elsewhere.
+            elsewhere. This holds because any design that isn&apos;t fully licensed is
+            hidden from browsing, editing, and purchase until it is — see the
+            &quot;licensed assets&quot; item in the project&apos;s Launch checklist.
           </p>
         </Section>
 
@@ -98,6 +99,7 @@ export default function TermsPage() {
 
         <Section title="10. Contact">
           <p>
+            Seller: <span className="italic text-neutral-500">[legal seller name and trade name, to be confirmed with my CA]</span>.
             Questions about these terms: <a href="mailto:unarway@gmail.com" className="underline hover:text-neutral-950">unarway@gmail.com</a>.
             Registered business address: <span className="italic text-neutral-500">[to be added before launch]</span>.
           </p>

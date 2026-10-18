@@ -212,6 +212,17 @@ customer (test/dev use is fine without them):
       launch]` placeholder where the registered business address should be
       -- replace all three with the real address once there is one.
       `npm run check:templates` warns if any of the three still has it.
+- [ ] **Seller name**: `src/app/terms/page.tsx` and `contact/page.tsx` each
+      have a literal `[legal seller name and trade name, to be confirmed
+      with my CA]` placeholder -- replace both once the registered seller
+      name and trade name are confirmed. `npm run check:templates` warns if
+      either still has it.
+- [ ] **Re-verify Terms §6** ("Our content"): it says designs are "owned by
+      Unarway Invites or licensed to us", which is only true because the
+      licence gate (`meta.licensed`, see "Licensed assets" above) hides any
+      design that isn't. If that gate is ever removed, weakened, or an
+      unlicensed design ships with `licensed: true` by mistake, this
+      sentence becomes false and needs rewriting, not just re-reading.
 - [ ] **Legal review**: the Terms, Privacy, and Refund pages are a working
       draft written without legal review (each page says so at the bottom)
       -- have them reviewed before relying on them with real customers.

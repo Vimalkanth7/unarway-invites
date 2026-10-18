@@ -191,6 +191,9 @@ for (const [rel, label] of legalPageChecks) {
   if (content.includes("[to be added before launch]")) {
     console.warn(`⚠ ${label} page still has the registered-business-address placeholder -- blocking, see README Launch checklist.`);
   }
+  if (content.includes("[legal seller name and trade name, to be confirmed with my CA]")) {
+    console.warn(`⚠ ${label} page still has the seller-name placeholder -- blocking, see README Launch checklist.`);
+  }
 }
 console.warn("⚠ Terms/Privacy/Refund pages have not had a legal review -- blocking, see README Launch checklist.");
 

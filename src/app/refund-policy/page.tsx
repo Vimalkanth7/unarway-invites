@@ -47,8 +47,10 @@ export default function RefundPolicyPage() {
 
         <Section title="How refunds are paid">
           <p>
-            Approved refunds go back to the original payment method through Razorpay,
-            usually within 5–7 business days of approval.
+            Approved refunds go back to the original payment method through Razorpay.
+            How long it takes to actually land depends on Razorpay&apos;s own
+            processing and your bank, not on us — we don&apos;t have a fixed number of
+            days to quote here.
           </p>
         </Section>
 
