@@ -92,7 +92,7 @@ licensed open-source code/fonts, not placeholder content:
 | File | Licence |
 | --- | --- |
 | `assets/js/gsap.min.js`, `assets/js/ScrollTrigger.min.js` | GSAP (GreenSock); verify current terms at gsap.com before shipping |
-| `assets/fonts/CormorantGaramond-*.woff2`, `assets/fonts/Jost-*.woff2`, `assets/fonts/PinyonScript-400.woff2` (self-hosted) | Google Fonts, SIL Open Font License 1.1 |
+| `assets/fonts/CormorantGaramond-400.woff2`, `assets/fonts/CormorantGaramond-400i.woff2`, `assets/fonts/Jost-400.woff2`, `assets/fonts/PinyonScript-400.woff2` (self-hosted; each file's `font-weight: 400 700` range means it's a variable font covering both weights, so no separate 500-weight file is needed) | Google Fonts, SIL Open Font License 1.1 |
 
 ## templates/sample-card/
 

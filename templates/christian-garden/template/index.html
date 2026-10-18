@@ -1,0 +1,909 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Wedding Invitation</title>
+<!--
+  No og/twitter meta here: this document only ever runs inside a sandboxed
+  preview iframe or gets packaged into the paid download. The public share
+  page is /i/<short-id>, which owns its own social meta tags.
+-->
+<link rel="preload" as="image" href="assets/hero-arch.webp">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 32%27%3E%3Cpath d=%27M12 3v26M4 11h16%27 fill=%27none%27 stroke=%27%23B8913F%27 stroke-width=%273%27 stroke-linecap=%27round%27/%3E%3C/svg%3E">
+<style>
+@font-face{font-family:'Cormorant Garamond';font-style:italic;font-weight:400 700;font-display:swap;src:url(assets/fonts/CormorantGaramond-400i.woff2) format('woff2')}
+@font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:400 700;font-display:swap;src:url(assets/fonts/CormorantGaramond-400.woff2) format('woff2')}
+@font-face{font-family:'Jost';font-style:normal;font-weight:400 700;font-display:swap;src:url(assets/fonts/Jost-400.woff2) format('woff2')}
+@font-face{font-family:'Pinyon Script';font-style:normal;font-weight:400;font-display:swap;src:url(assets/fonts/PinyonScript-400.woff2) format('woff2')}
+
+:root{--ivory:#FBF6EC;--cream:#F3EAD9;--gold:#B8913F;--gold-hi:#EBD59A;--gold-dk:#7A5A14;--ink:#33291F;--slate:#2F4458;--rose:#7A3F4D;--night:#1B130C}
+*{box-sizing:border-box}
+html{background:#E9E0CF}
+html{font-variant-numeric:lining-nums}
+body{margin:0;min-height:100svh;font-family:Jost,'Segoe UI',sans-serif;color:var(--ink);background:radial-gradient(120% 90% at 50% 0%,#F7EFE0 0%,#E7DDC9 60%,#D8E1DC 100%);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+ul{list-style:none;margin:0;padding:0}
+.lab{font-family:Jost,sans-serif;font-weight:500;font-size:3.1cqw;letter-spacing:.32em;text-transform:uppercase;margin:0}
+.rule{display:flex;align-items:center;justify-content:center;gap:2.4cqw;color:var(--gold);margin:0}
+.rule i{display:block;width:12cqw;height:1px;background:currentColor;opacity:.8}
+.rule b{display:block;width:1.8cqw;height:1.8cqw;transform:rotate(45deg);border:1px solid currentColor}
+
+/* ---------- frame: full-bleed on phones, a portrait "card" on wide screens ---------- */
+.story{position:relative}
+.stage{position:relative;width:100%}
+.frame{position:relative;width:min(100vw,calc(100svh * .6));margin:0 auto;overflow:hidden;container-type:inline-size;background:var(--night)}
+@media (min-aspect-ratio:4/5){.frame{box-shadow:0 30px 90px rgba(70,48,14,.35),0 0 0 1px rgba(184,145,63,.35)}}
+
+/* default (no JS / reduced motion): scenes stack as ordinary sections */
+.scene{position:relative;min-height:177cqw;overflow:hidden;color:var(--ivory);display:flex;flex-direction:column;justify-content:center;gap:6cqw;padding:10cqw 0}
+.bgw{position:absolute;inset:-2%}
+.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transform:translateZ(0);will-change:transform,opacity;backface-visibility:hidden}
+.veil{position:absolute;inset:0;pointer-events:none}
+.copy{position:relative;text-align:center;padding:0 7cqw;display:flex;flex-direction:column;align-items:center}
+.panel,.t2,.church{position:relative}
+.cuew{display:none}
+
+/* animated mode: one pinned stage, scenes layered on top of each other */
+.anim .frame{height:100svh}
+.anim .scene{position:absolute;inset:0;min-height:0;padding:0;display:block}
+.anim .scene:not(.sc0){will-change:clip-path}
+.anim .copy{position:absolute;left:0;right:0}
+.anim .panel,.anim .t2,.anim .church{position:absolute}
+.anim .cuew{display:flex}
+
+/* ---------- 1 · arch by the lake ---------- */
+.sc0{color:var(--slate);background:#E9F0EE}
+.sc0 .bg{object-position:50% 93%;transform-origin:50% 75%}
+.sc0 .veil{background:linear-gradient(180deg,rgba(255,255,255,.62) 0%,rgba(255,255,255,.22) 36%,rgba(255,255,255,0) 52%)}
+.sc0 .copy{top:6.5%;gap:2cqw}
+.sc0 .lab{color:var(--gold-dk);font-weight:600;font-size:3.2cqw}
+.names{margin:0;display:flex;flex-direction:column;align-items:center;line-height:.9;text-shadow:0 0 5cqw rgba(255,255,255,.95),0 0 1.6cqw rgba(255,255,255,.9)}
+.names .nm{display:block;font-family:'Pinyon Script',cursive;font-size:21cqw;color:var(--slate);padding:0 4cqw}
+.names .amp{display:block;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:8.5cqw;color:#9A7424;margin:-1cqw 0}
+.sc0 .sub small{display:block;margin-top:1.6cqw;font:600 3.7cqw/1.3 Jost,sans-serif;font-style:normal;letter-spacing:.08em;color:var(--slate)}
+.sc0 .sub{margin:2cqw 0 0;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:5.3cqw;color:var(--slate);text-shadow:0 0 3cqw rgba(255,255,255,.95),0 0 1cqw rgba(255,255,255,.9)}
+.cuew{position:absolute;left:0;right:0;bottom:4.5%;justify-content:center;pointer-events:none}
+.cue{pointer-events:auto;display:flex;align-items:center;gap:2.4cqw;padding:2.6cqw 5.4cqw 2.6cqw 6cqw;border-radius:99px;border:1px solid rgba(184,145,63,.8);background:rgba(255,255,255,.94);color:var(--slate);box-shadow:0 10px 28px rgba(40,60,40,.28);font:600 3.9cqw/1.1 Jost,sans-serif;letter-spacing:.04em;cursor:pointer;white-space:nowrap;-webkit-tap-highlight-color:transparent}
+.cue svg{width:5cqw;height:5cqw;animation:bob 1.4s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(-.6cqw)}50%{transform:translateY(1cqw)}}
+
+/* ---------- 2 · the rings ---------- */
+.sc1 .veil{background:linear-gradient(180deg,rgba(28,17,8,.78) 0%,rgba(28,17,8,.3) 32%,rgba(28,17,8,0) 46%,rgba(28,17,8,.55) 66%,rgba(28,17,8,.88) 100%)}
+.sc1 .t1{top:10%;gap:3cqw}
+.sc1 .t1 q{quotes:none;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:6.8cqw;line-height:1.2;color:#FFF8EA;text-shadow:0 2px 14px rgba(0,0,0,.85),0 0 3cqw rgba(0,0,0,.5)}
+.sc1 .t1 q::before{content:'\201C'}.sc1 .t1 q::after{content:'\201D'}
+.sc1 .lab{color:var(--gold-hi);font-weight:600}
+.sc1 .t2 p.big{margin:0;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:5.9cqw;line-height:1.2;color:#FFF8EA;text-shadow:0 2px 14px rgba(0,0,0,.8)}
+.sc1 .t2{bottom:5%;gap:2.2cqw}
+.sc1 .names2{margin:0;font-family:'Pinyon Script',cursive;font-size:13cqw;line-height:1;color:#fff;text-shadow:0 2px 18px rgba(0,0,0,.7)}
+.sc1 .names2 i{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:.5em;color:var(--gold-hi);padding:0 .25em}
+.sc1 .full{display:flex;flex-direction:column;gap:.8cqw;margin:0;font-family:Jost,sans-serif;font-weight:500;font-size:3.3cqw;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-hi);text-shadow:0 1px 10px rgba(0,0,0,.8)}
+.sc1 .t2 q{quotes:none;margin-top:1.4cqw;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:5.6cqw;line-height:1.25;color:#FFF8EA;text-shadow:0 2px 14px rgba(0,0,0,.8)}
+.sc1 .t2 .ref{color:var(--gold-hi);font-size:2.9cqw}
+
+/* ---------- 3 · the aisle ---------- */
+.sc2 .veil{background:linear-gradient(180deg,rgba(25,15,5,.3) 0%,rgba(25,15,5,0) 22%,rgba(25,15,5,.1) 45%,rgba(25,15,5,.84) 100%)}
+.sc2 .t1{bottom:8%;gap:3.2cqw}
+.sc2 .t1 q::before{content:'\201C'}.sc2 .t1 q::after{content:'\201D'}
+.sc2 .t1 q{quotes:none;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:9cqw;line-height:1.1;color:#FFF8EA;text-shadow:0 2px 18px rgba(0,0,0,.85),0 0 3cqw rgba(0,0,0,.5)}
+.sc2 .t1 .ref{color:var(--gold-hi);font-weight:600}
+.glass{background:linear-gradient(180deg,rgba(40,26,12,.52),rgba(40,26,12,.4));border:1px solid rgba(235,213,154,.7);border-radius:6cqw;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 20px 50px rgba(0,0,0,.4)}
+.sc2 .t2{bottom:6%;left:6cqw;right:6cqw;padding:7cqw 5cqw 6cqw;gap:2.2cqw;text-align:center;display:flex;flex-direction:column;align-items:center;color:var(--ivory)}
+.sc2 .t2 .lab{color:var(--gold-hi);font-weight:600}
+.dateline{display:flex;align-items:flex-end;justify-content:center;gap:4cqw;line-height:1}
+.dateline .wd,.dateline .my{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:6.6cqw;padding-bottom:3cqw;color:#FFF8EA}
+.dateline .dd{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:27cqw;line-height:.82;color:#fff;text-shadow:0 4px 24px rgba(0,0,0,.5)}
+.sc2 .tm2{margin:0;font-family:Jost,sans-serif;font-weight:500;font-size:3.3cqw;letter-spacing:.04em;color:var(--gold-hi)}
+.sc2 .tm{margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:5.6cqw;color:#FFF8EA}
+.cd{display:flex;gap:2.4cqw;justify-content:center;margin-top:2cqw}
+.cd div{min-width:15cqw;padding:2.4cqw 1cqw 2cqw;border-radius:3cqw;border:1px solid rgba(235,213,154,.6);background:rgba(20,12,4,.4);display:flex;flex-direction:column;align-items:center;gap:1cqw}
+.cd b{font-family:Jost,sans-serif;font-weight:500;font-size:6.6cqw;line-height:1;color:#fff;font-variant-numeric:lining-nums tabular-nums;letter-spacing:.02em}
+.cd span{font-size:2.3cqw;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-hi)}
+
+/* ---------- 4 · the schedule (one clear page for all three events) ---------- */
+.sc3{background:radial-gradient(90% 60% at 50% 25%,#FFFCF4 0%,#F6EEDD 70%,#EDE2CC 100%);color:var(--ink)}
+.sc3 .church{left:2%;right:2%;top:1.5%;height:47%;display:flex;align-items:center;justify-content:center}
+html:not(.anim) .sc3 .church{height:80cqw}
+.sc3 .church img{max-width:100%;max-height:100%;object-fit:contain;display:block}
+.sched{position:relative;display:flex;flex-direction:column;gap:3cqw;padding:0 5cqw}
+.anim .sched{position:absolute;left:0;right:0;bottom:3.5%}
+.sched .hd{text-align:center;color:var(--gold-dk);font-weight:600;margin-bottom:.5cqw}
+.ev{display:grid;grid-template-columns:19cqw 1fr 11.5cqw;gap:3.4cqw;align-items:center;padding:3.4cqw 3.6cqw 3.4cqw 2.6cqw;border-radius:4.4cqw;background:rgba(255,255,255,.78);border:1px solid rgba(184,145,63,.55);box-shadow:0 8px 24px rgba(120,90,40,.14);color:var(--ink)}
+.ev .dt{text-align:center;border-right:1px solid rgba(184,145,63,.55);padding-right:2.4cqw}
+.ev .dt b{display:block;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:11.5cqw;line-height:.95;color:var(--gold-dk)}
+.ev .dt span{display:block;margin-top:1cqw;font:600 2.9cqw/1 Jost,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-dk)}
+.ev .nm2{margin:0;font:600 2.8cqw/1.1 Jost,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-dk)}
+.ev .tm3{margin:1.2cqw 0 0;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:5.6cqw;line-height:1.1;color:var(--ink)}
+.ev .vn{margin:1.2cqw 0 0;font:500 3.7cqw/1.3 Jost,sans-serif;color:#54483A}
+.ev .go{display:flex;align-items:center;justify-content:center;width:11.5cqw;height:11.5cqw;border-radius:50%;border:1px solid var(--gold);background:linear-gradient(180deg,#F6E7B8,#E2C479 55%,#C49A45);color:var(--ink);box-shadow:0 6px 16px rgba(120,86,20,.3);-webkit-tap-highlight-color:transparent}
+.ev .go svg{width:5.4cqw;height:5.4cqw}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:2cqw;min-height:12.6cqw;padding:0 7cqw;border-radius:99px;border:1px solid var(--gold);font-family:Jost,sans-serif;font-weight:600;font-size:3.1cqw;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;color:var(--ink);background:linear-gradient(180deg,#F6E7B8,#E2C479 55%,#C49A45);box-shadow:0 8px 24px rgba(120,86,20,.3);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.acts{display:flex;flex-wrap:wrap;gap:3cqw;justify-content:center;margin-top:1cqw}
+button.go,button.btn{appearance:none;-webkit-appearance:none;font-family:inherit}
+button.go{padding:0}
+
+/* ---------- 5 · the swing ---------- */
+.sc4{color:var(--rose)}
+.sc4 .bgw{inset:-4%}
+.sc4 .veil{background:linear-gradient(180deg,rgba(255,250,246,0) 0%,rgba(255,250,246,0) 60%,rgba(255,248,244,.35) 100%)}
+.sc4 .f-top{top:11%;gap:2.4cqw;padding:7cqw 4cqw;isolation:isolate}
+.sc4 .f-top::before{content:'';position:absolute;inset:0;z-index:-1;background:radial-gradient(closest-side,rgba(255,250,246,.95) 0%,rgba(255,250,246,.82) 55%,rgba(255,250,246,0) 100%)}
+.sc4 .f-top q{quotes:none;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:7.4cqw;line-height:1.18;color:#4A2530;text-shadow:0 0 5cqw rgba(255,255,255,.98),0 0 2cqw rgba(255,255,255,.95)}
+.sc4 .f-top q::before{content:'\201C'}.sc4 .f-top q::after{content:'\201D'}
+.sc4 .f-top .ref{color:var(--gold-dk);font-weight:600;text-shadow:0 0 3cqw rgba(255,255,255,.95)}
+.sc4 .panel{left:4.5cqw;right:4.5cqw;top:4.5%;padding:5.5cqw 4cqw 5cqw;border-radius:6cqw;text-align:center;display:flex;flex-direction:column;align-items:center;gap:3cqw;background:linear-gradient(180deg,rgba(255,252,247,.92),rgba(255,247,242,.95));border:1px solid rgba(184,145,63,.6);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 18px 50px rgba(122,63,77,.25)}
+.panel h3{margin:0 0 1.6cqw;font-family:Jost,sans-serif;font-weight:600;font-size:2.6cqw;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-dk)}
+.fam{display:grid;grid-template-columns:1fr 1fr;gap:3cqw;width:100%}
+.fam p{margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:4.6cqw;line-height:1.2;color:var(--ink)}
+.wishes{width:100%;border-top:1px solid rgba(184,145,63,.5);padding-top:3cqw}
+.wishes li{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:4.4cqw;line-height:1.3;color:var(--ink)}
+.wishes li span{font-family:Jost,sans-serif;font-weight:500;font-size:2.6cqw;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-dk);margin-right:1.6cqw}
+.panel .tag{margin:0;font-family:Jost,sans-serif;font-weight:600;font-size:3.4cqw;letter-spacing:.05em;color:var(--gold-dk);word-break:break-word}
+.panel .with{margin:0;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:4.8cqw;line-height:1.25;color:var(--rose)}
+.calls{display:grid;grid-template-columns:1fr 1fr;gap:3cqw;width:100%}
+.calls li{margin-top:1.6cqw}
+.calls a{display:block;text-decoration:none;padding:2cqw 1cqw;border-radius:3cqw;background:rgba(184,145,63,.12);border:1px solid rgba(184,145,63,.5)}
+.calls a span{display:block;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:4.6cqw;line-height:1.1;color:var(--ink)}
+.calls a b{display:block;font-family:Jost,sans-serif;font-weight:500;font-size:3.6cqw;letter-spacing:.05em;color:var(--gold-dk);margin-top:.6cqw;font-variant-numeric:lining-nums tabular-nums}
+.panel .end{width:100%;border-top:1px solid rgba(184,145,63,.5);padding-top:3cqw;display:flex;flex-direction:column;align-items:center;gap:2.4cqw}
+
+q{text-wrap:balance}
+/* ---------- chrome ---------- */
+.prog{position:fixed;left:0;top:0;height:3px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,#B8913F,#F4E4B4);z-index:80;display:none}
+.anim .prog{display:block}
+#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:50;display:none;opacity:.85}
+.anim #fx{display:block}
+#musicBtn{display:none;position:fixed;right:max(12px,env(safe-area-inset-right));top:calc(16px + env(safe-area-inset-top));z-index:9999;width:46px;height:46px;border-radius:50%;border:1px solid var(--gold);background:rgba(251,246,236,.9);color:var(--ink);font-size:19px;line-height:1;cursor:pointer;-webkit-tap-highlight-color:transparent;backdrop-filter:blur(6px)}
+
+/* gate */
+#gate{position:fixed;inset:0;z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2.2svh;padding:24px;text-align:center;background:radial-gradient(120% 80% at 50% 25%,#FFFDF7 0%,#F3EAD9 60%,#E3D6BC 100%);color:var(--ink);touch-action:none;cursor:pointer;transition:opacity .9s ease,visibility .9s;-webkit-tap-highlight-color:transparent}
+#gate.gone{opacity:0;visibility:hidden;pointer-events:none}
+#gate .g-cross{width:30px;color:var(--gold)}
+#gate .g-lab{font:600 12px/1 Jost,sans-serif;letter-spacing:.32em;text-transform:uppercase;color:var(--gold-dk)}
+#gate .g-photo{width:min(190px,44vw);aspect-ratio:3/4;border-radius:999px 999px 14px 14px;overflow:hidden;box-shadow:0 0 0 2px var(--gold),0 0 0 8px rgba(251,246,236,.9),0 0 0 9px rgba(184,145,63,.5),0 24px 50px rgba(90,60,10,.28);margin:4px 0}
+#gate .g-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 86%;display:block;animation:gz 9s ease-in-out infinite alternate}
+@keyframes gz{from{transform:scale(1)}to{transform:scale(1.14)}}
+#gate .g-names{font-family:'Pinyon Script',cursive;font-size:clamp(46px,14vw,70px);line-height:1;color:var(--slate)}
+#gate .g-names i{font:italic 600 .42em 'Cormorant Garamond',serif;color:#9A7424;padding:0 .3em}
+#gate .g-date{font:500 15px/1.4 Jost,sans-serif;color:#54483A;letter-spacing:.08em}
+#gate .g-btn{margin-top:8px;min-height:54px;padding:0 34px;border-radius:999px;border:1px solid var(--gold);font:600 14px/1 Jost,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);background:linear-gradient(180deg,#F6E7B8,#E2C479 55%,#C49A45);cursor:pointer;animation:gpulse 2.2s ease-in-out infinite}
+#gate .g-hint{font:500 12px/1 Jost,sans-serif;color:#7A6C58}
+@keyframes gpulse{0%,100%{box-shadow:0 0 0 0 rgba(184,145,63,.5)}50%{box-shadow:0 0 0 14px rgba(184,145,63,0)}}
+@media (prefers-reduced-motion:reduce){#gate .g-photo img,#gate .g-btn,.cue svg{animation:none}}
+</style>
+<script src="assets/js/gsap.min.js"></script>
+<script src="assets/js/ScrollTrigger.min.js"></script>
+</head>
+<body>
+<div id="app"></div>
+<template id="tpl">
+
+<div class="prog" aria-hidden="true"></div>
+<canvas id="fx" aria-hidden="true"></canvas>
+
+<main class="story">
+<div class="stage">
+<div class="frame">
+
+<!-- 1 · Arch by the lake -->
+<section class="scene sc0" id="s0" aria-label="Opening">
+  <div class="bgw"><img class="bg" src="assets/hero-arch.webp" alt="A couple standing beneath a floral wedding arch beside a lake"></div>
+  <div class="veil"></div>
+  <div class="copy">
+    <p class="lab rv">Wedding Ceremony</p>
+    <h1 class="names rv"><span class="nm">{{groom}}</span><span class="amp">&amp;</span><span class="nm">{{bride}}</span></h1>
+    <p class="sub rv">{{wedDay}}<small>{{wedWhere}}</small></p>
+  </div>
+  <div class="cuew"><button class="cue rv" type="button" id="cue" aria-label="Scroll to continue"><span>Please scroll the screen</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></div>
+</section>
+
+<!-- 2 · The rings -->
+<section class="scene sc1" id="s1" aria-label="Invitation">
+  <div class="bgw"><img class="bg" src="assets/rings.webp" alt="Two gold rings resting on an open Bible"></div>
+  <div class="veil"></div>
+  <div class="copy t1">
+    <q class="rv">Blessed is every one that feareth the LORD; that walketh in his ways.</q>
+    <p class="lab ref rv">Psalm 128:1 (KJV)</p>
+  </div>
+  <div class="copy t2">
+    <p class="lab rv">Together with their families</p>
+    <p class="big rv">request the honour of your presence at the engagement of</p>
+    <p class="names2 rv"><span>{{groom}}</span><i>&amp;</i><span>{{bride}}</span></p>
+    <p class="full rv"><span>{{groomFull}}</span><span>&amp; {{brideFull}}</span></p>
+  </div>
+</section>
+
+<!-- 3 · The aisle -->
+<section class="scene sc2" id="s2" aria-label="The date">
+  <div class="bgw"><img class="bg" src="assets/aisle.webp" alt="A candle-lit church aisle lined with white roses"></div>
+  <div class="veil"></div>
+  <div class="copy t1">
+    <q class="rv">The LORD bless thee, and keep thee.</q>
+    <p class="lab ref rv">Numbers 6:24 (KJV)</p>
+  </div>
+  <div class="t2 glass rb" aria-label="Date of the wedding">
+    <p class="lab">Save the date</p>
+    <div class="dateline"><span class="wd">{{weekday}}</span><span class="dd">{{day}}</span><span class="my">{{monthYear}}</span></div>
+    <p class="tm">Wedding at {{time}}</p>
+    <sc-if value="{{notPastCeremony}}">
+      <div class="cd" aria-label="Countdown to the wedding">
+        <div><b>{{cd.d}}</b><span>Days</span></div>
+        <div><b>{{cd.h}}</b><span>Hours</span></div>
+        <div><b>{{cd.m}}</b><span>Min</span></div>
+        <div><b>{{cd.s}}</b><span>Sec</span></div>
+      </div>
+    </sc-if>
+    <sc-if value="{{pastCeremony}}">
+      <p class="tm done">The celebration has taken place.</p>
+    </sc-if>
+  </div>
+</section>
+
+<!-- 4 · The schedule : all three events on one clear page -->
+<section class="scene sc3" id="s3" aria-label="Schedule of events">
+  <div class="church rb"><img src="assets/church.webp" alt="Watercolor painting of the church"></div>
+  <div class="sched" data-events>
+    <p class="lab hd rv">The Celebrations</p>
+  </div>
+</section>
+
+<!-- 5 · The swing : blessings and families -->
+<section class="scene sc4" id="s4" aria-label="Blessings">
+  <div class="bgw"><img class="bg" src="assets/swing.webp" alt="A floral garden swing"></div>
+  <div class="veil"></div>
+  <div class="copy f-top">
+    <q class="rv">The LORD hath done great things for us; whereof we are glad.</q>
+    <p class="lab ref rv">Psalm 126:3 (KJV)</p>
+  </div>
+  <div class="panel p1 rb">
+    <div class="fam">
+      <div><h3>The Groom's Family</h3><p>{{groomParents}}</p></div>
+      <div><h3>The Bride's Family</h3><p>{{brideParents}}</p></div>
+    </div>
+    <div class="wishes"><h3>Best wishes from</h3><ul></ul></div>
+  </div>
+  <div class="panel p2 rb">
+    <p class="with">With love, the families of {{groom}} &amp; {{bride}}</p>
+    <p class="tag">{{hashtag}}</p>
+    <div class="calls">
+      <div class="calls-side calls-callsGroom"><h3>Groom's side</h3><ul></ul></div>
+      <div class="calls-side calls-callsBride"><h3>Bride's side</h3><ul></ul></div>
+    </div>
+    <button class="btn btn-share" type="button">Share on WhatsApp</button>
+  </div>
+</section>
+
+</div>
+</div>
+</main>
+
+</template>
+<!--
+  Seed values only, matching defaults.json: lets this file render something
+  sensible if opened directly (outside the parent app). The parent always
+  overwrites these via the unarway:config postMessage immediately after this
+  document signals unarway:ready - see the runtime script below.
+-->
+<script id="inv-config" type="application/json">{"groomName":"Daniel","brideName":"Grace","groomFull":"Daniel Joseph Thomas","brideFull":"Grace Mary Paul","couplePhoto":"","groomParents":"Mr. Joseph Thomas & Mrs. Mary Thomas","brideParents":"Mr. Paul Samuel & Mrs. Ruth Paul","ceremonyDate":"2027-11-20T10:30","ceremonyVenue":"Grace Community Church, Rosewood Town","events":"[{\"name\":\"Engagement\",\"date\":\"2027-11-19T18:00\",\"venue\":\"Garden Court Hall\",\"place\":\"Rosewood Town\",\"map\":\"https://www.google.com/maps\"},{\"name\":\"Wedding Ceremony\",\"date\":\"2027-11-20T10:30\",\"venue\":\"Grace Community Church\",\"place\":\"Rosewood Town\",\"map\":\"https://www.google.com/maps\"},{\"name\":\"Reception\",\"date\":\"2027-11-20T12:30\",\"venue\":\"Garden Court Hall\",\"place\":\"Rosewood Town\",\"map\":\"https://www.google.com/maps\"}]","wishes":"[{\"role\":\"Brother\",\"name\":\"Mr. Jacob Thomas\"},{\"role\":\"Sister\",\"name\":\"Ms. Hannah Thomas\"},{\"role\":\"Friend\",\"name\":\"Mr. Samuel Peter\"}]","callsGroom":"[{\"name\":\"Daniel\",\"phone\":\"9000000000\"},{\"name\":\"Jacob\",\"phone\":\"9000000001\"},{\"name\":\"Samuel\",\"phone\":\"9000000002\"}]","callsBride":"[{\"name\":\"Paul\",\"phone\":\"9000000003\"},{\"name\":\"Ruth\",\"phone\":\"9000000004\"},{\"name\":\"Hannah\",\"phone\":\"9000000005\"}]","hashtag":"#DanielAndGraceForever"}</script>
+<script>/* Tiny template runtime: renders the <template id="tpl"> with the Component class.
+   This engine (interpolation, sc-for/sc-if, DCLogic, postMessage contract) is
+   reused verbatim from templates/temple-journey -- it's the shared, proven
+   contract every design runs on, not something to reinvent per design. */
+(function () {
+  // No localStorage/cookies: this document runs in a sandbox="allow-scripts"
+  // iframe with an opaque origin, which can't access either. Field values
+  // come from the parent app over postMessage instead - see the listener
+  // registered below, next to window.__mountInvite.
+  var BASE = JSON.parse(document.getElementById('inv-config').textContent);
+  var CFG = Object.assign({}, BASE);
+
+  var ROOT = {};
+  var bindings = [];
+  var comp = null;
+
+  function get(path, scope) {
+    path = String(path).trim();
+    if (path === 'true') return true;
+    if (path === 'false') return false;
+    if (/^-?\d+(\.\d+)?$/.test(path)) return +path;
+    if (/^(['"]).*\1$/.test(path)) return path.slice(1, -1);
+    return path.split('.').reduce(function (o, k) { return o == null ? undefined : o[k]; }, scope);
+  }
+  var WHOLE = /^\s*\{\{\s*([^}]+?)\s*\}\}\s*$/;
+  function interp(str, scope) {
+    var m = str.match(WHOLE);
+    if (m) return get(m[1], scope);
+    return str.replace(/\{\{\s*([^}]+?)\s*\}\}/g, function (_, p) { var v = get(p, scope); return v == null ? '' : String(v); });
+  }
+  function hasHole(s) { return s.indexOf('{{') >= 0; }
+
+  function build(src, scope, parent) {
+    var kids = src.childNodes;
+    for (var i = 0; i < kids.length; i++) {
+      var c = kids[i];
+      if (c.nodeType === 3) {
+        var t = document.createTextNode('');
+        if (hasHole(c.nodeValue)) { var b = { type: 'text', node: t, tpl: c.nodeValue, scope: scope }; bindings.push(b); t.nodeValue = val(interp(b.tpl, scope)); b.last = t.nodeValue; }
+        else t.nodeValue = c.nodeValue;
+        parent.appendChild(t);
+        continue;
+      }
+      if (c.nodeType !== 1) continue;
+      var tag = c.localName.toLowerCase();
+      if (tag === 'sc-for') {
+        var la = c.getAttribute('list') || '';
+        var list = interp(la, scope) || [];
+        var as = c.getAttribute('as') || 'item';
+        for (var j = 0; j < list.length; j++) {
+          var s2 = Object.create(scope); s2[as] = list[j]; s2.$index = j;
+          build(c, s2, parent);
+        }
+        continue;
+      }
+      if (tag === 'sc-if') {
+        var w = document.createElement('span');
+        w.style.display = 'contents';
+        var bi = { type: 'if', node: w, tpl: c.getAttribute('value') || '', scope: scope };
+        bindings.push(bi);
+        w.style.display = interp(bi.tpl, scope) ? 'contents' : 'none';
+        build(c, scope, w);
+        parent.appendChild(w);
+        continue;
+      }
+      var el = document.createElementNS(c.namespaceURI, c.localName);
+      for (var a = 0; a < c.attributes.length; a++) {
+        var at = c.attributes[a], name = at.name, v = at.value;
+        if (name.indexOf('hint-') === 0) continue;
+        if (/^on[a-z]+$/i.test(name) && hasHole(v)) {
+          (function (path, sc, evt) { el.addEventListener(evt, function (e) { var f = get(path, sc); if (typeof f === 'function') f(e); }); })(v.match(WHOLE)[1], scope, name.slice(2).toLowerCase());
+          continue;
+        }
+        if (hasHole(v)) {
+          var ba = { type: 'attr', node: el, name: name, tpl: v, scope: scope };
+          var r = interp(v, scope);
+          if (r !== false && r != null) { el.setAttribute(name, String(r)); ba.last = String(r); }
+          bindings.push(ba);
+        } else el.setAttribute(name, v);
+      }
+      build(c.localName === 'template' ? c.content : c, scope, el);
+      parent.appendChild(el);
+    }
+  }
+  function val(v) { return v == null ? '' : String(v); }
+
+  function setRoot() {
+    var vals = comp.renderVals();
+    Object.keys(ROOT).forEach(function (k) { delete ROOT[k]; });
+    Object.assign(ROOT, CFG, vals);
+  }
+  function update() {
+    if (!comp) return;
+    setRoot();
+    bindings.forEach(function (b) {
+      if (b.type === 'text') { var t = val(interp(b.tpl, b.scope)); if (t !== b.last) { b.node.nodeValue = t; b.last = t; } }
+      else if (b.type === 'attr') { var r = interp(b.tpl, b.scope); var s = (r === false || r == null) ? null : String(r); if (s !== b.last) { if (s == null) b.node.removeAttribute(b.name); else b.node.setAttribute(b.name, s); b.last = s; } }
+      else if (b.type === 'if') { var d = interp(b.tpl, b.scope) ? 'contents' : 'none'; if (b.node.style.display !== d) b.node.style.display = d; }
+    });
+    if (comp.componentDidUpdate) comp.componentDidUpdate();
+  }
+
+  window.DCLogic = function DCLogic(props) { this.props = props; this.state = {}; };
+  window.DCLogic.prototype.setState = function (p) {
+    var n = typeof p === 'function' ? p(this.state, this.props) : p;
+    this.state = Object.assign({}, this.state, n);
+    if (this.__mounted) update();
+  };
+  window.DCLogic.prototype.forceUpdate = function () { update(); };
+
+  window.__mountInvite = function (Component) {
+    comp = new Component(Object.assign({}, CFG));
+    if (!comp.state) comp.state = {};
+    setRoot();
+    var app = document.getElementById('app');
+    build(document.getElementById('tpl').content, ROOT, app);
+    comp.__mounted = true;
+    if (comp.componentDidMount) comp.componentDidMount();
+    window.parent.postMessage({ type: 'unarway:ready' }, '*');
+  };
+
+  window.addEventListener('message', function (event) {
+    if (event.source !== window.parent) return;
+    if (!event.data || event.data.type !== 'unarway:config') return;
+    Object.assign(CFG, event.data.payload || {});
+    if (comp) { comp.props = Object.assign({}, CFG); update(); }
+  });
+})();</script>
+<script>
+// Plays once when the gate opens; a no-op until primeIntro() (below) replaces
+// it, and stays a no-op entirely under prefers-reduced-motion.
+window.__intro = function () {};
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { now: Date.now() };
+    this._listsContentKey = '';
+    this._structureKey = '';
+    this._currentBeat = 0;
+  }
+
+  componentDidMount() {
+    this._tick = setInterval(() => this.setState({ now: Date.now() }), 1000);
+    this.syncGate();
+    this.syncLists();
+    this.bindShareButton();
+    this.boot();
+  }
+
+  componentDidUpdate() {
+    this.syncGate();
+    this.syncLists();
+  }
+
+  // ---------- dates: every design is for events in India; a bare
+  // "YYYY-MM-DDTHH:mm" (what a datetime-local input gives us) is interpreted
+  // as IST so the countdown lands on the same instant for every guest. ----------
+  parseDate(v) {
+    if (!v) return null;
+    const hasOffset = /[Zz]$|[+-]\d{2}:?\d{2}$/.test(v);
+    const d = new Date(hasOffset ? v : v + '+05:30');
+    return isNaN(d.getTime()) ? null : d;
+  }
+
+  parseList(key) {
+    try {
+      const a = JSON.parse(this.props[key] || '[]');
+      return Array.isArray(a) ? a : [];
+    } catch (e) { return []; }
+  }
+
+  dateInfo() {
+    const p = this.props;
+    const d = this.parseDate(p.ceremonyDate);
+    const ok = !!d;
+    const fmt = (o) => { try { return d.toLocaleDateString('en-GB', o); } catch (e) { return ''; } };
+    const tfmt = () => { try { return d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }); } catch (e) { return ''; } };
+    const weekday = ok ? fmt({ weekday: 'long' }) : '[Weekday]';
+    const dateLong = ok ? fmt({ day: 'numeric', month: 'long', year: 'numeric' }) : '[Date]';
+    const time = ok ? tfmt() : '[Time]';
+    const venue = p.ceremonyVenue || '[Venue]';
+    const past = ok && d.getTime() <= this.state.now;
+    return {
+      ok, d, weekday, dateLong, time, venue, past,
+      day: ok ? String(d.getDate()).padStart(2, '0') : '00',
+      monthYear: ok ? fmt({ month: 'long', year: 'numeric' }) : '[Month Year]',
+      wedDay: ok ? fmt({ weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }) : '[Date]',
+      wedWhere: (ok ? time + ' · ' : '') + venue,
+      gateDate: ok ? (weekday + ' · ' + dateLong + ' · ' + time) : ''
+    };
+  }
+
+  renderVals() {
+    const p = this.props;
+    const I = this.dateInfo();
+    const pad = (n) => String(Math.max(0, n)).padStart(2, '0');
+    let cd = { d: '00', h: '00', m: '00', s: '00' };
+    if (I.ok && !I.past) {
+      const t = Math.floor((I.d.getTime() - this.state.now) / 1000);
+      cd = { d: pad(Math.floor(t / 86400)), h: pad(Math.floor(t / 3600) % 24), m: pad(Math.floor(t / 60) % 60), s: pad(t % 60) };
+    }
+    return {
+      groom: p.groomName || 'Groom', bride: p.brideName || 'Bride',
+      groomFull: p.groomFull || p.groomName || 'Groom', brideFull: p.brideFull || p.brideName || 'Bride',
+      groomParents: p.groomParents || '', brideParents: p.brideParents || '', hashtag: p.hashtag || '',
+      weekday: I.weekday, day: I.day, monthYear: I.monthYear, time: I.time,
+      wedDay: I.wedDay, wedWhere: I.wedWhere, cd,
+      pastCeremony: I.past, notPastCeremony: !I.past
+    };
+  }
+
+  // ---------- welcome gate: static chrome outside <template id="tpl">, kept
+  // in sync imperatively since it has to show real content before the first
+  // unarway:config round-trip completes. ----------
+  escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  }
+
+  syncGate() {
+    const gate = document.getElementById('gate');
+    if (!gate) return;
+    const p = this.props;
+    const groom = p.groomName || 'Groom', bride = p.brideName || 'Bride';
+    const nameEl = gate.querySelector('.g-names');
+    if (nameEl) nameEl.innerHTML = this.escapeHtml(groom) + ' <i>&amp;</i> ' + this.escapeHtml(bride);
+    const dateEl = gate.querySelector('.g-date');
+    if (dateEl) dateEl.textContent = this.dateInfo().gateDate;
+    const img = gate.querySelector('.g-photo img');
+    if (img) img.src = p.couplePhoto || 'assets/hero-arch.webp';
+  }
+
+  // ---------- events / wishes / calls: built imperatively, not via sc-for --
+  // update() only patches text/attr/if bindings already recorded at mount,
+  // so a list whose item COUNT changes needs a real rebuild, same reasoning
+  // as malligai-mandapam's syncEvents(). Memoized so a config push that
+  // doesn't touch these four fields (e.g. editing the hashtag) is a no-op. ----------
+  syncLists() {
+    const events = this.parseList('events');
+    const wishes = this.parseList('wishes');
+    const callsGroom = this.parseList('callsGroom');
+    const callsBride = this.parseList('callsBride');
+
+    const contentKey = JSON.stringify({ events, wishes, callsGroom, callsBride });
+    if (contentKey === this._listsContentKey) return;
+    this._listsContentKey = contentKey;
+
+    const structureKey = JSON.stringify({
+      ne: events.length, maps: events.map((e) => !!e.map),
+      nw: wishes.length, ng: callsGroom.length, nb: callsBride.length
+    });
+    const structureChanged = structureKey !== this._structureKey;
+    this._structureKey = structureKey;
+
+    this.buildEvents(events);
+    this.buildWishes(wishes);
+    this.buildCalls('callsGroom', callsGroom);
+    this.buildCalls('callsBride', callsBride);
+    const callsWrap = document.querySelector('.calls');
+    if (callsWrap) callsWrap.style.display = (callsGroom.length || callsBride.length) ? '' : 'none';
+
+    if (structureChanged) this.scheduleRebuild();
+  }
+
+  buildEvents(events) {
+    const host = document.querySelector('[data-events]');
+    if (!host) return;
+    host.querySelectorAll('.ev').forEach((n) => n.remove());
+    const pin = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg>';
+    events.forEach((ev) => {
+      const d = this.parseDate(ev.date);
+      const row = document.createElement('article'); row.className = 'ev rv';
+      const dt = document.createElement('div'); dt.className = 'dt';
+      const b = document.createElement('b'); b.textContent = d ? String(d.getDate()).padStart(2, '0') : '--';
+      const mo = document.createElement('span'); mo.textContent = d ? d.toLocaleDateString('en-GB', { month: 'short' }) : '';
+      dt.appendChild(b); dt.appendChild(mo);
+      const info = document.createElement('div');
+      const nm = document.createElement('p'); nm.className = 'nm2'; nm.textContent = ev.name || '';
+      const tm = document.createElement('p'); tm.className = 'tm3';
+      tm.textContent = d ? d.toLocaleDateString('en-GB', { weekday: 'long' }) + ' · ' + d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }) : '';
+      const vn = document.createElement('p'); vn.className = 'vn'; vn.textContent = [ev.venue, ev.place].filter(Boolean).join(', ');
+      info.appendChild(nm); info.appendChild(tm); info.appendChild(vn);
+      row.appendChild(dt); row.appendChild(info);
+      if (ev.map) {
+        const go = document.createElement('button');
+        go.type = 'button'; go.className = 'go';
+        go.setAttribute('aria-label', 'Directions to ' + (ev.venue || ev.name || 'the venue'));
+        go.innerHTML = pin;
+        go.addEventListener('click', () => this.postOpen(ev.map));
+        row.appendChild(go);
+      }
+      host.appendChild(row);
+    });
+  }
+
+  buildWishes(wishes) {
+    const card = document.querySelector('.wishes');
+    const ul = card && card.querySelector('ul');
+    if (!card || !ul) return;
+    card.style.display = wishes.length ? '' : 'none';
+    ul.innerHTML = '';
+    wishes.forEach((w) => {
+      const li = document.createElement('li');
+      const s = document.createElement('span'); s.textContent = w.role || '';
+      li.appendChild(s); li.appendChild(document.createTextNode(w.name || ''));
+      ul.appendChild(li);
+    });
+  }
+
+  buildCalls(key, items) {
+    const card = document.querySelector('.calls-' + key);
+    const ul = card && card.querySelector('ul');
+    if (!card || !ul) return;
+    card.style.display = items.length ? '' : 'none';
+    ul.innerHTML = '';
+    items.forEach((c) => {
+      const digits = (c.phone || '').replace(/\D/g, '').slice(-10);
+      const li = document.createElement('li');
+      const a = document.createElement('a'); a.href = '#';
+      const n = document.createElement('span'); n.textContent = c.name || '';
+      const b = document.createElement('b'); b.textContent = digits.length === 10 ? digits.slice(0, 5) + ' ' + digits.slice(5) : (c.phone || '');
+      a.appendChild(n); a.appendChild(b);
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (digits.length === 10) this.postOpen('tel:+91' + digits);
+      });
+      li.appendChild(a);
+      ul.appendChild(li);
+    });
+  }
+
+  // ---------- parent-mediated links: this document runs sandbox="allow-scripts"
+  // only (no allow-popups, no allow-same-origin), so a real <a target=_blank>
+  // click to wa.me/tel:/maps is silently blocked by the browser. The parent
+  // (PreviewFrame.tsx) validates href against an allowlist before opening it. ----------
+  postOpen(href) {
+    if (!href) return;
+    window.parent.postMessage({ type: 'unarway:open', href: href }, '*');
+  }
+
+  shareHref() {
+    const p = this.props;
+    const events = this.parseList('events');
+    const lines = events.map((ev) => {
+      const d = this.parseDate(ev.date);
+      const when = d ? (d.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }) + ', ' + d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })) : '';
+      return (ev.name || '') + ': ' + when + (ev.venue ? ' – ' + ev.venue : '') + (ev.place ? ', ' + ev.place : '');
+    });
+    const groomFull = p.groomFull || p.groomName || '', brideFull = p.brideFull || p.brideName || '';
+    const text = 'You are invited to the engagement of ' + groomFull + ' & ' + brideFull + '.\n' + lines.join('\n');
+    return 'https://wa.me/?text=' + encodeURIComponent(text);
+  }
+
+  bindShareButton() {
+    const btn = document.querySelector('.btn-share');
+    if (!btn) return;
+    btn.addEventListener('click', () => this.postOpen(this.shareHref()));
+  }
+
+  // ---------- scroll story: eight beats, 10 timeline units apart. Rebuilt
+  // (not just patched) whenever a list's structure changes, since GSAP
+  // resolves a tween's target selector once, at construction time -- nodes
+  // swapped in afterward by buildEvents/buildWishes/buildCalls would
+  // otherwise be invisible to the already-built tween. ----------
+  boot() {
+    const g = window.gsap, ST = window.ScrollTrigger;
+    if (!g || !ST) {
+      if ((this._tries = (this._tries || 0) + 1) < 80) this._bt = setTimeout(() => this.boot(), 100);
+      return;
+    }
+    if (this._booted) return;
+    this._booted = true;
+    this._reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    g.registerPlugin(ST);
+    ST.config({ ignoreMobileResize: true });
+    this.initPetals();
+    if (!this._reduce) {
+      document.documentElement.classList.add('anim');
+      this.primeIntro();
+      this.buildTimeline();
+      this.bindCue();
+    }
+    window.addEventListener('resize', () => { if (window.ScrollTrigger) window.ScrollTrigger.refresh(); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { if (window.ScrollTrigger) window.ScrollTrigger.refresh(); });
+    window.addEventListener('load', () => { if (window.ScrollTrigger) window.ScrollTrigger.refresh(); });
+  }
+
+  primeIntro() {
+    if (this._introPrimed) return;
+    this._introPrimed = true;
+    const g = window.gsap;
+    g.set(['.sc0 .bgw', '.sc0 .copy', '.sc0 .cuew'], { opacity: 0 });
+    g.set('.sc0 .nm', { clipPath: 'inset(-20% 100% -20% -10%)' });
+    window.__intro = () => {
+      if (this._introPlayed) return;
+      this._introPlayed = true;
+      const it = g.timeline({ delay: 0.25 });
+      it.fromTo('.sc0 .bgw', { scale: 1.2 }, { scale: 1, opacity: 1, duration: 3, ease: 'power2.out' }, 0)
+        .to('.sc0 .copy', { opacity: 1, duration: 1.2, ease: 'power1.out' }, 0.8)
+        .from('.sc0 .lab', { y: 20, opacity: 0, duration: 1.2, ease: 'expo.out' }, 0.9)
+        .to('.sc0 .nm', { clipPath: 'inset(-20% -10% -20% -10%)', duration: 1.8, stagger: 0.45, ease: 'power2.inOut' }, 1.1)
+        .from('.sc0 .amp', { scale: 0.4, opacity: 0, duration: 1, ease: 'back.out(2)' }, 1.5)
+        .from('.sc0 .sub', { y: 20, opacity: 0, duration: 1.2, ease: 'expo.out' }, 2.3)
+        .to('.sc0 .cuew', { opacity: 1, duration: 1 }, 3);
+    };
+  }
+
+  bindCue() {
+    if (this._cueBound) return;
+    const btn = document.getElementById('cue');
+    if (!btn) return;
+    this._cueBound = true;
+    btn.addEventListener('click', () => {
+      const g = window.gsap;
+      if (!g) return;
+      const o = { y: window.pageYOffset }, to = o.y + 80;
+      g.to(o, { y: to, duration: 0.25, ease: 'power1.out', onUpdate: () => window.scrollTo(0, o.y) });
+    });
+  }
+
+  initPetals() {
+    if (this._petalsBound) return;
+    this._petalsBound = true;
+    const g = window.gsap;
+    const c = document.getElementById('fx'), x = c && c.getContext('2d');
+    if (!c || !x) return;
+    let W, H, dpr;
+    const P = [];
+    const cols = ['rgba(255,255,255,.9)', 'rgba(250,226,222,.9)', 'rgba(236,184,184,.8)', 'rgba(255,244,226,.9)'];
+    const fx = (this._fx = this._fx || { boost: 0 });
+    function size() { dpr = Math.min(window.devicePixelRatio || 1, 1.5); W = c.width = Math.round(innerWidth * dpr); H = c.height = Math.round(innerHeight * dpr); }
+    function make(init) {
+      const dust = Math.random() < 0.35;
+      return { dust, x: Math.random() * W, y: init ? Math.random() * H : -20 * dpr, s: (dust ? 1.2 + Math.random() * 2 : 5 + Math.random() * 8) * dpr, vy: (0.3 + Math.random() * 0.7) * dpr, vx: (Math.random() - 0.5) * 0.4 * dpr, r: Math.random() * 6.28, vr: (Math.random() - 0.5) * 0.04, sw: Math.random() * 6.28, col: dust ? 'rgba(236,205,130,' : cols[(Math.random() * cols.length) | 0] };
+    }
+    size();
+    const n = innerWidth < 700 ? 18 : 36;
+    for (let i = 0; i < n; i++) P.push(make(true));
+    window.addEventListener('resize', size);
+    let t = 0;
+    g.ticker.add(() => {
+      t += 0.016; x.clearRect(0, 0, W, H);
+      const rate = 1 + fx.boost * 1.6;
+      for (let i = 0; i < P.length; i++) {
+        const p = P[i];
+        p.y += p.vy * rate; p.sw += 0.02; p.x += (p.vx + Math.sin(p.sw) * 0.5 * dpr) * rate; p.r += p.vr * rate;
+        if (p.y > H + 20 * dpr) P[i] = make(false);
+        if (p.dust) {
+          x.fillStyle = p.col + (0.35 + 0.35 * Math.sin(t * 3 + i)) + ')'; x.beginPath(); x.arc(p.x, p.y, p.s, 0, 6.283); x.fill();
+        } else {
+          x.save(); x.translate(p.x, p.y); x.rotate(p.r); x.scale(1, 0.62 + 0.38 * Math.sin(p.sw * 1.7));
+          x.fillStyle = p.col; x.beginPath(); x.ellipse(0, 0, p.s, p.s * 0.58, 0, 0, 6.283); x.fill(); x.restore();
+        }
+      }
+      fx.boost *= 0.94;
+    });
+  }
+
+  buildTimeline() {
+    const g = window.gsap, ST = window.ScrollTrigger;
+    const fx = this._fx || (this._fx = { boost: 0 });
+    const self = this;
+
+    function show(sel, at, dur, each) {
+      tl.fromTo(sel, { autoAlpha: 0, y: 34 }, { autoAlpha: 1, y: 0, duration: dur, stagger: each == null ? 0.5 : each, ease: 'power2.out', immediateRender: true }, at);
+    }
+    function hide(sel, at, dur) {
+      tl.to(sel, { autoAlpha: 0, y: -26, duration: dur, stagger: 0.15, ease: 'power2.in' }, at);
+    }
+
+    const tl = g.timeline({
+      defaults: { ease: 'none' },
+      scrollTrigger: {
+        trigger: '.stage', start: 'top top', end: () => '+=' + Math.round(window.innerHeight * 6),
+        pin: true, anticipatePin: 1, scrub: 1, invalidateOnRefresh: true,
+        snap: { snapTo: 'labelsDirectional', duration: { min: 0.7, max: 1.5 }, delay: 0.08, ease: 'power3.inOut' },
+        onUpdate: (s) => { g.set('.prog', { scaleX: s.progress }); fx.boost = Math.min(4, Math.abs(s.getVelocity()) / 900); self._currentBeat = Math.round(s.progress * 7); }
+      }
+    });
+    for (let i = 0; i <= 7; i++) tl.addLabel('b' + i, i * 10);
+
+    // beat 0 → 1 : the arch dissolves softly into the rings
+    tl.to('.sc0 .bg', { scale: 1.12, duration: 10 }, 0);
+    hide('.sc0 .rv', 0, 3);
+    tl.to('.sc0 .bg', { opacity: 0, duration: 5, ease: 'power1.in' }, 1);
+    tl.fromTo('#s1', { autoAlpha: 0 }, { autoAlpha: 1, duration: 5, ease: 'power1.out' }, 4.5);
+    tl.fromTo('.sc1 .bg', { scale: 1.16 }, { scale: 1.02, duration: 12 }, 1);
+    show('.sc1 .t1 .rv', 5.5, 2.5, 0.5);
+    show('.sc1 .t2 .rv', 6.2, 2.5, 0.4);
+
+    // beat 1 → 2 : an iris opens onto the church aisle
+    hide('.sc1 .rv', 10, 2.5);
+    tl.fromTo('#s2', { clipPath: 'circle(0% at 50% 58%)' }, { clipPath: 'circle(78% at 50% 58%)', duration: 8.5, ease: 'power2.inOut' }, 11);
+    tl.fromTo('.sc2 .bg', { scale: 1.45, transformOrigin: '50% 55%' }, { scale: 1, duration: 13 }, 11);
+    show('.sc2 .t1 .rv', 16.5, 2.5, 0.5);
+
+    // beat 2 → 3 : the date card
+    hide('.sc2 .t1 .rv', 20, 2.5);
+    show('.sc2 .t2', 24.5, 4.5);
+
+    // beat 3 → 4 : an ivory page sweeps in; the three events on ONE page
+    hide('.sc2 .t2', 30, 2.5);
+    tl.fromTo('#s3', { clipPath: 'inset(0% 0% 0% 100%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 8, ease: 'power2.inOut' }, 31);
+    tl.fromTo('.sc3 .church', { y: 80, scale: 0.85, autoAlpha: 0 }, { y: 0, scale: 1, autoAlpha: 1, duration: 8, ease: 'power2.out', immediateRender: true }, 32);
+    show('.sc3 .sched .rv', 35, 2.2, 0.7);
+
+    // beat 4 → 5 : dissolve to the garden swing
+    hide('.sc3 .sched .rv', 40, 2.2);
+    tl.to('.sc3 .church', { y: -40, scale: 1.05, autoAlpha: 0, duration: 4, ease: 'power1.in' }, 40);
+    tl.fromTo('#s4', { autoAlpha: 0 }, { autoAlpha: 1, duration: 7, ease: 'power1.inOut', immediateRender: true }, 41);
+    tl.fromTo('.sc4 .bg', { scale: 1.3 }, { scale: 1, duration: 9 }, 41);
+    show('.sc4 .f-top .rv', 45.5, 2.5, 0.6);
+
+    // beat 5 → 6 → 7 : families and best wishes, then contacts and share
+    hide('.sc4 .f-top .rv', 50, 2.2);
+    show('.sc4 .p1', 54.5, 4.5);
+    hide('.sc4 .p1', 60, 2.5);
+    show('.sc4 .p2', 64.5, 4.5);
+    tl.to('#fx', { opacity: 0.12, duration: 3 }, 51);
+    tl.to({}, { duration: 0 }, 70);
+
+    this._tl = tl;
+    this._beatST = tl.scrollTrigger;
+
+    if (this._bgwSway) this._bgwSway.kill();
+    this._bgwSway = g.fromTo('.sc4 .bgw', { rotation: -0.45 }, { rotation: 0.45, transformOrigin: '50% 0%', duration: 3.4, ease: 'sine.inOut', repeat: -1, yoyo: true });
+
+    if (!this._parallaxBound && window.matchMedia('(pointer:fine)').matches) {
+      this._parallaxBound = true;
+      const qx = [], qy = [];
+      document.querySelectorAll('.bgw').forEach((el, i) => { qx[i] = g.quickTo(el, 'x', { duration: 1.2, ease: 'power3' }); qy[i] = g.quickTo(el, 'y', { duration: 1.2, ease: 'power3' }); });
+      window.addEventListener('pointermove', (e) => {
+        const nx = e.clientX / innerWidth - 0.5, ny = e.clientY / innerHeight - 0.5;
+        qx.forEach((q, i) => { q(nx * -14); qy[i](ny * -14); });
+      });
+    }
+  }
+
+  scheduleRebuild() {
+    if (this._reduce || !this._booted) return;
+    clearTimeout(this._rebuildTimer);
+    this._rebuildTimer = setTimeout(() => this.rebuildTimeline(), 300);
+  }
+
+  rebuildTimeline() {
+    const g = window.gsap, ST = window.ScrollTrigger;
+    if (!g || !ST) return;
+    const beat = this._currentBeat || 0;
+    if (this._tl) this._tl.kill();
+    if (this._beatST) this._beatST.kill();
+    this.buildTimeline();
+    ST.refresh();
+    try {
+      if (this._beatST && typeof this._beatST.labelToScroll === 'function') {
+        window.scrollTo(0, this._beatST.labelToScroll('b' + beat));
+      }
+    } catch (e) {}
+  }
+}
+
+window.__mountInvite(Component);</script>
+<!--
+  No in-file editor here: field values are supplied by the parent app's
+  schema-driven edit panel (see src/components/editor/SchemaEditor.tsx) over
+  postMessage, and downloads are built and gated server-side after payment.
+-->
+
+<!-- Welcome gate: the guest's tap on "Open Invitation" is what lets the phone start the music -->
+<div id="gate" role="dialog" aria-label="Open the invitation">
+  <svg class="g-cross" viewBox="0 0 24 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M12 2v28M4 10h16"/></svg>
+  <span class="g-lab">Wedding Ceremony</span>
+  <div class="g-photo"><img src="assets/hero-arch.webp" alt=""></div>
+  <div class="g-names"></div>
+  <div class="g-date"></div>
+  <button class="g-btn" type="button">Loading&hellip;</button>
+  <span class="g-hint">&#127925; with music</span>
+</div>
+<button id="musicBtn" type="button" aria-label="Music on/off">&#128263;</button>
+<audio id="bgm" src="assets/music.mp3" loop preload="auto"></audio>
+<script>
+(function () {
+  var a = document.getElementById('bgm'), b = document.getElementById('musicBtn');
+  var started = false, userMuted = false;
+  // We always ship assets/music.mp3 with this design, so (unlike the source
+  // sample) there's no HEAD-request existence probe here -- fetch() is
+  // blocked by the sandboxed iframe's connect-src 'none' CSP anyway.
+  b.style.display = 'block';
+  ['pointerdown', 'touchend', 'click', 'keydown'].forEach(function (e) { document.addEventListener(e, start, { passive: true }); });
+  function fadeIn() {
+    a.volume = 0;
+    var t = setInterval(function () { a.volume = Math.min(0.6, a.volume + 0.05); if (a.volume >= 0.6) clearInterval(t); }, 120);
+  }
+  function play() { started = true; fadeIn(); return a.play().catch(function (e) { started = false; throw e; }); }
+  function start(ev) { if (started || userMuted || (ev && ev.target === b)) return; play().catch(function () {}); }
+  a.addEventListener('playing', function () { b.innerHTML = '&#128266;'; });
+  a.addEventListener('pause', function () { b.innerHTML = '&#128263;'; });
+  b.addEventListener('click', function (ev) {
+    ev.stopPropagation();
+    if (a.paused) { userMuted = false; play().catch(function () {}); } else { userMuted = true; a.pause(); }
+  });
+  var gate = document.getElementById('gate');
+  var ready = false, wantOpen = false;
+  var imgs = Array.prototype.slice.call(document.querySelectorAll('img.bg, .church img'));
+  var btn = gate.querySelector('.g-btn');
+  Promise.all(imgs.map(function (i) { return (i.decode ? i.decode() : Promise.resolve()).catch(function () {}); })).then(function () { ready = true; btn.textContent = 'Open Invitation'; if (wantOpen) openGate(); });
+  setTimeout(function () { if (!ready) { ready = true; btn.textContent = 'Open Invitation'; if (wantOpen) openGate(); } }, 9000);
+  function openGate(ev) {
+    if (ev) ev.preventDefault();
+    if (!ready) { wantOpen = true; return; }
+    if (!started && !userMuted) play().catch(function () {});
+    gate.classList.add('gone');
+    if (window.__intro) window.__intro();
+  }
+  gate.addEventListener('click', openGate);
+  gate.addEventListener('wheel', function (ev) { ev.preventDefault(); }, { passive: false });
+  gate.addEventListener('touchmove', function (ev) { ev.preventDefault(); }, { passive: false });
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) a.pause(); else if (started && !userMuted) a.play().catch(function () {});
+  });
+})();
+</script>
+</body></html>
