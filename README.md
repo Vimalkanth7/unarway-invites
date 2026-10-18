@@ -16,9 +16,10 @@ checkout, an idempotent webhook, and the `/i/<short-id>` hosted page (the paid
 deliverable — ZIP download still works but stays hidden behind
 `siteConfig.enableZipDownload`) are all live against Razorpay's test-mode keys.
 Switching to live keys is a Launch checklist item, not done yet. Phase 7 is
-in progress: the "list" field type landed, and design 2 (`malligai-mandapam`,
-a Marriage design) is built -- design 3 (Birthday) hasn't started. See
-"Phased plan" below, and the Launch checklist before selling any design.
+done: the "list" field type landed (list items now also support "tel" and
+"url"), and designs 2 and 3 (`malligai-mandapam` and `christian-garden`, both
+Marriage) are built. See "Phased plan" below, and the Launch checklist before
+selling any design.
 
 ## Planned folder structure
 
@@ -115,27 +116,59 @@ unarway-invitation-company/
       and re-sharing both work -- nothing is a frozen snapshot from the moment of payment.
       Still TEST MODE; see "Testing payments" below before this goes anywhere near a real
       customer.
-- [ ] **Phase 7 — Designs 2 and 3** (design 2 done, design 3 not started): engine gained a "list" field type (per-item
-      validation, used for repeatable event schedules). Design 2, `malligai-mandapam`
-      (a Marriage design, dawn/jasmine/brass-lamp theme), is built: no stock photos or
-      downloaded audio -- visuals are SVG/CSS/canvas/Three.js, the ambient background
-      sound is synthesized at runtime with the Web Audio API, `three.min.js` loads
-      dynamically only once a capability check passes, and name reveals split by
-      Unicode grapheme (falling back to word-level) so Tamil is never cut mid-glyph.
+- [x] **Phase 7 — Designs 2 and 3**: engine gained a "list" field type (per-item
+      validation, used for repeatable event schedules; list items now also support
+      "tel" -- normalized to 10 digits starting 6-9, rendered `tel:+91...` -- and
+      "url" -- https + exact-hostname allowlist). A new `unarway:open` postMessage
+      (handled in `PreviewFrame.tsx`) lets a sandboxed template ask the parent to open
+      a `wa.me`/`tel:`/Google Maps link on its behalf, since `sandbox="allow-scripts"`
+      (no `allow-popups`) silently blocks a real `<a target="_blank">` click -- the
+      allowlist lives in `src/lib/templates/link-allowlist.ts`, shared by the editor's
+      own map-link validation so the two checks can't drift apart.
+      Design 2, `malligai-mandapam` (a Marriage design, dawn/jasmine/brass-lamp theme),
+      is built: no stock photos or downloaded audio -- visuals are SVG/CSS/canvas/
+      Three.js, the ambient background sound is synthesized at runtime with the Web
+      Audio API, `three.min.js` loads dynamically only once a capability check passes,
+      and name reveals split by Unicode grapheme (falling back to word-level) so Tamil
+      is never cut mid-glyph.
+      Design 3, `christian-garden` (also Marriage -- see the note below), ported a
+      finished third-party sample onto the same DCLogic/mustache engine rather than
+      keeping its original one-shot script. All personal data from the source sample
+      was replaced with invented placeholders before anything shipped (see
+      `templates/christian-garden/defaults.json`). `ceremonyDate`/`ceremonyVenue`
+      (flat fields) drive the gate/date-card/countdown/share metadata; the `events`
+      list stays for the Celebrations schedule only. Its four list fields
+      (`events`/`wishes`/`callsGroom`/`callsBride`) are built imperatively rather than
+      with `sc-for` (same reasoning as `malligai-mandapam`'s `syncEvents()`) and all
+      tolerate 0 items -- wishes/calls cards hide entirely when empty, a missing map
+      link just omits that event's Directions button. The GSAP ScrollTrigger beat
+      timeline is rebuilt only when list *structure* changes (item counts, or a map
+      link appearing/disappearing), debounced 300ms, returning to the current beat
+      afterward -- not rebuilt on every keystroke. Past ceremonies show "The
+      celebration has taken place" instead of a negative/NaN countdown.
+      Two Marriage designs now exist and none for Reception/Birthday/Other --
+      `christian-garden`'s source sample covers an engagement + wedding + reception
+      on one page, which could also have fit "Reception"; kept as Marriage per an
+      explicit decision when this was planned. Worth revisiting before adding a
+      fourth design.
       `npm run check:templates` validates every design's contract (postMessage,
       no localStorage/cookies/external requests, size budget, +05:30 on date fields,
-      every asset logged in `ASSETS.md`) -- currently passing for `malligai-mandapam`
-      and `sample-card`; `temple-journey` fails the new 3 MB size budget on its
-      existing (already-flagged-UNLICENSED) placeholder video/audio, which is exactly
-      the Launch checklist item above about replacing that media, not a new problem.
-      Design 3 (Birthday) hasn't started.
-      `three.min.js` (vendored for both designs, same file) logs a harmless console
+      every asset logged in `ASSETS.md`) -- currently passing for `malligai-mandapam`,
+      `christian-garden`, and `sample-card`; `temple-journey` fails the new 3 MB size
+      budget on its existing (already-flagged-UNLICENSED) placeholder video/audio,
+      which is exactly the Launch checklist item above about replacing that media,
+      not a new problem.
+      `three.min.js` (vendored for `malligai-mandapam`) logs a harmless console
       deprecation warning ("Scripts build/three.js and build/three.min.js are
       deprecated with r150+") -- it's r160, confirmed via its own embedded `REVISION`
       string. The last build without that warning is r149; kept the current one rather
       than swap it blind, since there's no way to verify the lamp scene still renders
       identically without a real browser to look at. Revisit if it's ever actually
       removed (the warning says r160, i.e. now) rather than just deprecated.
+      Not verified for `christian-garden`: an actual browser or phone -- see the
+      "Testing `christian-garden`" note below for the manual pass still needed
+      (scroll-beat behaviour, music-on-gate-tap, `wa.me`/tap-to-call/map links, and
+      the real-device/WhatsApp-in-app-browser checks) before it's considered done.
 - [ ] **Phase 8 — Legal pages + deploy**: real About/Contact/Terms/Privacy/Refund
       content, production Supabase project, Vercel env vars, Razorpay live keys
       (still server-gated), full paid-flow smoke test. No `sitemap.ts` exists yet --
@@ -156,6 +189,12 @@ customer (test/dev use is fine without them):
 - [ ] Every file marked "UNLICENSED - replace before launch" in `ASSETS.md`
       is replaced with licensed or custom-shot media, and `ASSETS.md` is
       updated with the replacement's source and licence.
+- [ ] `templates/christian-garden/defaults.json`'s placeholder dates (currently
+      ~2027-11) are far enough in the past that its countdown/"Save the date"
+      card would show "The celebration has taken place" to anyone previewing
+      the design unedited. Refresh them yearly (or whenever noticed) to stay
+      roughly a year out -- not launch-blocking by itself, but worth a glance
+      at the same time as the UNLICENSED-media pass above.
 - [ ] Custom SMTP is configured in Supabase (Authentication → Settings → SMTP
       Settings). The free built-in email sender doesn't allow editing auth
       email templates and caps sending at roughly 2 emails/hour per project --
@@ -169,6 +208,55 @@ customer (test/dev use is fine without them):
       verify-after-checkout route is what actually marks payments paid in the
       meantime, the webhook is the belt-and-suspenders backstop for when a
       browser never gets to call it (closed tab, crashed network).
+
+## Testing christian-garden (manual, not yet done)
+
+Everything automatable has been checked (`npm run check:templates` passes,
+every asset serves 200 through the asset route, the inline scripts parse, the
+seed JSON matches `defaults.json`/`schema.json`). Nothing below has been
+checked in an actual browser or phone -- there wasn't one available while
+building this:
+
+```
+npm run dev -- -p 3100   # or whatever port is free; never next build while another dev server owns .next
+```
+then open `http://localhost:3100/design/christian-garden` (editor + live
+preview) and `http://localhost:3100/api/templates/christian-garden/view`
+(the template alone, full-size).
+
+- At phone width (375px), walk all 8 beats both by small swipes and by the
+  "Please scroll the screen" button on beat 0 -- each nudge should land
+  exactly on a beat, never mid-transition.
+- Edit a field in the editor panel (e.g. a name) and confirm the preview text
+  updates live with no reload. Then add/remove an event, a wish, or a call
+  (or clear an event's map link) and confirm the scene rebuilds and the
+  scroll position returns to roughly where it was, not beat 0 -- this is the
+  debounced (~300ms) ScrollTrigger rebuild path, the one piece of this design
+  with no automated check.
+- Delete every item from `wishes`, `callsGroom`, and `callsBride` one at a
+  time and confirm each card disappears cleanly (not a blank gap) while the
+  rest of that beat still renders.
+- Set `ceremonyDate` to a date in the past and confirm the date card shows
+  "The celebration has taken place" instead of a negative or `NaN` countdown.
+- Tap "Open Invitation" on the gate and confirm music actually starts (this
+  is the first real `<audio>` element used by any template here --
+  `malligai-mandapam` only ever used synthesized Web Audio oscillators, which
+  behave differently around autoplay policy).
+- Tap the WhatsApp share button, a tap-to-call row, and an event's Directions
+  button; confirm each opens correctly rather than doing nothing (the
+  sandboxed iframe blocks a plain link click -- these now go through the new
+  `unarway:open` postMessage/allowlist in `PreviewFrame.tsx`).
+- Browser console should stay clean (no CSP violations, no errors) through
+  all of the above.
+- Real-device pass: repeat the music/WhatsApp/tap-to-call checks on an actual
+  Android phone and an iPhone, including inside WhatsApp's own in-app browser
+  -- that embedded browser is often stricter about autoplay and popups than
+  a normal mobile Chrome/Safari tab.
+- Contrast/text-size pass: same method as the `malligai-mandapam` scene-2 fix
+  (DevTools → Rendering → "Emulate vision deficiencies" plus a manual
+  foreground/background hex check against WCAG 4.5:1), confirming no text
+  sits directly on the brighter parts of `aisle.webp`/`swing.webp` without a
+  scrim, and nothing is under the 16px/44px rules in CLAUDE.md.
 
 ## Local setup
 
