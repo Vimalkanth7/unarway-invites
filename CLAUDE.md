@@ -67,3 +67,9 @@ sandboxed iframe — the template never runs in the parent page's origin/context
 - This file should stay in sync with actual rules/decisions as the project
   evolves — update it when a rule changes rather than letting it go stale.
 - Phase-by-phase plan lives in README.md; update checkboxes there as phases land.
+- The user's own `next dev` often runs on port 3000 while Claude works in the
+  same checkout. For any of Claude's own verification: use port 3100
+  (`next dev -p 3100` / `next start -p 3100`), and never run `next build`
+  (or delete `.next`) while the user's dev server is active -- both write to
+  the same `.next` folder and a build mid-session can corrupt its state.
+  Check for a listener on 3000 first if unsure.
