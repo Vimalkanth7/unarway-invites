@@ -7,7 +7,9 @@ Stack: Next.js (App Router) + TypeScript + Tailwind, Supabase (Postgres/Auth/Sto
 Razorpay, deployed on Vercel.
 
 See `CLAUDE.md` for the full rules (payment trust boundary, secrets, assets,
-code style) that apply to every change in this repo.
+code style) that apply to every change in this repo. See `TEMPLATES.md` for
+how to build a new design (`npm run new:template`, the engine contract,
+image prep, and the QA script).
 
 ## Status
 
@@ -18,7 +20,9 @@ deliverable — ZIP download still works but stays hidden behind
 Switching to live keys is a Launch checklist item, not done yet. Phase 7 is
 done: the "list" field type landed (list items now also support "tel" and
 "url"), and designs 2 and 3 (`malligai-mandapam` and `christian-garden`, both
-Marriage) are built. See "Phased plan" below, and the Launch checklist before
+Marriage) are built. A template production kit now exists for building more
+designs quickly -- `npm run new:template`, `prep:image`, `qa:template`; see
+`TEMPLATES.md`. See "Phased plan" below, and the Launch checklist before
 selling any design.
 
 ## Planned folder structure
