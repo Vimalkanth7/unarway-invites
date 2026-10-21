@@ -1,0 +1,878 @@
+<!-- unarway-engine v1, copied __SCAFFOLD_DATE__ for __DESIGN_ID__ -->
+<!--
+  Canonical source: scripts/template-kit/engine.html. This file is COPIED
+  (not referenced) into every new template at scaffold time -- see
+  TEMPLATES.md "Why copy, not share" and src/lib/zip/build.ts, which only
+  ever zips a template's own template/+assets/ folders, nothing from
+  outside them. If you improve the engine itself, edit the canonical copy
+  and re-copy into templates that want the update; existing sold designs
+  should not change behaviour retroactively just because the canonical
+  engine changed.
+
+  EDIT-ME markers below are exactly what a new design built from this kit
+  is expected to replace: beat background gradients, the placeholder quote
+  line, and (once you have real art) the <link rel="preload">/background
+  images. Everything else is the proven engine, shared across every
+  template this product ships -- see the DCLogic/mustache block and the
+  beat-timeline/list-rebuild machinery, both reused close to verbatim from
+  templates/christian-garden/template/index.html.
+-->
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>__TITLE__ — Invitation</title>
+<!--
+  No og/twitter meta here: this document only ever runs inside a sandboxed
+  preview iframe or gets packaged into the paid download. The public share
+  page is /i/<short-id>, which owns its own social meta tags.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,600&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Ccircle cx=%2712%27 cy=%2712%27 r=%278%27 fill=%27none%27 stroke=%27%23B98A5E%27 stroke-width=%272%27/%3E%3C/svg%3E">
+<style>
+/* ---------- EDIT-ME: theme tokens -- pick this design's own palette before anything else ---------- */
+:root{
+  --ivory:#FAF7F2;--cream:#F0E8DC;--ink:#2B241C;
+  --accent:#B98A5E;--accent-hi:#E7C9A3;--accent-dk:#7A5636;--night:#1C1711;
+  --slate:#3A4A52;--rose:#7A3F4D;
+}
+/* EDIT-ME: one background gradient per beat -- replace with real photography
+   (a .bgw <img> the same way christian-garden's template does it) once this
+   design has art. Kept as gradients here so the stub ships zero image
+   assets and nothing to license. */
+:root{
+  --grad-0:radial-gradient(120% 90% at 50% 10%,var(--cream) 0%,var(--ivory) 60%,#E3DCCB 100%);
+  --grad-1:linear-gradient(160deg,var(--night) 0%,#2A2117 60%,var(--accent-dk) 130%);
+  --grad-2:radial-gradient(90% 70% at 50% 20%,var(--accent-hi) 0%,var(--cream) 65%,var(--ivory) 100%);
+  --grad-3:radial-gradient(90% 60% at 50% 25%,#FFFCF4 0%,var(--cream) 70%,#EDE2CC 100%);
+  --grad-4:linear-gradient(150deg,var(--accent-dk) 0%,var(--night) 100%);
+  --grad-5:radial-gradient(100% 80% at 50% 0%,var(--ivory) 0%,var(--cream) 100%);
+  --grad-6:linear-gradient(160deg,#2A2117 0%,var(--night) 100%);
+}
+
+*{box-sizing:border-box}
+html{background:#E9E0CF;font-variant-numeric:lining-nums}
+body{margin:0;min-height:100svh;font-family:Manrope,'Segoe UI',sans-serif;color:var(--ink);background:var(--ivory);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+ul{list-style:none;margin:0;padding:0}
+.lab{font-family:Manrope,sans-serif;font-weight:500;font-size:3.1cqw;letter-spacing:.32em;text-transform:uppercase;margin:0}
+
+/* ---------- frame ---------- */
+.story{position:relative}
+.stage{position:relative;width:100%}
+.frame{position:relative;width:min(100vw,calc(100svh * .6));margin:0 auto;overflow:hidden;container-type:inline-size;background:var(--night)}
+@media (min-aspect-ratio:4/5){.frame{box-shadow:0 30px 90px rgba(40,30,15,.35),0 0 0 1px rgba(185,138,94,.35)}}
+
+.scene{position:relative;min-height:177cqw;overflow:hidden;color:var(--ink);display:flex;flex-direction:column;justify-content:center;gap:6cqw;padding:10cqw 0}
+.bgw{position:absolute;inset:-2%;will-change:transform,opacity}
+.copy{position:relative;text-align:center;padding:0 7cqw;display:flex;flex-direction:column;align-items:center}
+.panel,.card{position:relative}
+.cuew{display:none}
+
+.anim .frame{height:100svh}
+.anim .scene{position:absolute;inset:0;min-height:0;padding:0;display:block}
+.anim .scene:not(.sc0){will-change:clip-path}
+.anim .copy{position:absolute;left:0;right:0}
+.anim .panel,.anim .card{position:absolute}
+.anim .cuew{display:flex}
+
+/* ---------- 0 · opening ---------- */
+.sc0{background:var(--grad-0);color:var(--slate)}
+.sc0 .copy{top:8%;gap:2.4cqw}
+.sc0 .lab{color:var(--accent-dk);font-weight:600}
+.names{margin:0;display:flex;flex-direction:column;align-items:center;line-height:1}
+.names .nm{display:block;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:14cqw;color:var(--slate)}
+.names .amp{display:block;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:7cqw;color:var(--accent-dk);margin:-0.5cqw 0}
+.sc0 .sub{margin:2cqw 0 0;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:5cqw;color:var(--slate)}
+.sc0 .sub small{display:block;margin-top:1.6cqw;font:600 3.7cqw/1.3 Manrope,sans-serif;font-style:normal;letter-spacing:.08em;color:var(--slate)}
+.cuew{position:absolute;left:0;right:0;bottom:4.5%;justify-content:center;pointer-events:none}
+.cue{pointer-events:auto;display:flex;align-items:center;gap:2.4cqw;padding:2.6cqw 5.4cqw 2.6cqw 6cqw;border-radius:99px;border:1px solid rgba(185,138,94,.8);background:rgba(255,255,255,.94);color:var(--slate);box-shadow:0 10px 28px rgba(40,30,15,.22);font:600 3.9cqw/1.1 Manrope,sans-serif;letter-spacing:.04em;cursor:pointer;white-space:nowrap;-webkit-tap-highlight-color:transparent;min-height:44px}
+.cue svg{width:5cqw;height:5cqw;animation:bob 1.4s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(-.6cqw)}50%{transform:translateY(1cqw)}}
+
+/* ---------- 1 · together ---------- */
+.sc1{background:var(--grad-1);color:var(--ivory)}
+.sc1 .copy{top:12%;gap:3cqw}
+.sc1 q{quotes:none;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:7.4cqw;line-height:1.2;color:var(--ivory)}
+.sc1 q::before{content:'\201C'}.sc1 q::after{content:'\201D'}
+.sc1 .lab{color:var(--accent-hi);font-weight:600}
+.sc1 .names2{margin:1.4cqw 0 0;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:10cqw;color:#fff}
+.sc1 .names2 i{font-size:.55em;color:var(--accent-hi);padding:0 .25em;font-style:normal}
+.sc1 .venue-line{margin:1cqw 0 0;font:500 3.3cqw/1.4 Manrope,sans-serif;letter-spacing:.08em;color:var(--accent-hi)}
+
+/* ---------- 2 · date & countdown ---------- */
+.sc2{background:var(--grad-2);color:var(--ink)}
+.glass{background:linear-gradient(180deg,rgba(255,255,255,.82),rgba(255,255,255,.92));border:1px solid rgba(185,138,94,.5);border-radius:6cqw;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 20px 50px rgba(40,30,15,.18)}
+.sc2 .card{top:50%;transform:translateY(-50%);left:6cqw;right:6cqw;padding:7cqw 5cqw 6cqw;gap:2.2cqw;text-align:center;display:flex;flex-direction:column;align-items:center}
+.sc2 .card .lab{color:var(--accent-dk);font-weight:600}
+.dateline{display:flex;align-items:flex-end;justify-content:center;gap:4cqw;line-height:1}
+.dateline .wd,.dateline .my{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:6.6cqw;padding-bottom:3cqw}
+.dateline .dd{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:27cqw;line-height:.82;color:var(--accent-dk)}
+.sc2 .tm{margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:5.6cqw}
+.cd{display:flex;gap:2.4cqw;justify-content:center;margin-top:2cqw}
+.cd div{min-width:15cqw;padding:2.4cqw 1cqw 2cqw;border-radius:3cqw;border:1px solid rgba(185,138,94,.5);background:rgba(255,255,255,.6);display:flex;flex-direction:column;align-items:center;gap:1cqw}
+.cd b{font-family:Manrope,sans-serif;font-weight:500;font-size:6.6cqw;line-height:1;font-variant-numeric:lining-nums tabular-nums}
+.cd span{font-size:2.3cqw;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--accent-dk)}
+.done{margin:1.2cqw 0 0;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:4.8cqw;color:var(--accent-dk)}
+
+/* ---------- 3 · schedule ---------- */
+.sc3{background:var(--grad-3);color:var(--ink)}
+.sched{position:relative;display:flex;flex-direction:column;gap:3cqw;padding:0 5cqw;top:14%}
+.anim .sched{position:absolute;left:0;right:0;top:auto;bottom:4%}
+.sched .hd{text-align:center;color:var(--accent-dk);font-weight:600;margin-bottom:.5cqw}
+.ev{display:grid;grid-template-columns:19cqw 1fr 11.5cqw;gap:3.4cqw;align-items:center;padding:3.4cqw 3.6cqw 3.4cqw 2.6cqw;border-radius:4.4cqw;background:rgba(255,255,255,.78);border:1px solid rgba(185,138,94,.5);box-shadow:0 8px 24px rgba(60,45,20,.12)}
+.ev .dt{text-align:center;border-right:1px solid rgba(185,138,94,.5);padding-right:2.4cqw}
+.ev .dt b{display:block;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:11.5cqw;line-height:.95;color:var(--accent-dk)}
+.ev .dt span{display:block;margin-top:1cqw;font:600 2.9cqw/1 Manrope,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--accent-dk)}
+.ev .nm2{margin:0;font:600 2.8cqw/1.1 Manrope,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:var(--accent-dk)}
+.ev .tm3{margin:1.2cqw 0 0;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:5.6cqw;line-height:1.1}
+.ev .vn{margin:1.2cqw 0 0;font:500 3.7cqw/1.3 Manrope,sans-serif;color:#54483A}
+.ev .go,button.go{display:flex;align-items:center;justify-content:center;width:11.5cqw;height:11.5cqw;border-radius:50%;border:1px solid var(--accent);background:linear-gradient(180deg,var(--accent-hi),var(--accent) 60%,var(--accent-dk));color:var(--ink);box-shadow:0 6px 16px rgba(60,45,20,.25);-webkit-tap-highlight-color:transparent;appearance:none;-webkit-appearance:none;padding:0}
+.ev .go svg{width:5.4cqw;height:5.4cqw}
+
+/* ---------- 4 · venue ---------- */
+.sc4{background:var(--grad-4);color:var(--ivory)}
+.sc4 .card{top:50%;transform:translateY(-50%);left:6cqw;right:6cqw;padding:8cqw 6cqw;gap:3cqw;text-align:center;display:flex;flex-direction:column;align-items:center}
+.sc4 .lab{color:var(--accent-hi);font-weight:600}
+.sc4 .venue-name{margin:0;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:8cqw;color:#fff}
+.btn,button.btn{display:inline-flex;align-items:center;justify-content:center;gap:2cqw;min-height:44px;padding:0 7cqw;border-radius:99px;border:1px solid var(--accent);font-family:Manrope,sans-serif;font-weight:600;font-size:3.1cqw;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;color:var(--ink);background:linear-gradient(180deg,var(--accent-hi),var(--accent) 60%,var(--accent-dk));box-shadow:0 8px 24px rgba(60,45,20,.25);cursor:pointer;-webkit-tap-highlight-color:transparent;appearance:none;-webkit-appearance:none}
+
+/* ---------- 5 · wishes ---------- */
+.sc5{background:var(--grad-5);color:var(--ink)}
+.sc5 .panel{top:50%;transform:translateY(-50%);left:4.5cqw;right:4.5cqw;padding:6cqw 5cqw;border-radius:6cqw;text-align:center;display:flex;flex-direction:column;align-items:center;gap:3cqw;background:rgba(255,255,255,.75);border:1px solid rgba(185,138,94,.5)}
+.panel h3{margin:0 0 1.6cqw;font-family:Manrope,sans-serif;font-weight:600;font-size:2.6cqw;letter-spacing:.24em;text-transform:uppercase;color:var(--accent-dk)}
+.wishes{width:100%}
+.wishes li{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:4.4cqw;line-height:1.3}
+.wishes li span{font-family:Manrope,sans-serif;font-weight:500;font-size:2.6cqw;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-dk);margin-right:1.6cqw}
+
+/* ---------- 6 · contacts & share ---------- */
+.sc6{background:var(--grad-6);color:var(--ivory)}
+.sc6 .panel{top:50%;transform:translateY(-50%);left:4.5cqw;right:4.5cqw;padding:6cqw 5cqw;border-radius:6cqw;text-align:center;display:flex;flex-direction:column;align-items:center;gap:3cqw;background:rgba(0,0,0,.35);border:1px solid rgba(185,138,94,.5);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.sc6 .tag{margin:0;font-family:Manrope,sans-serif;font-weight:600;font-size:3.4cqw;letter-spacing:.05em;color:var(--accent-hi);word-break:break-word}
+.contacts-card{width:100%}
+.contacts-card ul{display:grid;grid-template-columns:1fr 1fr;gap:3cqw;width:100%}
+.contacts-card a{display:block;text-decoration:none;padding:2cqw 1cqw;border-radius:3cqw;background:rgba(255,255,255,.08);border:1px solid rgba(185,138,94,.5)}
+.contacts-card a span{display:block;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:4.6cqw;line-height:1.1;color:#fff}
+.contacts-card a b{display:block;font-family:Manrope,sans-serif;font-weight:500;font-size:3.6cqw;letter-spacing:.05em;color:var(--accent-hi);margin-top:.6cqw;font-variant-numeric:lining-nums tabular-nums}
+
+q{text-wrap:balance}
+/* ---------- chrome ---------- */
+.prog{position:fixed;left:0;top:0;height:3px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--accent),var(--accent-hi));z-index:80;display:none}
+.anim .prog{display:block}
+#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:50;display:none;opacity:.85}
+.anim #fx{display:block}
+#musicBtn{display:none;position:fixed;right:max(12px,env(safe-area-inset-right));top:calc(16px + env(safe-area-inset-top));z-index:9999;width:46px;height:46px;border-radius:50%;border:1px solid var(--accent);background:rgba(250,247,242,.9);color:var(--ink);font-size:19px;line-height:1;cursor:pointer;-webkit-tap-highlight-color:transparent;backdrop-filter:blur(6px)}
+
+/* gate */
+#gate{position:fixed;inset:0;z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2.2svh;padding:24px;text-align:center;background:radial-gradient(120% 80% at 50% 25%,#FFFDF9 0%,var(--cream) 60%,#E3D6BC 100%);color:var(--ink);transition:opacity .9s ease,visibility .9s;-webkit-tap-highlight-color:transparent}
+#gate.gone{opacity:0;visibility:hidden;pointer-events:none}
+#gate .g-lab{font:600 12px/1 Manrope,sans-serif;letter-spacing:.32em;text-transform:uppercase;color:var(--accent-dk)}
+#gate .g-photo{width:min(190px,44vw);aspect-ratio:3/4;border-radius:999px 999px 14px 14px;overflow:hidden;box-shadow:0 0 0 2px var(--accent),0 0 0 8px rgba(250,247,242,.9),0 0 0 9px rgba(185,138,94,.5),0 24px 50px rgba(50,35,10,.28);margin:4px 0}
+#gate .g-photo img{width:100%;height:100%;object-fit:cover;display:block;animation:gz 9s ease-in-out infinite alternate}
+@keyframes gz{from{transform:scale(1)}to{transform:scale(1.1)}}
+#gate .g-names{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(34px,10vw,52px);line-height:1.1;color:var(--slate)}
+#gate .g-names i{font-style:normal;color:var(--accent-dk);padding:0 .3em}
+#gate .g-date{font:500 15px/1.4 Manrope,sans-serif;color:#54483A;letter-spacing:.08em}
+/* EDIT-ME: this is the real, keyboard/screen-reader-accessible gate
+   trigger -- only this button opens the gate, not a click handler on the
+   whole #gate div, so the control has correct semantics and a guest using
+   a screen reader or keyboard lands on something that announces itself as
+   a button, not a div pretending to be one. */
+#gate .g-btn{margin-top:8px;min-height:54px;padding:0 34px;border-radius:999px;border:1px solid var(--accent);font:600 14px/1 Manrope,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);background:linear-gradient(180deg,var(--accent-hi),var(--accent) 60%,var(--accent-dk));cursor:pointer;animation:gpulse 2.2s ease-in-out infinite}
+#gate .g-hint{font:500 12px/1 Manrope,sans-serif;color:#7A6C58}
+@keyframes gpulse{0%,100%{box-shadow:0 0 0 0 rgba(185,138,94,.5)}50%{box-shadow:0 0 0 14px rgba(185,138,94,0)}}
+@media (prefers-reduced-motion:reduce){#gate .g-photo img,#gate .g-btn,.cue svg{animation:none}}
+</style>
+<script src="assets/js/gsap.min.js"></script>
+<script src="assets/js/ScrollTrigger.min.js"></script>
+</head>
+<body>
+<div id="app"></div>
+<template id="tpl">
+
+<div class="prog" aria-hidden="true"></div>
+<canvas id="fx" aria-hidden="true"></canvas>
+
+<main class="story">
+<div class="stage">
+<div class="frame">
+
+<!-- 0 · Opening -->
+<section class="scene sc0" id="s0" aria-label="Opening">
+  <div class="bgw"></div>
+  <div class="copy">
+    <p class="lab rv">You're Invited</p>
+    <h1 class="names rv"><span class="nm">{{person1}}</span><span class="amp">&amp;</span><span class="nm">{{person2}}</span></h1>
+    <p class="sub rv">{{ceremonyDay}}<small>{{ceremonyVenue}}</small></p>
+  </div>
+  <div class="cuew"><button class="cue rv" type="button" id="cue" aria-label="Scroll to continue"><span>Please scroll the screen</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></div>
+</section>
+
+<!-- 1 · Together -->
+<section class="scene sc1" id="s1" aria-label="Invitation">
+  <div class="bgw"></div>
+  <div class="copy">
+    <!-- EDIT-ME: replace with this design's own line (a verse, a poem, a
+         short vow line) -- this is a generic placeholder, not scripture. -->
+    <q class="rv">Two hearts, one beginning.</q>
+    <p class="names2 rv"><span>{{person1}}</span><i>&amp;</i><span>{{person2}}</span></p>
+    <p class="venue-line rv">{{ceremonyDay}} &middot; {{ceremonyVenue}}</p>
+  </div>
+</section>
+
+<!-- 2 · Date & countdown -->
+<section class="scene sc2" id="s2" aria-label="The date">
+  <div class="bgw"></div>
+  <div class="card glass rb" aria-label="Date of the ceremony">
+    <p class="lab">Save the date</p>
+    <div class="dateline"><span class="wd">{{weekday}}</span><span class="dd">{{day}}</span><span class="my">{{monthYear}}</span></div>
+    <p class="tm">At {{time}}</p>
+    <sc-if value="{{notPast}}">
+      <div class="cd" aria-label="Countdown">
+        <div><b>{{cd.d}}</b><span>Days</span></div>
+        <div><b>{{cd.h}}</b><span>Hours</span></div>
+        <div><b>{{cd.m}}</b><span>Min</span></div>
+        <div><b>{{cd.s}}</b><span>Sec</span></div>
+      </div>
+    </sc-if>
+    <sc-if value="{{isPast}}">
+      <p class="done">The celebration has taken place.</p>
+    </sc-if>
+  </div>
+</section>
+
+<!-- 3 · Schedule -->
+<section class="scene sc3" id="s3" aria-label="Schedule of events">
+  <div class="bgw"></div>
+  <div class="sched" data-events>
+    <p class="lab hd rv">The Celebrations</p>
+  </div>
+</section>
+
+<!-- 4 · Venue -->
+<section class="scene sc4" id="s4" aria-label="Venue">
+  <div class="bgw"></div>
+  <div class="card rb">
+    <p class="lab">Join us at</p>
+    <p class="venue-name">{{ceremonyVenue}}</p>
+    <button class="btn btn-directions" type="button">Directions</button>
+  </div>
+</section>
+
+<!-- 5 · Wishes -->
+<section class="scene sc5" id="s5" aria-label="Wishes">
+  <div class="bgw"></div>
+  <div class="panel rb">
+    <div class="wishes"><h3>Best wishes from</h3><ul></ul></div>
+  </div>
+</section>
+
+<!-- 6 · Contacts & share -->
+<section class="scene sc6" id="s6" aria-label="Contacts">
+  <div class="bgw"></div>
+  <div class="panel rb">
+    <p class="tag">{{hashtag}}</p>
+    <div class="contacts-card"><ul></ul></div>
+    <button class="btn btn-share" type="button">Share on WhatsApp</button>
+  </div>
+</section>
+
+</div>
+</div>
+</main>
+
+</template>
+<!--
+  Seed values only, matching defaults.json: lets this file render something
+  sensible if opened directly (outside the parent app). The parent always
+  overwrites these via the unarway:config postMessage immediately after
+  this document signals unarway:ready - see the runtime script below.
+-->
+<script id="inv-config" type="application/json">{"person1Name":"__TITLE__","person2Name":"Partner","coverPhoto":"","ceremonyDate":"2027-11-15T10:30","ceremonyVenue":"Venue Name","ceremonyMap":"","events":"[]","wishes":"[]","contacts":"[]","hashtag":""}</script>
+<script>/* Tiny template runtime: renders the <template id="tpl"> with the Component class.
+   This engine (interpolation, sc-for/sc-if, DCLogic, postMessage contract) is
+   reused verbatim from templates/christian-garden -- it's the shared, proven
+   contract every design runs on, not something to reinvent per design. */
+(function () {
+  // No localStorage/cookies: this document runs in a sandbox="allow-scripts"
+  // iframe with an opaque origin, which can't access either. Field values
+  // come from the parent app over postMessage instead - see the listener
+  // registered below, next to window.__mountInvite.
+  var BASE = JSON.parse(document.getElementById('inv-config').textContent);
+  var CFG = Object.assign({}, BASE);
+
+  var ROOT = {};
+  var bindings = [];
+  var comp = null;
+
+  function get(path, scope) {
+    path = String(path).trim();
+    if (path === 'true') return true;
+    if (path === 'false') return false;
+    if (/^-?\d+(\.\d+)?$/.test(path)) return +path;
+    if (/^(['"]).*\1$/.test(path)) return path.slice(1, -1);
+    return path.split('.').reduce(function (o, k) { return o == null ? undefined : o[k]; }, scope);
+  }
+  var WHOLE = /^\s*\{\{\s*([^}]+?)\s*\}\}\s*$/;
+  function interp(str, scope) {
+    var m = str.match(WHOLE);
+    if (m) return get(m[1], scope);
+    return str.replace(/\{\{\s*([^}]+?)\s*\}\}/g, function (_, p) { var v = get(p, scope); return v == null ? '' : String(v); });
+  }
+  function hasHole(s) { return s.indexOf('{{') >= 0; }
+
+  function build(src, scope, parent) {
+    var kids = src.childNodes;
+    for (var i = 0; i < kids.length; i++) {
+      var c = kids[i];
+      if (c.nodeType === 3) {
+        var t = document.createTextNode('');
+        if (hasHole(c.nodeValue)) { var b = { type: 'text', node: t, tpl: c.nodeValue, scope: scope }; bindings.push(b); t.nodeValue = val(interp(b.tpl, scope)); b.last = t.nodeValue; }
+        else t.nodeValue = c.nodeValue;
+        parent.appendChild(t);
+        continue;
+      }
+      if (c.nodeType !== 1) continue;
+      var tag = c.localName.toLowerCase();
+      if (tag === 'sc-for') {
+        var la = c.getAttribute('list') || '';
+        var list = interp(la, scope) || [];
+        var as = c.getAttribute('as') || 'item';
+        for (var j = 0; j < list.length; j++) {
+          var s2 = Object.create(scope); s2[as] = list[j]; s2.$index = j;
+          build(c, s2, parent);
+        }
+        continue;
+      }
+      if (tag === 'sc-if') {
+        var w = document.createElement('span');
+        w.style.display = 'contents';
+        var bi = { type: 'if', node: w, tpl: c.getAttribute('value') || '', scope: scope };
+        bindings.push(bi);
+        w.style.display = interp(bi.tpl, scope) ? 'contents' : 'none';
+        build(c, scope, w);
+        parent.appendChild(w);
+        continue;
+      }
+      var el = document.createElementNS(c.namespaceURI, c.localName);
+      for (var a = 0; a < c.attributes.length; a++) {
+        var at = c.attributes[a], name = at.name, v = at.value;
+        if (name.indexOf('hint-') === 0) continue;
+        if (/^on[a-z]+$/i.test(name) && hasHole(v)) {
+          (function (path, sc, evt) { el.addEventListener(evt, function (e) { var f = get(path, sc); if (typeof f === 'function') f(e); }); })(v.match(WHOLE)[1], scope, name.slice(2).toLowerCase());
+          continue;
+        }
+        if (hasHole(v)) {
+          var ba = { type: 'attr', node: el, name: name, tpl: v, scope: scope };
+          var r = interp(v, scope);
+          if (r !== false && r != null) { el.setAttribute(name, String(r)); ba.last = String(r); }
+          bindings.push(ba);
+        } else el.setAttribute(name, v);
+      }
+      build(c.localName === 'template' ? c.content : c, scope, el);
+      parent.appendChild(el);
+    }
+  }
+  function val(v) { return v == null ? '' : String(v); }
+
+  function setRoot() {
+    var vals = comp.renderVals();
+    Object.keys(ROOT).forEach(function (k) { delete ROOT[k]; });
+    Object.assign(ROOT, CFG, vals);
+  }
+  function update() {
+    if (!comp) return;
+    setRoot();
+    bindings.forEach(function (b) {
+      if (b.type === 'text') { var t = val(interp(b.tpl, b.scope)); if (t !== b.last) { b.node.nodeValue = t; b.last = t; } }
+      else if (b.type === 'attr') { var r = interp(b.tpl, b.scope); var s = (r === false || r == null) ? null : String(r); if (s !== b.last) { if (s == null) b.node.removeAttribute(b.name); else b.node.setAttribute(b.name, s); b.last = s; } }
+      else if (b.type === 'if') { var d = interp(b.tpl, b.scope) ? 'contents' : 'none'; if (b.node.style.display !== d) b.node.style.display = d; }
+    });
+    if (comp.componentDidUpdate) comp.componentDidUpdate();
+  }
+
+  window.DCLogic = function DCLogic(props) { this.props = props; this.state = {}; };
+  window.DCLogic.prototype.setState = function (p) {
+    var n = typeof p === 'function' ? p(this.state, this.props) : p;
+    this.state = Object.assign({}, this.state, n);
+    if (this.__mounted) update();
+  };
+  window.DCLogic.prototype.forceUpdate = function () { update(); };
+
+  window.__mountInvite = function (Component) {
+    comp = new Component(Object.assign({}, CFG));
+    if (!comp.state) comp.state = {};
+    setRoot();
+    var app = document.getElementById('app');
+    build(document.getElementById('tpl').content, ROOT, app);
+    comp.__mounted = true;
+    if (comp.componentDidMount) comp.componentDidMount();
+    window.parent.postMessage({ type: 'unarway:ready' }, '*');
+  };
+
+  window.addEventListener('message', function (event) {
+    if (event.source !== window.parent) return;
+    if (!event.data || event.data.type !== 'unarway:config') return;
+    Object.assign(CFG, event.data.payload || {});
+    if (comp) { comp.props = Object.assign({}, CFG); update(); }
+  });
+})();</script>
+<script>
+// Plays once when the gate opens; a no-op until primeIntro() (below)
+// replaces it, and stays a no-op entirely under prefers-reduced-motion.
+window.__intro = function () {};
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { now: Date.now() };
+    this._listsContentKey = '';
+    this._structureKey = '';
+    this._currentBeat = 0;
+  }
+
+  componentDidMount() {
+    this._tick = setInterval(() => this.setState({ now: Date.now() }), 1000);
+    this.syncGate();
+    this.syncLists();
+    this.bindActionButtons();
+    this.boot();
+  }
+
+  componentDidUpdate() {
+    this.syncGate();
+    this.syncLists();
+  }
+
+  // ---------- dates: every design is for events in India; a bare
+  // "YYYY-MM-DDTHH:mm" (what a datetime-local input gives us) is
+  // interpreted as IST so the countdown lands on the same instant for
+  // every guest. ----------
+  parseDate(v) {
+    if (!v) return null;
+    const hasOffset = /[Zz]$|[+-]\d{2}:?\d{2}$/.test(v);
+    const d = new Date(hasOffset ? v : v + '+05:30');
+    return isNaN(d.getTime()) ? null : d;
+  }
+
+  parseList(key) {
+    try {
+      const a = JSON.parse(this.props[key] || '[]');
+      return Array.isArray(a) ? a : [];
+    } catch (e) { return []; }
+  }
+
+  dateInfo() {
+    const p = this.props;
+    const d = this.parseDate(p.ceremonyDate);
+    const ok = !!d;
+    const fmt = (o) => { try { return d.toLocaleDateString('en-GB', o); } catch (e) { return ''; } };
+    const tfmt = () => { try { return d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }); } catch (e) { return ''; } };
+    const weekday = ok ? fmt({ weekday: 'long' }) : '[Weekday]';
+    const isPast = ok && d.getTime() <= this.state.now;
+    return {
+      ok, d, weekday, isPast,
+      day: ok ? String(d.getDate()).padStart(2, '0') : '00',
+      monthYear: ok ? fmt({ month: 'long', year: 'numeric' }) : '[Month Year]',
+      time: ok ? tfmt() : '[Time]',
+      ceremonyDay: ok ? fmt({ weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }) : '[Date]'
+    };
+  }
+
+  renderVals() {
+    const p = this.props;
+    const I = this.dateInfo();
+    const pad = (n) => String(Math.max(0, n)).padStart(2, '0');
+    let cd = { d: '00', h: '00', m: '00', s: '00' };
+    if (I.ok && !I.isPast) {
+      const t = Math.floor((I.d.getTime() - this.state.now) / 1000);
+      cd = { d: pad(Math.floor(t / 86400)), h: pad(Math.floor(t / 3600) % 24), m: pad(Math.floor(t / 60) % 60), s: pad(t % 60) };
+    }
+    return {
+      person1: p.person1Name || 'Person 1', person2: p.person2Name || 'Person 2',
+      ceremonyVenue: p.ceremonyVenue || '[Venue]', hashtag: p.hashtag || '',
+      weekday: I.weekday, day: I.day, monthYear: I.monthYear, time: I.time, ceremonyDay: I.ceremonyDay,
+      cd, isPast: I.isPast, notPast: !I.isPast
+    };
+  }
+
+  // ---------- welcome gate: static chrome outside <template id="tpl">,
+  // kept in sync imperatively since it has to show real content before
+  // the first unarway:config round-trip completes. ----------
+  escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  }
+
+  syncGate() {
+    const gate = document.getElementById('gate');
+    if (!gate) return;
+    const p = this.props;
+    const I = this.dateInfo();
+    const nameEl = gate.querySelector('.g-names');
+    if (nameEl) nameEl.innerHTML = this.escapeHtml(p.person1Name || 'Person 1') + ' <i>&amp;</i> ' + this.escapeHtml(p.person2Name || 'Person 2');
+    const dateEl = gate.querySelector('.g-date');
+    if (dateEl) dateEl.textContent = I.ok ? (I.weekday + ' · ' + I.ceremonyDay.replace(I.weekday + ', ', '') + ' · ' + I.time) : '';
+    const img = gate.querySelector('.g-photo img');
+    if (img) img.src = p.coverPhoto || 'assets/cover-placeholder.svg';
+  }
+
+  // ---------- list fields: the memoization/debounce/card-hide/rebuild
+  // wiring below is shared by every list field; only the per-field render
+  // function knows that field's own markup. Add an entry to
+  // listFieldDefs() (and a matching renderer) when this design needs
+  // another repeatable list -- don't hand-roll a bespoke sync* method per
+  // field the way earlier templates had to before this was generalized. ----------
+  listFieldDefs() {
+    return [
+      {
+        key: 'events',
+        render: (items) => this.buildEvents(items),
+        structureKey: (items) => ({ n: items.length, maps: items.map((e) => !!e.map) })
+      },
+      { key: 'wishes', render: (items) => this.buildWishes(items), cardSelector: '.wishes' },
+      { key: 'contacts', render: (items) => this.buildContacts(items), cardSelector: '.contacts-card' }
+    ];
+  }
+
+  syncLists() {
+    const fields = this.listFieldDefs();
+    const snapshot = {};
+    fields.forEach((f) => { snapshot[f.key] = this.parseList(f.key); });
+
+    const contentKey = JSON.stringify(snapshot);
+    if (contentKey === this._listsContentKey) return;
+    this._listsContentKey = contentKey;
+
+    const structureKey = JSON.stringify(
+      fields.map((f) => (f.structureKey ? f.structureKey(snapshot[f.key]) : snapshot[f.key].length))
+    );
+    const structureChanged = structureKey !== this._structureKey;
+    this._structureKey = structureKey;
+
+    fields.forEach((f) => {
+      const items = snapshot[f.key];
+      f.render(items);
+      if (f.cardSelector) {
+        const card = document.querySelector(f.cardSelector);
+        if (card) card.style.display = items.length ? '' : 'none';
+      }
+    });
+
+    if (structureChanged) this.scheduleRebuild();
+  }
+
+  buildEvents(events) {
+    const host = document.querySelector('[data-events]');
+    if (!host) return;
+    host.querySelectorAll('.ev').forEach((n) => n.remove());
+    const pin = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg>';
+    events.forEach((ev) => {
+      const d = this.parseDate(ev.date);
+      const row = document.createElement('article'); row.className = 'ev rv';
+      const dt = document.createElement('div'); dt.className = 'dt';
+      const b = document.createElement('b'); b.textContent = d ? String(d.getDate()).padStart(2, '0') : '--';
+      const mo = document.createElement('span'); mo.textContent = d ? d.toLocaleDateString('en-GB', { month: 'short' }) : '';
+      dt.appendChild(b); dt.appendChild(mo);
+      const info = document.createElement('div');
+      const nm = document.createElement('p'); nm.className = 'nm2'; nm.textContent = ev.name || '';
+      const tm = document.createElement('p'); tm.className = 'tm3';
+      tm.textContent = d ? d.toLocaleDateString('en-GB', { weekday: 'long' }) + ' · ' + d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }) : '';
+      const vn = document.createElement('p'); vn.className = 'vn'; vn.textContent = [ev.venue, ev.place].filter(Boolean).join(', ');
+      info.appendChild(nm); info.appendChild(tm); info.appendChild(vn);
+      row.appendChild(dt); row.appendChild(info);
+      if (ev.map) {
+        const go = document.createElement('button');
+        go.type = 'button'; go.className = 'go';
+        go.setAttribute('aria-label', 'Directions to ' + (ev.venue || ev.name || 'the venue'));
+        go.innerHTML = pin;
+        go.addEventListener('click', () => this.postOpen(ev.map));
+        row.appendChild(go);
+      }
+      host.appendChild(row);
+    });
+  }
+
+  buildWishes(wishes) {
+    const ul = document.querySelector('.wishes ul');
+    if (!ul) return;
+    ul.innerHTML = '';
+    wishes.forEach((w) => {
+      const li = document.createElement('li');
+      const s = document.createElement('span'); s.textContent = w.role || '';
+      li.appendChild(s); li.appendChild(document.createTextNode(w.name || ''));
+      ul.appendChild(li);
+    });
+  }
+
+  buildContacts(items) {
+    const ul = document.querySelector('.contacts-card ul');
+    if (!ul) return;
+    ul.innerHTML = '';
+    items.forEach((c) => {
+      const digits = (c.phone || '').replace(/\D/g, '').slice(-10);
+      const li = document.createElement('li');
+      const a = document.createElement('a'); a.href = '#';
+      const n = document.createElement('span'); n.textContent = c.name || '';
+      const b = document.createElement('b'); b.textContent = digits.length === 10 ? digits.slice(0, 5) + ' ' + digits.slice(5) : (c.phone || '');
+      a.appendChild(n); a.appendChild(b);
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (digits.length === 10) this.postOpen('tel:+91' + digits);
+      });
+      li.appendChild(a);
+      ul.appendChild(li);
+    });
+  }
+
+  // ---------- parent-mediated links: this document runs sandbox="allow-scripts"
+  // only (no allow-popups, no allow-same-origin), so a real <a target=_blank>
+  // click to wa.me/tel:/maps is silently blocked by the browser. The parent
+  // (PreviewFrame.tsx) validates href against an allowlist before opening it. ----------
+  postOpen(href) {
+    if (!href) return;
+    window.parent.postMessage({ type: 'unarway:open', href: href }, '*');
+  }
+
+  shareHref() {
+    const p = this.props;
+    const text = (p.person1Name || '') + ' & ' + (p.person2Name || '') + ' invite you -- ' + this.dateInfo().ceremonyDay + ' at ' + (p.ceremonyVenue || '');
+    return 'https://wa.me/?text=' + encodeURIComponent(text);
+  }
+
+  bindActionButtons() {
+    const share = document.querySelector('.btn-share');
+    if (share) share.addEventListener('click', () => this.postOpen(this.shareHref()));
+    const directions = document.querySelector('.btn-directions');
+    if (directions) directions.addEventListener('click', () => this.postOpen(this.props.ceremonyMap || ''));
+  }
+
+  // ---------- scroll story: beats 10 timeline units apart. Rebuilt (not
+  // just patched) whenever a list's structure changes, since GSAP resolves
+  // a tween's target selector once, at construction time -- nodes swapped
+  // in afterward by buildEvents/buildWishes/buildContacts would otherwise
+  // be invisible to the already-built tween. ----------
+  boot() {
+    const g = window.gsap, ST = window.ScrollTrigger;
+    if (!g || !ST) {
+      if ((this._tries = (this._tries || 0) + 1) < 80) this._bt = setTimeout(() => this.boot(), 100);
+      return;
+    }
+    if (this._booted) return;
+    this._booted = true;
+    this._reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    g.registerPlugin(ST);
+    ST.config({ ignoreMobileResize: true });
+    this.initPetals();
+    if (!this._reduce) {
+      document.documentElement.classList.add('anim');
+      this.primeIntro();
+      this.buildTimeline();
+      this.bindCue();
+    }
+    window.addEventListener('resize', () => { if (window.ScrollTrigger) window.ScrollTrigger.refresh(); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { if (window.ScrollTrigger) window.ScrollTrigger.refresh(); });
+    window.addEventListener('load', () => { if (window.ScrollTrigger) window.ScrollTrigger.refresh(); });
+  }
+
+  primeIntro() {
+    if (this._introPrimed) return;
+    this._introPrimed = true;
+    const g = window.gsap;
+    g.set(['.sc0 .copy', '.sc0 .cuew'], { opacity: 0 });
+    window.__intro = () => {
+      if (this._introPlayed) return;
+      this._introPlayed = true;
+      const it = g.timeline({ delay: 0.25 });
+      it.to('.sc0 .copy', { opacity: 1, duration: 1.2, ease: 'power1.out' }, 0.6)
+        .from('.sc0 .lab', { y: 20, opacity: 0, duration: 1.2, ease: 'expo.out' }, 0.7)
+        .from('.sc0 .names .nm', { y: 24, opacity: 0, duration: 1.2, stagger: 0.2, ease: 'expo.out' }, 0.9)
+        .from('.sc0 .amp', { scale: 0.4, opacity: 0, duration: 1, ease: 'back.out(2)' }, 1.3)
+        .from('.sc0 .sub', { y: 20, opacity: 0, duration: 1.2, ease: 'expo.out' }, 1.8)
+        .to('.sc0 .cuew', { opacity: 1, duration: 1 }, 2.6);
+    };
+  }
+
+  bindCue() {
+    if (this._cueBound) return;
+    const btn = document.getElementById('cue');
+    if (!btn) return;
+    this._cueBound = true;
+    btn.addEventListener('click', () => {
+      const g = window.gsap;
+      if (!g) return;
+      const o = { y: window.pageYOffset }, to = o.y + 80;
+      g.to(o, { y: to, duration: 0.25, ease: 'power1.out', onUpdate: () => window.scrollTo(0, o.y) });
+    });
+  }
+
+  // ---------- petals: present for every device, respects reduced motion
+  // by simply never being called (boot() only calls initPetals() -- it's
+  // the scroll timeline that's gated behind !this._reduce, and petals are
+  // harmless/ambient enough to keep even then, same as every existing
+  // template's precedent). ----------
+  initPetals() {
+    if (this._petalsBound) return;
+    this._petalsBound = true;
+    if (this._reduce) return;
+    const g = window.gsap;
+    const c = document.getElementById('fx'), x = c && c.getContext('2d');
+    if (!c || !x) return;
+    let W, H, dpr;
+    const P = [];
+    const cols = ['rgba(255,255,255,.9)', 'rgba(231,201,163,.85)', 'rgba(185,138,94,.6)'];
+    const fx = (this._fx = this._fx || { boost: 0 });
+    function size() { dpr = Math.min(window.devicePixelRatio || 1, 1.5); W = c.width = Math.round(innerWidth * dpr); H = c.height = Math.round(innerHeight * dpr); }
+    function make(init) {
+      return { x: Math.random() * W, y: init ? Math.random() * H : -20 * dpr, s: (4 + Math.random() * 7) * dpr, vy: (0.3 + Math.random() * 0.6) * dpr, vx: (Math.random() - 0.5) * 0.4 * dpr, r: Math.random() * 6.28, vr: (Math.random() - 0.5) * 0.03, sw: Math.random() * 6.28, col: cols[(Math.random() * cols.length) | 0] };
+    }
+    size();
+    const n = innerWidth < 700 ? 16 : 30;
+    for (let i = 0; i < n; i++) P.push(make(true));
+    window.addEventListener('resize', size);
+    g.ticker.add(() => {
+      x.clearRect(0, 0, W, H);
+      const rate = 1 + fx.boost * 1.4;
+      for (let i = 0; i < P.length; i++) {
+        const p = P[i];
+        p.y += p.vy * rate; p.sw += 0.02; p.x += (p.vx + Math.sin(p.sw) * 0.5 * dpr) * rate; p.r += p.vr * rate;
+        if (p.y > H + 20 * dpr) P[i] = make(false);
+        x.save(); x.translate(p.x, p.y); x.rotate(p.r); x.scale(1, 0.6 + 0.4 * Math.sin(p.sw * 1.6));
+        x.fillStyle = p.col; x.beginPath(); x.ellipse(0, 0, p.s, p.s * 0.55, 0, 0, 6.283); x.fill(); x.restore();
+      }
+      fx.boost *= 0.94;
+    });
+  }
+
+  buildTimeline() {
+    const g = window.gsap, ST = window.ScrollTrigger;
+    const fx = this._fx || (this._fx = { boost: 0 });
+    const self = this;
+    const BEATS = 6; // 7 scenes, sc0..sc6, beats 0..6
+
+    function show(sel, at, dur, each) {
+      tl.fromTo(sel, { autoAlpha: 0, y: 34 }, { autoAlpha: 1, y: 0, duration: dur, stagger: each == null ? 0.5 : each, ease: 'power2.out', immediateRender: true }, at);
+    }
+    function hide(sel, at, dur) {
+      tl.to(sel, { autoAlpha: 0, y: -26, duration: dur, stagger: 0.15, ease: 'power2.in' }, at);
+    }
+
+    const tl = g.timeline({
+      defaults: { ease: 'none' },
+      scrollTrigger: {
+        trigger: '.stage', start: 'top top', end: () => '+=' + Math.round(window.innerHeight * (BEATS + 1)),
+        pin: true, anticipatePin: 1, scrub: 1, invalidateOnRefresh: true,
+        snap: { snapTo: 'labelsDirectional', duration: { min: 0.7, max: 1.5 }, delay: 0.08, ease: 'power3.inOut' },
+        onUpdate: (s) => { g.set('.prog', { scaleX: s.progress }); fx.boost = Math.min(4, Math.abs(s.getVelocity()) / 900); self._currentBeat = Math.round(s.progress * BEATS); }
+      }
+    });
+    for (let i = 0; i <= BEATS; i++) tl.addLabel('b' + i, i * 10);
+
+    // 0 → 1
+    hide('.sc0 .rv', 0, 3);
+    tl.fromTo('#s1', { autoAlpha: 0 }, { autoAlpha: 1, duration: 5, ease: 'power1.out' }, 4.5);
+    show('.sc1 .rv', 6, 2.5, 0.4);
+
+    // 1 → 2
+    hide('.sc1 .rv', 10, 2.5);
+    tl.fromTo('#s2', { clipPath: 'circle(0% at 50% 58%)' }, { clipPath: 'circle(78% at 50% 58%)', duration: 8.5, ease: 'power2.inOut' }, 11);
+
+    // 2 → 3
+    tl.fromTo('#s3', { clipPath: 'inset(0% 0% 0% 100%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 8, ease: 'power2.inOut' }, 21);
+    show('.sc3 .sched .rv', 25, 2.2, 0.7);
+
+    // 3 → 4
+    hide('.sc3 .sched .rv', 30, 2.2);
+    tl.fromTo('#s4', { autoAlpha: 0 }, { autoAlpha: 1, duration: 6, ease: 'power1.inOut', immediateRender: true }, 31);
+
+    // 4 → 5
+    tl.fromTo('#s5', { autoAlpha: 0 }, { autoAlpha: 1, duration: 6, ease: 'power1.inOut', immediateRender: true }, 41);
+
+    // 5 → 6
+    tl.fromTo('#s6', { autoAlpha: 0 }, { autoAlpha: 1, duration: 6, ease: 'power1.inOut', immediateRender: true }, 51);
+    tl.to('#fx', { opacity: 0.12, duration: 3 }, 41);
+    tl.to({}, { duration: 0 }, BEATS * 10);
+
+    this._tl = tl;
+    this._beatST = tl.scrollTrigger;
+  }
+
+  scheduleRebuild() {
+    if (this._reduce || !this._booted) return;
+    clearTimeout(this._rebuildTimer);
+    this._rebuildTimer = setTimeout(() => this.rebuildTimeline(), 300);
+  }
+
+  rebuildTimeline() {
+    const g = window.gsap, ST = window.ScrollTrigger;
+    if (!g || !ST) return;
+    const beat = this._currentBeat || 0;
+    if (this._tl) this._tl.kill();
+    if (this._beatST) this._beatST.kill();
+    this.buildTimeline();
+    ST.refresh();
+    try {
+      if (this._beatST && typeof this._beatST.labelToScroll === 'function') {
+        window.scrollTo(0, this._beatST.labelToScroll('b' + beat));
+      }
+    } catch (e) {}
+  }
+}
+
+window.__mountInvite(Component);</script>
+<!--
+  No in-file editor here: field values are supplied by the parent app's
+  schema-driven edit panel (see src/components/editor/SchemaEditor.tsx) over
+  postMessage, and downloads are built and gated server-side after payment.
+-->
+
+<!-- Welcome gate: the guest's tap on the button is what lets the phone start the music -->
+<div id="gate" role="dialog" aria-label="Open the invitation">
+  <span class="g-lab">You're Invited</span>
+  <div class="g-photo"><img src="assets/cover-placeholder.svg" alt=""></div>
+  <div class="g-names"></div>
+  <div class="g-date"></div>
+  <button class="g-btn" type="button" id="gate-open">Open Invitation</button>
+  <span class="g-hint">&#127925; with music</span>
+</div>
+<button id="musicBtn" type="button" aria-label="Music on/off">&#128263;</button>
+<audio id="bgm" src="assets/music.mp3" loop preload="auto"></audio>
+<script>
+(function () {
+  var a = document.getElementById('bgm'), b = document.getElementById('musicBtn');
+  var started = false, userMuted = false;
+  // No HEAD-request existence probe: fetch() is blocked by the sandboxed
+  // iframe's connect-src 'none' CSP anyway, and once this design has a real
+  // assets/music.mp3 the button should just work. Until then, tapping it
+  // simply fails silently (no audio file yet) -- not an error state.
+  b.style.display = 'block';
+  ['pointerdown', 'touchend', 'click', 'keydown'].forEach(function (e) { document.addEventListener(e, start, { passive: true }); });
+  function fadeIn() {
+    a.volume = 0;
+    var t = setInterval(function () { a.volume = Math.min(0.6, a.volume + 0.05); if (a.volume >= 0.6) clearInterval(t); }, 120);
+  }
+  function play() { started = true; fadeIn(); return a.play().catch(function (e) { started = false; throw e; }); }
+  function start(ev) { if (started || userMuted || (ev && ev.target === b)) return; play().catch(function () {}); }
+  a.addEventListener('playing', function () { b.innerHTML = '&#128266;'; });
+  a.addEventListener('pause', function () { b.innerHTML = '&#128263;'; });
+  b.addEventListener('click', function (ev) {
+    ev.stopPropagation();
+    if (a.paused) { userMuted = false; play().catch(function () {}); } else { userMuted = true; a.pause(); }
+  });
+  var gate = document.getElementById('gate');
+  var openBtn = document.getElementById('gate-open');
+  function openGate(ev) {
+    if (ev) ev.preventDefault();
+    if (!started && !userMuted) play().catch(function () {});
+    gate.classList.add('gone');
+    if (window.__intro) window.__intro();
+  }
+  // Only the real <button> opens the gate -- not a click handler on the
+  // whole #gate div -- so the control has correct accessibility semantics.
+  openBtn.addEventListener('click', openGate);
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) a.pause(); else if (started && !userMuted) a.play().catch(function () {});
+  });
+})();
+</script>
+</body></html>

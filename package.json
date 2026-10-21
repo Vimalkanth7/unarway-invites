@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "check:templates": "node scripts/check-templates.mjs"
+    "check:templates": "node scripts/check-templates.mjs",
+    "new:template": "node scripts/new-template.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.5.2",
