@@ -4,10 +4,10 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { dirSize, MAX_TEMPLATE_BYTES } from "./lib/fs-utils.mjs";
 
 const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const TEMPLATES_DIR = path.join(ROOT, "templates");
-const MAX_BYTES = 3 * 1024 * 1024;
 const ALLOWED_EXTERNAL_HOSTS = new Set(["fonts.googleapis.com", "fonts.gstatic.com"]);
 
 let failed = false;
@@ -19,16 +19,6 @@ function fail(designId, message) {
 
 function readJson(filePath) {
   return JSON.parse(fs.readFileSync(filePath, "utf8"));
-}
-
-function dirSize(dir) {
-  if (!fs.existsSync(dir)) return 0;
-  let total = 0;
-  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-    const full = path.join(dir, entry.name);
-    total += entry.isDirectory() ? dirSize(full) : fs.statSync(full).size;
-  }
-  return total;
 }
 
 function collectFiles(dir, prefix = "") {
@@ -159,7 +149,7 @@ for (const designId of designIds) {
   }
 
   const totalBytes = dirSize(path.join(dir, "template")) + dirSize(assetsDir);
-  if (totalBytes > MAX_BYTES) {
+  if (totalBytes > MAX_TEMPLATE_BYTES) {
     fail(designId, `template + assets total ${(totalBytes / 1024 / 1024).toFixed(2)} MB, over the 3 MB budget`);
   } else {
     console.log(`✓ ${designId}: ${(totalBytes / 1024).toFixed(0)} KB`);
